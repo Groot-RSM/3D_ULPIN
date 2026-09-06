@@ -1,0 +1,102 @@
+{
+  "type": "FeatureCollection",
+  "name": "VIT_Vellore_Campus_Road_Routes",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "route_id": "R001",
+        "name": "VIT Main Gate Boulevard",
+        "category": "PRIMARY_ARTERIAL",
+        "surface": "ASPHALT",
+        "status": "ACTIVE_CAMPUS_ROUTE"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [79.1540, 12.9680],
+          [79.1548, 12.9682],
+          [79.1555, 12.9688],
+          [79.1558, 12.9692],
+          [79.1562, 12.9698]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "route_id": "R002",
+        "name": "SJT - Technology Tower Avenue",
+        "category": "ACADEMIC_EXPRESSWAY",
+        "surface": "PAVED",
+        "status": "ACTIVE_CAMPUS_ROUTE"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [79.1565, 12.9702],
+          [79.1575, 12.9705],
+          [79.1585, 12.9708],
+          [79.1595, 12.9710]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "route_id": "R003",
+        "name": "Central Library Parkway",
+        "category": "PEDESTRIAN_PLAZA",
+        "surface": "PAVED_COBBLE",
+        "status": "ACTIVE_CAMPUS_ROUTE"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [79.1558, 12.9692],
+          [79.1568, 12.9695],
+          [79.1578, 12.9698],
+          [79.1585, 12.9708]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "route_id": "R004",
+        "name": "Biomedical & Disaster Research Drive",
+        "category": "RESEARCH_ACCESS_ROAD",
+        "surface": "ASPHALT",
+        "status": "ACTIVE_CAMPUS_ROUTE"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [79.1578, 12.9698],
+          [79.1572, 12.9712],
+          [79.1570, 12.9722],
+          [79.1582, 12.9718]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "route_id": "R005",
+        "name": "Gandhi & GD Naidu Ring Road",
+        "category": "CAMPUS_RING_ROAD",
+        "surface": "ASPHALT",
+        "status": "ACTIVE_CAMPUS_ROUTE"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [79.1555, 12.9688],
+          [79.1562, 12.9678],
+          [79.1570, 12.9685],
+          [79.1578, 12.9698]
+        ]
+      }
+    }
+  ]
+}

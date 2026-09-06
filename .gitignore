@@ -51,5 +51,9 @@ lerna-debug.log*
 .DS_Store
 Thumbs.db
 
-# Build outputs (keep frontend/dist if needed, or exclude)
+# Local databases & scratch
+*.db
+scratch/
+
+# Build outputs
 # frontend/dist/

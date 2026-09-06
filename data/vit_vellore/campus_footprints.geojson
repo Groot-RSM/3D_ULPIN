@@ -1,0 +1,1690 @@
+{
+  "type": "FeatureCollection",
+  "name": "VIT_Vellore_Audited_Building_Footprints",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B001",
+        "name": "Technology Tower (TT)",
+        "name_confirmed": true,
+        "centroid_lat": 12.970643,
+        "centroid_lon": 79.159529,
+        "area_m2": 6173.3,
+        "height_m": 36.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b001",
+        "osm_floor_count": 10.0,
+        "height_derived_floor_count": 9,
+        "verified_floor_count": 7,
+        "final_floor_count": 7,
+        "floor_count_source": "OFFICIAL_VIT_RECORD",
+        "agreement_status": "SOURCE_CONFLICT",
+        "review_required": true,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "OpenStreetMap",
+        "source_id": "osm_vit_b001",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "7 Floors (Ground + 6 upper floors). Houses Dr. B.R. Ambedkar Auditorium.",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B001"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              79.1589155,
+              12.9707922
+            ],
+            [
+              79.1589881,
+              12.9702944
+            ],
+            [
+              79.1594592,
+              12.9703596
+            ],
+            [
+              79.1594654,
+              12.9703171
+            ],
+            [
+              79.1596797,
+              12.9703467
+            ],
+            [
+              79.1596735,
+              12.9703893
+            ],
+            [
+              79.1601101,
+              12.9704497
+            ],
+            [
+              79.1600375,
+              12.9709475
+            ],
+            [
+              79.1596037,
+              12.9708874
+            ],
+            [
+              79.1595847,
+              12.9710179
+            ],
+            [
+              79.1593306,
+              12.9709827
+            ],
+            [
+              79.1593496,
+              12.9708523
+            ],
+            [
+              79.1589155,
+              12.9707922
+            ]
+          ],
+          [
+            [
+              79.159061,
+              12.9706804
+            ],
+            [
+              79.1592732,
+              12.9707098
+            ],
+            [
+              79.1592794,
+              12.9706674
+            ],
+            [
+              79.1592297,
+              12.9706605
+            ],
+            [
+              79.1592532,
+              12.9704999
+            ],
+            [
+              79.1593028,
+              12.9705068
+            ],
+            [
+              79.1593091,
+              12.9704634
+            ],
+            [
+              79.1590969,
+              12.970434
+            ],
+            [
+              79.159061,
+              12.9706804
+            ]
+          ],
+          [
+            [
+              79.1594075,
+              12.9706479
+            ],
+            [
+              79.1596229,
+              12.9706777
+            ],
+            [
+              79.1596466,
+              12.9705154
+            ],
+            [
+              79.1594312,
+              12.9704856
+            ],
+            [
+              79.1594075,
+              12.9706479
+            ]
+          ],
+          [
+            [
+              79.1594658,
+              12.9704395
+            ],
+            [
+              79.1595626,
+              12.9704529
+            ],
+            [
+              79.1595669,
+              12.9704235
+            ],
+            [
+              79.1594701,
+              12.9704101
+            ],
+            [
+              79.1594658,
+              12.9704395
+            ]
+          ],
+          [
+            [
+              79.1598532,
+              12.9707735
+            ],
+            [
+              79.1599128,
+              12.9707817
+            ],
+            [
+              79.1599167,
+              12.9707554
+            ],
+            [
+              79.159944,
+              12.9707592
+            ],
+            [
+              79.1599618,
+              12.9706371
+            ],
+            [
+              79.1599436,
+              12.9706346
+            ],
+            [
+              79.1598851,
+              12.9705544
+            ],
+            [
+              79.1598532,
+              12.9707735
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B002",
+        "name": "Silver Jubilee Tower (SJT)",
+        "name_confirmed": true,
+        "centroid_lat": 12.970956,
+        "centroid_lon": 79.16394,
+        "area_m2": 5320.1,
+        "height_m": 45.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b002",
+        "osm_floor_count": 13.0,
+        "height_derived_floor_count": 11,
+        "verified_floor_count": 9,
+        "final_floor_count": 9,
+        "floor_count_source": "OFFICIAL_VIT_RECORD",
+        "agreement_status": "SOURCE_CONFLICT",
+        "review_required": true,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "OpenStreetMap",
+        "source_id": "osm_vit_b002",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "9 Levels (Ground + 8 upper floors).",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B002"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              79.1634371,
+              12.9709641
+            ],
+            [
+              79.1634723,
+              12.9709201
+            ],
+            [
+              79.163492,
+              12.970935
+            ],
+            [
+              79.163503,
+              12.9709212
+            ],
+            [
+              79.1634913,
+              12.9709124
+            ],
+            [
+              79.1635327,
+              12.9708607
+            ],
+            [
+              79.1635791,
+              12.9708958
+            ],
+            [
+              79.1636339,
+              12.9708273
+            ],
+            [
+              79.1637312,
+              12.9709012
+            ],
+            [
+              79.1637612,
+              12.9708636
+            ],
+            [
+              79.1636936,
+              12.9708122
+            ],
+            [
+              79.163764,
+              12.9707242
+            ],
+            [
+              79.1637324,
+              12.9707003
+            ],
+            [
+              79.1638427,
+              12.9705623
+            ],
+            [
+              79.1638332,
+              12.9705551
+            ],
+            [
+              79.1638985,
+              12.9704735
+            ],
+            [
+              79.1640097,
+              12.9705579
+            ],
+            [
+              79.1640378,
+              12.9705228
+            ],
+            [
+              79.1643274,
+              12.9707426
+            ],
+            [
+              79.1642956,
+              12.9707824
+            ],
+            [
+              79.1643373,
+              12.9708141
+            ],
+            [
+              79.1644141,
+              12.9708724
+            ],
+            [
+              79.1643447,
+              12.9709591
+            ],
+            [
+              79.1643234,
+              12.970943
+            ],
+            [
+              79.1642156,
+              12.9710779
+            ],
+            [
+              79.1642549,
+              12.9711077
+            ],
+            [
+              79.164196,
+              12.9711814
+            ],
+            [
+              79.164213,
+              12.9711942
+            ],
+            [
+              79.164176,
+              12.9712404
+            ],
+            [
+              79.1641591,
+              12.9712276
+            ],
+            [
+              79.1640961,
+              12.9713063
+            ],
+            [
+              79.1640781,
+              12.9712927
+            ],
+            [
+              79.1639664,
+              12.9714324
+            ],
+            [
+              79.163863,
+              12.9713539
+            ],
+            [
+              79.1638746,
+              12.9713394
+            ],
+            [
+              79.1638347,
+              12.9713091
+            ],
+            [
+              79.1638291,
+              12.971316
+            ],
+            [
+              79.1637888,
+              12.9712854
+            ],
+            [
+              79.1637479,
+              12.9712544
+            ],
+            [
+              79.1637069,
+              12.9713057
+            ],
+            [
+              79.1636124,
+              12.971234
+            ],
+            [
+              79.1636534,
+              12.9711826
+            ],
+            [
+              79.163582,
+              12.9711285
+            ],
+            [
+              79.1635883,
+              12.9711206
+            ],
+            [
+              79.1635589,
+              12.9710983
+            ],
+            [
+              79.1635466,
+              12.9711136
+            ],
+            [
+              79.1634519,
+              12.9710417
+            ],
+            [
+              79.1634849,
+              12.9710004
+            ],
+            [
+              79.1634371,
+              12.9709641
+            ]
+          ],
+          [
+            [
+              79.1637336,
+              12.9710316
+            ],
+            [
+              79.1637669,
+              12.9710568
+            ],
+            [
+              79.1637977,
+              12.9710183
+            ],
+            [
+              79.163911,
+              12.9711043
+            ],
+            [
+              79.1639948,
+              12.9709995
+            ],
+            [
+              79.1639852,
+              12.9709922
+            ],
+            [
+              79.1640102,
+              12.970961
+            ],
+            [
+              79.1639776,
+              12.9709362
+            ],
+            [
+              79.163948,
+              12.9709733
+            ],
+            [
+              79.1638435,
+              12.970894
+            ],
+            [
+              79.1637336,
+              12.9710316
+            ]
+          ],
+          [
+            [
+              79.1638341,
+              12.970764
+            ],
+            [
+              79.1638652,
+              12.9707876
+            ],
+            [
+              79.1638691,
+              12.9707826
+            ],
+            [
+              79.1638681,
+              12.9707395
+            ],
+            [
+              79.1638591,
+              12.9707327
+            ],
+            [
+              79.1638341,
+              12.970764
+            ]
+          ],
+          [
+            [
+              79.1640013,
+              12.970683
+            ],
+            [
+              79.1640052,
+              12.97072
+            ],
+            [
+              79.1640424,
+              12.9707162
+            ],
+            [
+              79.1641166,
+              12.970775
+            ],
+            [
+              79.1641209,
+              12.9708151
+            ],
+            [
+              79.1641603,
+              12.9708111
+            ],
+            [
+              79.1641517,
+              12.9707297
+            ],
+            [
+              79.1640825,
+              12.9706748
+            ],
+            [
+              79.1640013,
+              12.970683
+            ]
+          ],
+          [
+            [
+              79.1640989,
+              12.9709702
+            ],
+            [
+              79.1641298,
+              12.970994
+            ],
+            [
+              79.164155,
+              12.9709629
+            ],
+            [
+              79.1641461,
+              12.970956
+            ],
+            [
+              79.1641029,
+              12.9709653
+            ],
+            [
+              79.1640989,
+              12.9709702
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B003",
+        "name": "Dr. M.G.R. Block (Main Building)",
+        "name_confirmed": true,
+        "centroid_lat": 12.9692,
+        "centroid_lon": 79.1558,
+        "area_m2": 9604.4,
+        "height_m": 24.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b003",
+        "osm_floor_count": 6.0,
+        "height_derived_floor_count": 6,
+        "verified_floor_count": 5,
+        "final_floor_count": 5,
+        "floor_count_source": "OFFICIAL_VIT_RECORD",
+        "agreement_status": "MINOR_DISCREPANCY",
+        "review_required": true,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "Field Survey",
+        "source_id": "osm_vit_b003",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "5 Levels (Basement + Ground + 3 upper floors).",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B003"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              79.1553,
+              12.969600000000002
+            ],
+            [
+              79.1563,
+              12.969600000000002
+            ],
+            [
+              79.1563,
+              12.9688
+            ],
+            [
+              79.1553,
+              12.9688
+            ],
+            [
+              79.1553,
+              12.969600000000002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B004",
+        "name": "G.D. Naidu Block",
+        "name_confirmed": true,
+        "centroid_lat": 12.9685,
+        "centroid_lon": 79.157,
+        "area_m2": 9604.4,
+        "height_m": 12.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b004",
+        "osm_floor_count": NaN,
+        "height_derived_floor_count": 3,
+        "verified_floor_count": 2,
+        "final_floor_count": 2,
+        "floor_count_source": "OFFICIAL_VIT_RECORD",
+        "agreement_status": "VERIFIED_RECORD",
+        "review_required": false,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "OpenStreetMap",
+        "source_id": "osm_vit_b004",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "2 Floors (Ground + 1st Floor).",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B004"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              79.1565,
+              12.968900000000001
+            ],
+            [
+              79.1575,
+              12.968900000000001
+            ],
+            [
+              79.1575,
+              12.9681
+            ],
+            [
+              79.1565,
+              12.9681
+            ],
+            [
+              79.1565,
+              12.968900000000001
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B005",
+        "name": "Gandhi Block (MGB)",
+        "name_confirmed": true,
+        "centroid_lat": 12.972075,
+        "centroid_lon": 79.167931,
+        "area_m2": 3999.8,
+        "height_m": 22.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b005",
+        "osm_floor_count": 5.0,
+        "height_derived_floor_count": 6,
+        "verified_floor_count": 5,
+        "final_floor_count": 5,
+        "floor_count_source": "OFFICIAL_VIT_RECORD",
+        "agreement_status": "EXACT",
+        "review_required": false,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "OpenStreetMap",
+        "source_id": "osm_vit_b005",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "5 Floors (Lower Ground + Upper Ground + 1st + Mezzanine + 2nd). IGBC Platinum rated.",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B005"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              79.167518,
+              12.9722747
+            ],
+            [
+              79.1675204,
+              12.9718703
+            ],
+            [
+              79.1683441,
+              12.9718748
+            ],
+            [
+              79.1683418,
+              12.9722793
+            ],
+            [
+              79.167518,
+              12.9722747
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B006",
+        "name": "Central Library",
+        "name_confirmed": true,
+        "centroid_lat": 13.028549,
+        "centroid_lon": 79.209625,
+        "area_m2": 1583.7,
+        "height_m": 28.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b006",
+        "osm_floor_count": 4.0,
+        "height_derived_floor_count": 7,
+        "verified_floor_count": 7,
+        "final_floor_count": 7,
+        "floor_count_source": "OFFICIAL_VIT_RECORD",
+        "agreement_status": "SOURCE_CONFLICT",
+        "review_required": true,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "OpenStreetMap",
+        "source_id": "osm_vit_b006",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "7 Floors (Ground + 6 upper floors, 7,770 m\u00b2 total area).",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B006"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              79.2092949,
+              13.0287943
+            ],
+            [
+              79.2093504,
+              13.0286999
+            ],
+            [
+              79.2093966,
+              13.028706
+            ],
+            [
+              79.2094497,
+              13.0287006
+            ],
+            [
+              79.2095006,
+              13.0286823
+            ],
+            [
+              79.2095342,
+              13.0286549
+            ],
+            [
+              79.2095701,
+              13.028613
+            ],
+            [
+              79.2095826,
+              13.0285986
+            ],
+            [
+              79.2095404,
+              13.0285681
+            ],
+            [
+              79.2095545,
+              13.0285506
+            ],
+            [
+              79.2095064,
+              13.0285138
+            ],
+            [
+              79.209633,
+              13.0283585
+            ],
+            [
+              79.2096545,
+              13.0283233
+            ],
+            [
+              79.2096558,
+              13.0283036
+            ],
+            [
+              79.2096513,
+              13.028274
+            ],
+            [
+              79.2096444,
+              13.0282506
+            ],
+            [
+              79.2096311,
+              13.0282261
+            ],
+            [
+              79.2097273,
+              13.0281606
+            ],
+            [
+              79.2097531,
+              13.0281926
+            ],
+            [
+              79.2097664,
+              13.0282276
+            ],
+            [
+              79.2097703,
+              13.0282619
+            ],
+            [
+              79.2097726,
+              13.0283091
+            ],
+            [
+              79.2097726,
+              13.0283548
+            ],
+            [
+              79.2097609,
+              13.0283921
+            ],
+            [
+              79.2097421,
+              13.0284203
+            ],
+            [
+              79.2098524,
+              13.0285033
+            ],
+            [
+              79.2096554,
+              13.0287616
+            ],
+            [
+              79.2096202,
+              13.0287372
+            ],
+            [
+              79.2095834,
+              13.0287768
+            ],
+            [
+              79.2095303,
+              13.0288012
+            ],
+            [
+              79.2094841,
+              13.0288141
+            ],
+            [
+              79.2094185,
+              13.0288225
+            ],
+            [
+              79.2093614,
+              13.0288164
+            ],
+            [
+              79.2092949,
+              13.0287943
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B007",
+        "name": "CBMR - Center for Biomedical Research",
+        "name_confirmed": true,
+        "centroid_lat": 12.9718,
+        "centroid_lon": 79.1582,
+        "area_m2": 9604.2,
+        "height_m": 16.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b007",
+        "osm_floor_count": NaN,
+        "height_derived_floor_count": 4,
+        "verified_floor_count": 4,
+        "final_floor_count": 4,
+        "floor_count_source": "OFFICIAL_VIT_RECORD",
+        "agreement_status": "VERIFIED_RECORD",
+        "review_required": false,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "OpenStreetMap",
+        "source_id": "osm_vit_b007",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "4 Floors (Ground + 3 upper floors).",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B007"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              79.15769999999999,
+              12.9722
+            ],
+            [
+              79.1587,
+              12.9722
+            ],
+            [
+              79.1587,
+              12.9714
+            ],
+            [
+              79.15769999999999,
+              12.9714
+            ],
+            [
+              79.15769999999999,
+              12.9722
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B008",
+        "name": "CDMM - Center for Disaster Management",
+        "name_confirmed": true,
+        "centroid_lat": 12.971832,
+        "centroid_lon": 79.161472,
+        "area_m2": 1215596.3,
+        "height_m": 16.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b008",
+        "osm_floor_count": NaN,
+        "height_derived_floor_count": 4,
+        "verified_floor_count": 4,
+        "final_floor_count": 4,
+        "floor_count_source": "OFFICIAL_VIT_RECORD",
+        "agreement_status": "VERIFIED_RECORD",
+        "review_required": false,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "OpenStreetMap",
+        "source_id": "osm_vit_b008",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "4 Floors (Ground + 3 upper floors).",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B008"
+      },
+      "geometry": {
+        "type": "MultiPolygon",
+        "coordinates": [
+          [
+            [
+              [
+                79.1514391,
+                12.9697881
+              ],
+              [
+                79.1518938,
+                12.9697775
+              ],
+              [
+                79.1518938,
+                12.9694997
+              ],
+              [
+                79.152796,
+                12.9694364
+              ],
+              [
+                79.1540831,
+                12.9697195
+              ],
+              [
+                79.1540564,
+                12.9703382
+              ],
+              [
+                79.1542462,
+                12.9703412
+              ],
+              [
+                79.1542614,
+                12.969722
+              ],
+              [
+                79.1546152,
+                12.9689605
+              ],
+              [
+                79.1546354,
+                12.9684273
+              ],
+              [
+                79.1546488,
+                12.9681999
+              ],
+              [
+                79.1548499,
+                12.9681972
+              ],
+              [
+                79.1557404,
+                12.9682077
+              ],
+              [
+                79.156183,
+                12.9681515
+              ],
+              [
+                79.1567382,
+                12.9679855
+              ],
+              [
+                79.1582751,
+                12.9675961
+              ],
+              [
+                79.1609226,
+                12.9669627
+              ],
+              [
+                79.1619017,
+                12.9666776
+              ],
+              [
+                79.1624036,
+                12.9665505
+              ],
+              [
+                79.1624639,
+                12.9665894
+              ],
+              [
+                79.1624757,
+                12.9666755
+              ],
+              [
+                79.162381,
+                12.9667147
+              ],
+              [
+                79.1623432,
+                12.9667932
+              ],
+              [
+                79.1622957,
+                12.967061
+              ],
+              [
+                79.1623751,
+                12.9675103
+              ],
+              [
+                79.1624798,
+                12.9676316
+              ],
+              [
+                79.1631262,
+                12.9680663
+              ],
+              [
+                79.1631231,
+                12.9682082
+              ],
+              [
+                79.1632946,
+                12.9682171
+              ],
+              [
+                79.1639102,
+                12.9682052
+              ],
+              [
+                79.1637041,
+                12.9664399
+              ],
+              [
+                79.1639288,
+                12.9664079
+              ],
+              [
+                79.1639987,
+                12.9668859
+              ],
+              [
+                79.1642782,
+                12.9668483
+              ],
+              [
+                79.1643365,
+                12.9671902
+              ],
+              [
+                79.1643769,
+                12.9671935
+              ],
+              [
+                79.1644034,
+                12.9674317
+              ],
+              [
+                79.1644678,
+                12.9674252
+              ],
+              [
+                79.1645737,
+                12.9674146
+              ],
+              [
+                79.1647346,
+                12.9674039
+              ],
+              [
+                79.1647581,
+                12.9681407
+              ],
+              [
+                79.1651172,
+                12.9681336
+              ],
+              [
+                79.1651045,
+                12.9678541
+              ],
+              [
+                79.1654329,
+                12.9678382
+              ],
+              [
+                79.1654892,
+                12.96883
+              ],
+              [
+                79.1666864,
+                12.9687678
+              ],
+              [
+                79.1668764,
+                12.9687579
+              ],
+              [
+                79.1668872,
+                12.9686031
+              ],
+              [
+                79.1670837,
+                12.9686085
+              ],
+              [
+                79.1670813,
+                12.9688791
+              ],
+              [
+                79.1670694,
+                12.9693546
+              ],
+              [
+                79.1670366,
+                12.9706671
+              ],
+              [
+                79.1672086,
+                12.9706638
+              ],
+              [
+                79.1672611,
+                12.9706682
+              ],
+              [
+                79.1674133,
+                12.9716515
+              ],
+              [
+                79.1690386,
+                12.9715809
+              ],
+              [
+                79.168025,
+                12.9730406
+              ],
+              [
+                79.164978,
+                12.9722068
+              ],
+              [
+                79.1649752,
+                12.9722678
+              ],
+              [
+                79.1638485,
+                12.9720042
+              ],
+              [
+                79.1625891,
+                12.9717545
+              ],
+              [
+                79.1614668,
+                12.9715646
+              ],
+              [
+                79.1599998,
+                12.9713325
+              ],
+              [
+                79.1590453,
+                12.9711901
+              ],
+              [
+                79.1576523,
+                12.9710336
+              ],
+              [
+                79.1572139,
+                12.9709967
+              ],
+              [
+                79.1569319,
+                12.9709768
+              ],
+              [
+                79.1568891,
+                12.9709738
+              ],
+              [
+                79.15647,
+                12.9709443
+              ],
+              [
+                79.1542059,
+                12.9708095
+              ],
+              [
+                79.1515221,
+                12.9706848
+              ],
+              [
+                79.1514391,
+                12.9697881
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                79.1564775,
+                12.9711887
+              ],
+              [
+                79.1567858,
+                12.971223
+              ],
+              [
+                79.1569451,
+                12.9712408
+              ],
+              [
+                79.1581646,
+                12.9713768
+              ],
+              [
+                79.1598319,
+                12.9716001
+              ],
+              [
+                79.160707,
+                12.9717249
+              ],
+              [
+                79.1619267,
+                12.9719078
+              ],
+              [
+                79.1630707,
+                12.9720941
+              ],
+              [
+                79.1641642,
+                12.9723262
+              ],
+              [
+                79.1646107,
+                12.9724041
+              ],
+              [
+                79.1650533,
+                12.9724908
+              ],
+              [
+                79.1679849,
+                12.9732541
+              ],
+              [
+                79.1679083,
+                12.9734441
+              ],
+              [
+                79.1678761,
+                12.973586
+              ],
+              [
+                79.1678476,
+                12.9737772
+              ],
+              [
+                79.1678468,
+                12.9738988
+              ],
+              [
+                79.1678396,
+                12.9749501
+              ],
+              [
+                79.1677738,
+                12.9764468
+              ],
+              [
+                79.1662044,
+                12.9764552
+              ],
+              [
+                79.1646501,
+                12.9764856
+              ],
+              [
+                79.1634974,
+                12.9764425
+              ],
+              [
+                79.1627423,
+                12.9764107
+              ],
+              [
+                79.1618934,
+                12.9764541
+              ],
+              [
+                79.1602063,
+                12.9774604
+              ],
+              [
+                79.1595089,
+                12.9754217
+              ],
+              [
+                79.156816,
+                12.975704
+              ],
+              [
+                79.1568042,
+                12.9753381
+              ],
+              [
+                79.1567972,
+                12.9751211
+              ],
+              [
+                79.1566604,
+                12.9735999
+              ],
+              [
+                79.1565022,
+                12.9719585
+              ],
+              [
+                79.1564775,
+                12.9711887
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B009",
+        "name": "Men's Hostel Sports Complex",
+        "name_confirmed": true,
+        "centroid_lat": 12.972122,
+        "centroid_lon": 79.159179,
+        "area_m2": 1760.4,
+        "height_m": 16.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b009",
+        "osm_floor_count": 4.0,
+        "height_derived_floor_count": 4,
+        "verified_floor_count": 4,
+        "final_floor_count": 4,
+        "floor_count_source": "FIELD_OBSERVATION",
+        "agreement_status": "EXACT",
+        "review_required": false,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "OpenStreetMap",
+        "source_id": "osm_vit_b009",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "4 Floors (Indoor sports facility).",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B009"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              79.1589389,
+              12.9721654
+            ],
+            [
+              79.1589589,
+              12.9721649
+            ],
+            [
+              79.1589548,
+              12.9720049
+            ],
+            [
+              79.1590971,
+              12.9720015
+            ],
+            [
+              79.159094,
+              12.9718792
+            ],
+            [
+              79.1592014,
+              12.9718766
+            ],
+            [
+              79.1592045,
+              12.9719988
+            ],
+            [
+              79.1594286,
+              12.9719934
+            ],
+            [
+              79.1594352,
+              12.9722508
+            ],
+            [
+              79.1591724,
+              12.9722571
+            ],
+            [
+              79.1591734,
+              12.9722984
+            ],
+            [
+              79.1589424,
+              12.972304
+            ],
+            [
+              79.1589389,
+              12.9721654
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B010",
+        "name": "Anna Auditorium",
+        "name_confirmed": true,
+        "centroid_lat": 12.969946,
+        "centroid_lon": 79.155674,
+        "area_m2": 1415.2,
+        "height_m": 15.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b010",
+        "osm_floor_count": 3.0,
+        "height_derived_floor_count": 4,
+        "verified_floor_count": 1,
+        "final_floor_count": 1,
+        "floor_count_source": "OFFICIAL_VIT_RECORD",
+        "agreement_status": "SOURCE_CONFLICT",
+        "review_required": true,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "OpenStreetMap",
+        "source_id": "osm_vit_b010",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "1 Floor (Single large grand auditorium hall, 1,800 seating capacity, 15,436 sq ft).",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B010"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              79.1554905,
+              12.9697859
+            ],
+            [
+              79.1558574,
+              12.9697848
+            ],
+            [
+              79.1558585,
+              12.970106
+            ],
+            [
+              79.1554915,
+              12.9701072
+            ],
+            [
+              79.1554905,
+              12.9697859
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B011",
+        "name": "Central Food Court",
+        "name_confirmed": true,
+        "centroid_lat": 12.970106,
+        "centroid_lon": 79.159069,
+        "area_m2": 212.6,
+        "height_m": 10.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b011",
+        "osm_floor_count": 2.0,
+        "height_derived_floor_count": 2,
+        "verified_floor_count": 2,
+        "final_floor_count": 2,
+        "floor_count_source": "OFFICIAL_VIT_RECORD",
+        "agreement_status": "EXACT",
+        "review_required": false,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "OpenStreetMap",
+        "source_id": "osm_vit_b011",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "2 Floors (Ground + 1st Floor dining hall).",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B011"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              79.1589754,
+              12.9700909
+            ],
+            [
+              79.1590851,
+              12.9700145
+            ],
+            [
+              79.1591634,
+              12.9701214
+            ],
+            [
+              79.1590537,
+              12.9701978
+            ],
+            [
+              79.1589754,
+              12.9700909
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "building_id": "VIT-B012",
+        "name": "Hexagon / SMEC Workshop",
+        "name_confirmed": true,
+        "centroid_lat": 12.969,
+        "centroid_lon": 79.1545,
+        "area_m2": 9604.4,
+        "height_m": 10.0,
+        "height_source": "ESTIMATED_SURVEY",
+        "osm_id": "osm_vit_b012",
+        "osm_floor_count": 3.0,
+        "height_derived_floor_count": 2,
+        "verified_floor_count": 2,
+        "final_floor_count": 2,
+        "floor_count_source": "OFFICIAL_VIT_RECORD",
+        "agreement_status": "MINOR_DISCREPANCY",
+        "review_required": true,
+        "verification_status": "VERIFIED",
+        "certainty": "VERIFIED_OFFICIAL",
+        "source": "OpenStreetMap",
+        "source_id": "osm_vit_b012",
+        "status": "READY FOR EXTRUSION",
+        "last_updated": "2026-09-06T17:14:30.632669Z",
+        "notes": "2 Floors (Ground + Mezzanine workshop floor).",
+        "ulpin": "ULPIN-IN-TN-VEL-VIT-B012"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              79.154,
+              12.9694
+            ],
+            [
+              79.155,
+              12.9694
+            ],
+            [
+              79.155,
+              12.968599999999999
+            ],
+            [
+              79.154,
+              12.968599999999999
+            ],
+            [
+              79.154,
+              12.9694
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
