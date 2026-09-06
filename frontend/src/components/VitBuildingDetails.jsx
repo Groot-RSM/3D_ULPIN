@@ -396,15 +396,15 @@ export default function VitBuildingDetails({
         ) : null}
       </div>
 
-      {/* AI SPATIAL INTELLIGENCE & GROUND-TRUTH SECTION */}
-      <div style={{ marginTop: '16px', background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.18), rgba(124, 58, 237, 0.12))', border: '1px solid rgba(124, 58, 237, 0.4)', borderRadius: '12px', padding: '12px' }}>
+      {/* SERPAPI REAL-WORLD GROUND-TRUTH SEARCH SECTION */}
+      <div style={{ marginTop: '16px', background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(2, 132, 199, 0.08))', border: '1px solid rgba(56, 189, 248, 0.35)', borderRadius: '12px', padding: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#a78bfa', fontSize: '12px', fontWeight: '800', letterSpacing: '0.5px' }}>
-            <Sparkles size={15} color="#c084fc" />
-            <span>AI SPATIAL REASONING & CADASTRE</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#38bdf8', fontSize: '12px', fontWeight: '800', letterSpacing: '0.5px' }}>
+            <Sparkles size={15} color="#38bdf8" />
+            <span>REAL-WORLD GROUND-TRUTH (SERPAPI)</span>
           </div>
-          <span style={{ fontSize: '9px', background: 'rgba(192, 132, 252, 0.2)', color: '#e9d5ff', padding: '2px 6px', borderRadius: '4px', fontWeight: '700' }}>
-            GEMINI + SERPAPI
+          <span style={{ fontSize: '9px', background: 'rgba(56, 189, 248, 0.2)', color: '#bae6fd', padding: '2px 6px', borderRadius: '4px', fontWeight: '700' }}>
+            GOOGLE LIVE SEARCH
           </span>
         </div>
 
@@ -413,71 +413,39 @@ export default function VitBuildingDetails({
             <div style={{ fontSize: '11.5px', color: '#e2e8f0', lineHeight: '1.5', whiteSpace: 'pre-line', background: 'rgba(0,0,0,0.25)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }}>
               {aiInsight}
             </div>
-            <div style={{ display: 'flex', gap: '6px' }}>
-              <button
-                onClick={() => handleGenerateAiInsight('gemini')}
-                disabled={loadingAi}
-                style={{ flex: 1, background: 'rgba(99, 102, 241, 0.2)', border: '1px solid #6366f1', color: '#a5b4fc', padding: '5px 8px', borderRadius: '6px', fontSize: '10.5px', fontWeight: '700', cursor: 'pointer' }}
-              >
-                ✨ Refresh Gemini AI
-              </button>
-              <button
-                onClick={() => handleGenerateAiInsight('serpapi')}
-                disabled={loadingAi}
-                style={{ flex: 1, background: 'rgba(56, 189, 248, 0.2)', border: '1px solid #38bdf8', color: '#38bdf8', padding: '5px 8px', borderRadius: '6px', fontSize: '10.5px', fontWeight: '700', cursor: 'pointer' }}
-              >
-                🔍 Live SerpApi Search
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-            <button
-              onClick={() => handleGenerateAiInsight('gemini')}
-              disabled={loadingAi}
-              style={{
-                width: '100%',
-                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                border: 'none',
-                color: '#fff',
-                padding: '8px 12px',
-                borderRadius: '8px',
-                fontSize: '11.5px',
-                fontWeight: '700',
-                cursor: loadingAi ? 'wait' : 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '6px',
-                boxShadow: '0 2px 10px rgba(99, 102, 241, 0.3)'
-              }}
-            >
-              {loadingAi ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
-              <span>{loadingAi ? 'Analyzing Cadastral Data...' : '✨ Ask Gemini AI Cadastre'}</span>
-            </button>
-
             <button
               onClick={() => handleGenerateAiInsight('serpapi')}
               disabled={loadingAi}
-              style={{
-                width: '100%',
-                background: 'rgba(15, 23, 42, 0.6)',
-                border: '1px solid rgba(56, 189, 248, 0.4)',
-                color: '#38bdf8',
-                padding: '6px 12px',
-                borderRadius: '8px',
-                fontSize: '11px',
-                fontWeight: '700',
-                cursor: loadingAi ? 'wait' : 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '6px'
-              }}
+              style={{ background: 'rgba(56, 189, 248, 0.2)', border: '1px solid #38bdf8', color: '#38bdf8', padding: '6px 10px', borderRadius: '6px', fontSize: '11px', fontWeight: '700', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px' }}
             >
-              <span>🔍 Search Real-World Facts via SerpApi</span>
+              <RefreshCw size={12} />
+              <span>Refresh SerpApi Search</span>
             </button>
           </div>
+        ) : (
+          <button
+            onClick={() => handleGenerateAiInsight('serpapi')}
+            disabled={loadingAi}
+            style={{
+              width: '100%',
+              background: 'linear-gradient(135deg, #0284c7, #38bdf8)',
+              border: 'none',
+              color: '#fff',
+              padding: '10px 12px',
+              borderRadius: '8px',
+              fontSize: '11.5px',
+              fontWeight: '800',
+              cursor: loadingAi ? 'wait' : 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '6px',
+              boxShadow: '0 2px 12px rgba(2, 132, 199, 0.3)'
+            }}
+          >
+            {loadingAi ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
+            <span>{loadingAi ? 'Searching Google Records...' : '🔍 Search Real Ground-Truth via SerpApi'}</span>
+          </button>
         )}
       </div>
 

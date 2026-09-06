@@ -101,11 +101,12 @@ def generate_building_insight(req: AIInsightRequest):
     if not b:
         raise HTTPException(status_code=404, detail=f"Building '{req.building_id}' not found.")
     
-    if req.provider == "gemini":
-        return gemini_service.generate_building_insight(b, req.query)
-    
-    # Default to SerpApi Ground-Truth Search
+    # Primary: SerpApi Live Google Search Ground-Truth
     return serpapi_service.generate_building_insight(b, req.query)
+
+    # --- Optional Gemini fallback (Commented out) ---
+    # if req.provider == "gemini":
+    #     return gemini_service.generate_building_insight(b, req.query)
 
 @app.get("/api/vit/buildings/{building_id}/serpapi-search")
 def get_building_serpapi_search(building_id: str):
@@ -113,6 +114,7 @@ def get_building_serpapi_search(building_id: str):
     if not b:
         raise HTTPException(status_code=404, detail=f"Building '{building_id}' not found.")
     return serpapi_service.search_building_info(b.get("name", "VIT Building"))
+
 
 # FLOOR RECONCILIATION & MULTI-SOURCE EVIDENCE ENDPOINTS
 class FloorOverrideRequest(BaseModel):
