@@ -420,7 +420,11 @@ export default function VitBuildingDetails({
         
         {/* Quick Map 2D -> 3D Extrusion Toggle */}
         <button
-          onClick={onToggleMap3D}
+          onClick={() => {
+            if (typeof onToggleMap3D === 'function') {
+              onToggleMap3D();
+            }
+          }}
           style={{
             width: '100%',
             background: is3dView ? 'rgba(56, 189, 248, 0.15)' : 'linear-gradient(135deg, #0284c7, #38bdf8)',

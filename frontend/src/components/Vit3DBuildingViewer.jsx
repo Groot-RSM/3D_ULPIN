@@ -339,7 +339,23 @@ export default function Vit3DBuildingViewer({
       if (container && renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
+      
+      // Deep resource disposal
+      scene.traverse((object) => {
+        if (object.geometry) object.geometry.dispose();
+        if (object.material) {
+          if (Array.isArray(object.material)) {
+            object.material.forEach((mat) => mat.dispose());
+          } else {
+            object.material.dispose();
+          }
+        }
+      });
+      controls.dispose();
       renderer.dispose();
+      if (typeof renderer.forceContextLoss === 'function') {
+        renderer.forceContextLoss();
+      }
     };
   }, [building, reconciliation, bId]);
 
