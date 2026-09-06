@@ -750,12 +750,12 @@ export default function Vit3DBuildingViewer({
  </div>
 
  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
- <span style={{ color: '#94a3b8' }}>Floor Area:</span>
+ <span style={{ color: '#94a3b8' }}>Unit Sub-Parcel Area:</span>
  <span style={{ color: '#fff', fontWeight: '700' }}>{selectedRoom.area_m2} m²</span>
  </div>
 
  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
- <span style={{ color: '#94a3b8' }}>Volumetric Volume:</span>
+ <span style={{ color: '#94a3b8' }}>Unit 3D Volume:</span>
  <span style={{ color: '#34d399', fontWeight: '800' }}>{selectedRoom.volume_m3} m³</span>
  </div>
 
