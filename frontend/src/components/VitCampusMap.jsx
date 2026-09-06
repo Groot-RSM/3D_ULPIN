@@ -78,24 +78,29 @@ export default function VitCampusMap({
     };
   };
 
-  // Build GeoJSON FeatureCollection safely
+  // Build GeoJSON FeatureCollection safely with numeric floats for 3D extrusion
   const getBuildingsGeoJson = (bList) => {
     return {
       type: 'FeatureCollection',
-      features: bList.map(b => ({
-        type: 'Feature',
-        id: b.building_id,
-        properties: {
-          building_id: b.building_id,
-          name: b.name || 'VIT Building',
-          height_m: b.height_m || 24,
-          area_m2: b.area_m2 || 1000,
-          verified_floor_count: b.verified_floor_count || b.final_floor_count || 4,
-          ulpin: b.ulpin || `ULPIN-IN-TN-VEL-${b.building_id}`,
-          certainty: b.certainty || 'VERIFIED'
-        },
-        geometry: b.geometry
-      }))
+      features: bList.map(b => {
+        const heightNum = Number(b.height_m) || 24.0;
+        const areaNum = Number(b.area_m2) || 1000.0;
+        const floorsNum = Number(b.verified_floor_count || b.final_floor_count || 4);
+        return {
+          type: 'Feature',
+          id: b.building_id,
+          properties: {
+            building_id: b.building_id,
+            name: b.name || 'VIT Building',
+            height_m: heightNum,
+            area_m2: areaNum,
+            verified_floor_count: floorsNum,
+            ulpin: b.ulpin || `ULPIN-IN-TN-VEL-${b.building_id}`,
+            certainty: b.certainty || 'VERIFIED'
+          },
+          geometry: b.geometry
+        };
+      })
     };
   };
 
@@ -195,6 +200,15 @@ export default function VitCampusMap({
       });
     }
 
+    // Configure 3D Extrusion Lighting
+    try {
+      map.setLight({
+        anchor: 'viewport',
+        color: '#ffffff',
+        intensity: 0.75
+      });
+    } catch (e) {}
+
     // 5. 3D Building Extrusions Layer
     if (!map.getLayer('vit-buildings-3d')) {
       map.addLayer({
@@ -213,7 +227,7 @@ export default function VitCampusMap({
           ],
           'fill-extrusion-height': ['get', 'height_m'],
           'fill-extrusion-base': 0,
-          'fill-extrusion-opacity': 0.85
+          'fill-extrusion-opacity': 0.88
         }
       });
     }
@@ -311,17 +325,15 @@ export default function VitCampusMap({
       map.setPaintProperty('vit-building-labels', 'text-color', ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#ffffff']);
     }
 
+    map.easeTo({
+      pitch: is3d ? 50 : 0,
+      duration: 600
+    });
+
     if (!selId) return;
 
     const targetBuilding = bList.find(b => b.building_id === selId);
-    if (!targetBuilding) {
-      map.easeTo({
-        pitch: is3d ? 50 : 0,
-        bearing: is3d ? -25 : 0,
-        duration: 800
-      });
-      return;
-    }
+    if (!targetBuilding) return;
 
     // Extract all [lon, lat] points recursively for Polygon or MultiPolygon
     let minLon = 180, maxLon = -180, minLat = 90, maxLat = -90;
