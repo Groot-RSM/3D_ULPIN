@@ -52,15 +52,12 @@ export default function App() {
     setIs3dModalOpen(true);
   };
 
-  const handleSelectBuilding = (buildingId, activate3d = true) => {
+  const handleSelectBuilding = (buildingId) => {
     setSelectedBuildingId(buildingId);
-    if (activate3d) {
-      setIs3dView(true);
-    }
   };
 
   const handleToggleMap3D = () => {
-    setIs3dView(!is3dView);
+    setIs3dView(prev => !prev);
   };
 
   return (
@@ -122,10 +119,10 @@ export default function App() {
           buildings={buildings}
           routes={routes}
           selectedBuildingId={selectedBuildingId}
-          onSelectBuilding={(id) => handleSelectBuilding(id, true)}
+          onSelectBuilding={(id) => handleSelectBuilding(id)}
           hoveredBuildingId={hoveredBuildingId}
           onHoverBuilding={setHoveredBuildingId}
-          is3dView={true}
+          is3dView={is3dView}
         />
 
         {/* LEFT FLOATING PANEL: VIT BUILDING SEARCH & LIST */}
@@ -133,7 +130,7 @@ export default function App() {
           <VitBuildingList
             buildings={buildings}
             selectedBuildingId={selectedBuildingId}
-            onSelectBuilding={(id) => handleSelectBuilding(id, true)}
+            onSelectBuilding={(id) => handleSelectBuilding(id)}
           />
         </div>
 
@@ -141,7 +138,7 @@ export default function App() {
         <div className="right-details-card">
           <VitBuildingDetails
             building={selectedBuilding}
-            is3dView={true}
+            is3dView={is3dView}
             onToggle3dView={handleToggle3D}
             onToggleMap3D={handleToggleMap3D}
           />
