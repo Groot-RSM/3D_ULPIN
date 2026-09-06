@@ -298,12 +298,112 @@ export default function VitCampusMap({
 
     map.on('load', () => {
       setupMapLayers(map);
+      updateBuildingSelectionAndFlyTo(map, selectedBuildingId, is3dView, buildings);
     });
 
     return () => {
       map.remove();
     };
   }, []);
+
+  // Universal Selection & Camera Fly-To Function
+  const updateBuildingSelectionAndFlyTo = (map, selId, is3d, bList) => {
+    if (!map || !map.isStyleLoaded()) return;
+
+    if (map.getLayer('vit-buildings-3d')) {
+      map.setLayoutProperty('vit-buildings-3d', 'visibility', is3d ? 'visible' : 'none');
+    }
+
+    const selectedColor = ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#0284c7'];
+    const selectedOutlineColor = ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#38bdf8'];
+
+    if (map.getLayer('vit-buildings-3d')) {
+      map.setPaintProperty('vit-buildings-3d', 'fill-extrusion-color', selectedColor);
+    }
+    if (map.getLayer('vit-footprints-2d')) {
+      map.setPaintProperty('vit-footprints-2d', 'fill-color', selectedColor);
+      map.setPaintProperty('vit-footprints-2d', 'fill-opacity', ['case', ['==', ['get', 'building_id'], selId || ''], 0.95, 0.45]);
+    }
+    if (map.getLayer('vit-footprints-selected')) {
+      map.setPaintProperty('vit-footprints-selected', 'line-color', selectedOutlineColor);
+      map.setPaintProperty('vit-footprints-selected', 'line-width', ['case', ['==', ['get', 'building_id'], selId || ''], 4.0, 1.5]);
+    }
+    if (map.getLayer('vit-building-labels')) {
+      map.setPaintProperty('vit-building-labels', 'text-color', ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#ffffff']);
+    }
+
+    if (!selId) return;
+
+    const targetBuilding = bList.find(b => b.building_id === selId);
+    if (!targetBuilding) {
+      map.easeTo({
+        pitch: is3d ? 50 : 0,
+        bearing: is3d ? -25 : 0,
+        duration: 800
+      });
+      return;
+    }
+
+    // Extract all [lon, lat] points recursively for Polygon or MultiPolygon
+    let minLon = 180, maxLon = -180, minLat = 90, maxLat = -90;
+    let pointCount = 0;
+
+    const extractPoints = (arr) => {
+      if (!Array.isArray(arr) || arr.length === 0) return;
+      if (typeof arr[0] === 'number' && typeof arr[1] === 'number') {
+        const [lon, lat] = arr;
+        if (lon < minLon) minLon = lon;
+        if (lon > maxLon) maxLon = lon;
+        if (lat < minLat) minLat = lat;
+        if (lat > maxLat) maxLat = lat;
+        pointCount++;
+      } else {
+        arr.forEach(item => extractPoints(item));
+      }
+    };
+
+    if (targetBuilding.geometry && targetBuilding.geometry.coordinates) {
+      extractPoints(targetBuilding.geometry.coordinates);
+    }
+
+    if (pointCount > 0 && minLon <= maxLon && minLat <= maxLat) {
+      const dLon = Math.abs(maxLon - minLon);
+      const dLat = Math.abs(maxLat - minLat);
+
+      if (dLon > 0.0001 && dLat > 0.0001) {
+        map.fitBounds([
+          [minLon, minLat],
+          [maxLon, maxLat]
+        ], {
+          padding: { top: 90, bottom: 90, left: 320, right: 360 },
+          pitch: is3d ? 50 : 0,
+          bearing: is3d ? -25 : 0,
+          duration: 1000,
+          maxZoom: 17.6
+        });
+      } else {
+        const centerLon = (minLon + maxLon) / 2;
+        const centerLat = (minLat + maxLat) / 2;
+        map.flyTo({
+          center: [centerLon, centerLat],
+          zoom: 17.2,
+          pitch: is3d ? 50 : 0,
+          bearing: is3d ? -25 : 0,
+          duration: 1000,
+          essential: true
+        });
+      }
+    } else if (targetBuilding.centroid_lat && targetBuilding.centroid_lon) {
+      map.flyTo({
+        center: [targetBuilding.centroid_lon, targetBuilding.centroid_lat],
+        zoom: 17.2,
+        pitch: is3d ? 50 : 0,
+        bearing: is3d ? -25 : 0,
+        duration: 1000,
+        essential: true
+      });
+    }
+  };
 
   // Handle Basemap Style Switch
   const handleStyleChange = (newStyle) => {
@@ -314,6 +414,7 @@ export default function VitCampusMap({
       map.setStyle(getStyleDefinition(newStyle));
       map.once('style.load', () => {
         setupMapLayers(map);
+        updateBuildingSelectionAndFlyTo(map, selectedBuildingId, is3dView, buildings);
       });
     }
   };
@@ -336,68 +437,11 @@ export default function VitCampusMap({
     }
   }, [buildings, routes]);
 
-  // Update Selection, Cyan Highlighting & Geometry-Aware fitBounds Camera Fly-To
+  // Update Selection, Cyan Highlighting & Camera Fly-To on prop change
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !map.isStyleLoaded()) return;
-
-    if (map.getLayer('vit-buildings-3d')) {
-      map.setLayoutProperty('vit-buildings-3d', 'visibility', is3dView ? 'visible' : 'none');
-    }
-
-    const selectedColor = ['case', ['==', ['get', 'building_id'], selectedBuildingId], '#00f0ff', '#0284c7'];
-    const selectedOutlineColor = ['case', ['==', ['get', 'building_id'], selectedBuildingId], '#00f0ff', '#38bdf8'];
-
-    if (map.getLayer('vit-buildings-3d')) {
-      map.setPaintProperty('vit-buildings-3d', 'fill-extrusion-color', selectedColor);
-    }
-    if (map.getLayer('vit-footprints-2d')) {
-      map.setPaintProperty('vit-footprints-2d', 'fill-color', selectedColor);
-      map.setPaintProperty('vit-footprints-2d', 'fill-opacity', ['case', ['==', ['get', 'building_id'], selectedBuildingId], 0.95, 0.45]);
-    }
-    if (map.getLayer('vit-footprints-selected')) {
-      map.setPaintProperty('vit-footprints-selected', 'line-color', selectedOutlineColor);
-      map.setPaintProperty('vit-footprints-selected', 'line-width', ['case', ['==', ['get', 'building_id'], selectedBuildingId], 4.0, 1.5]);
-    }
-    if (map.getLayer('vit-building-labels')) {
-      map.setPaintProperty('vit-building-labels', 'text-color', ['case', ['==', ['get', 'building_id'], selectedBuildingId], '#00f0ff', '#ffffff']);
-    }
-
-    const targetBuilding = buildings.find(b => b.building_id === selectedBuildingId);
-    if (targetBuilding && targetBuilding.geometry && targetBuilding.geometry.coordinates) {
-      const ring = targetBuilding.geometry.coordinates[0] || [];
-      if (ring.length > 0) {
-        let minLon = 180, maxLon = -180, minLat = 90, maxLat = -90;
-        ring.forEach(pt => {
-          if (Array.isArray(pt)) {
-            const [lon, lat] = pt;
-            if (lon < minLon) minLon = lon;
-            if (lon > maxLon) maxLon = lon;
-            if (lat < minLat) minLat = lat;
-            if (lat > maxLat) maxLat = lat;
-          }
-        });
-
-        const bounds = [
-          [minLon, minLat],
-          [maxLon, maxLat]
-        ];
-
-        map.fitBounds(bounds, {
-          padding: { top: 90, bottom: 90, left: 320, right: 360 },
-          pitch: is3dView ? 50 : 0,
-          bearing: is3dView ? -25 : 0,
-          duration: 1200,
-          maxZoom: 17.5
-        });
-      }
-    } else {
-      map.easeTo({
-        pitch: is3dView ? 50 : 0,
-        bearing: is3dView ? -25 : 0,
-        duration: 800
-      });
-    }
+    updateBuildingSelectionAndFlyTo(map, selectedBuildingId, is3dView, buildings);
   }, [selectedBuildingId, is3dView, buildings]);
 
 
