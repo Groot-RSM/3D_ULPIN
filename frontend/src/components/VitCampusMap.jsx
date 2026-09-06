@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { MAPBOX_TOKEN, VIT_CENTER } from '../config';
+import { MAPBOX_TOKEN, MAPTILER_KEY, VIT_CENTER } from '../config';
 
 export default function VitCampusMap({
   buildings = [],
@@ -15,7 +15,7 @@ export default function VitCampusMap({
   const mapContainerRef = useRef(null);
   const mapRef = useRef(null);
   const [hoveredInfo, setHoveredInfo] = useState(null);
-  const [mapStyle, setMapStyle] = useState('mapbox-dark'); // 'mapbox-dark' | 'mapbox-satellite'
+  const [mapStyle, setMapStyle] = useState('mapbox-satellite'); // Default to Satellite 3D
 
   // Exact Coordinates for VIT Vellore Campus Center
   const VIT_CENTER_LON = 79.1560;
@@ -23,7 +23,7 @@ export default function VitCampusMap({
 
   // Map Style Builder compatible with MapLibre GL
   const getStyleDefinition = (styleType) => {
-    if (styleType === 'mapbox-satellite') {
+    if (styleType === 'mapbox-satellite' || styleType === 'satellite') {
       return {
         version: 8,
         sources: {
@@ -33,7 +33,7 @@ export default function VitCampusMap({
               `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/tiles/256/{z}/{x}/{y}?access_token=${MAPBOX_TOKEN}`
             ],
             tileSize: 256,
-            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            attribution: '&copy; Mapbox &copy; OpenStreetMap'
           }
         },
         layers: [
@@ -47,8 +47,35 @@ export default function VitCampusMap({
         ]
       };
     }
-    // Default Mapbox Dark v11
-    return `https://api.mapbox.com/styles/v1/mapbox/dark-v11?access_token=${MAPBOX_TOKEN}`;
+    
+    // Reliable Dark Vector Basemap
+    if (MAPTILER_KEY) {
+      return `https://api.maptiler.com/maps/dataviz-dark/style.json?key=${MAPTILER_KEY}`;
+    }
+    return {
+      version: 8,
+      sources: {
+        'carto-dark-source': {
+          type: 'raster',
+          tiles: [
+            'https://a.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
+            'https://b.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png',
+            'https://c.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}@2x.png'
+          ],
+          tileSize: 256,
+          attribution: '&copy; CartoDB &copy; OpenStreetMap'
+        }
+      },
+      layers: [
+        {
+          id: 'carto-dark-layer',
+          type: 'raster',
+          source: 'carto-dark-source',
+          minzoom: 0,
+          maxzoom: 22
+        }
+      ]
+    };
   };
 
   // Build GeoJSON FeatureCollection safely
@@ -79,13 +106,19 @@ export default function VitCampusMap({
         type: 'geojson',
         data: getBuildingsGeoJson(buildings)
       });
+    } else {
+      map.getSource('vit-buildings').setData(getBuildingsGeoJson(buildings));
     }
 
-    if (routes && !map.getSource('vit-routes')) {
-      map.addSource('vit-routes', {
-        type: 'geojson',
-        data: routes
-      });
+    if (routes) {
+      if (!map.getSource('vit-routes')) {
+        map.addSource('vit-routes', {
+          type: 'geojson',
+          data: routes
+        });
+      } else {
+        map.getSource('vit-routes').setData(routes);
+      }
 
       // 1. Campus Roadway Casing
       if (!map.getLayer('vit-routes-casing')) {
