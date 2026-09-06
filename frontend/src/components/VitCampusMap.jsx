@@ -1,529 +1,501 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as maplibregl from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
-import { MAPBOX_TOKEN, MAPTILER_KEY, VIT_CENTER } from '../config';
+import { MAPBOX_TOKEN, VIT_CENTER } from '../config';
 
 export default function VitCampusMap({
- buildings = [],
- routes = null,
- selectedBuildingId = 'VIT-B001',
- onSelectBuilding = () => {},
- hoveredBuildingId = null,
- onHoverBuilding = () => {},
- is3dView = true
+  buildings = [],
+  routes = null,
+  selectedBuildingId = 'VIT-B001',
+  onSelectBuilding = () => {},
+  hoveredBuildingId = null,
+  onHoverBuilding = () => {},
+  is3dView = true
 }) {
- const mapContainerRef = useRef(null);
- const mapRef = useRef(null);
- const [hoveredInfo, setHoveredInfo] = useState(null);
- const [mapStyle, setMapStyle] = useState('mapbox-dark'); // 'mapbox-dark' | 'mapbox-satellite' | 'maptiler-dark'
+  const mapContainerRef = useRef(null);
+  const mapRef = useRef(null);
+  const [hoveredInfo, setHoveredInfo] = useState(null);
+  const [mapStyle, setMapStyle] = useState('mapbox-dark'); // 'mapbox-dark' | 'mapbox-satellite'
 
- // Exact Coordinates for VIT Vellore Campus Center
- const VIT_CENTER_LON = 79.1560;
- const VIT_CENTER_LAT = 12.9692;
+  // Exact Coordinates for VIT Vellore Campus Center
+  const VIT_CENTER_LON = 79.1560;
+  const VIT_CENTER_LAT = 12.9692;
 
- // Map Style Builder compatible with MapLibre GL
- const getStyleDefinition = (styleType) => {
- if (styleType === 'mapbox-satellite') {
- return {
- version: 8,
- sources: {
- 'mapbox-satellite-source': {
- type: 'raster',
- tiles: [
- `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/tiles/256/{z}/{x}/{y}?access_token=${MAPBOX_TOKEN}`
- ],
- tileSize: 256,
- attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
- }
- },
- layers: [
- {
- id: 'mapbox-satellite-layer',
- type: 'raster',
- source: 'mapbox-satellite-source',
- minzoom: 0,
- maxzoom: 22
- }
- ]
- };
- }
+  // Map Style Builder compatible with MapLibre GL
+  const getStyleDefinition = (styleType) => {
+    if (styleType === 'mapbox-satellite') {
+      return {
+        version: 8,
+        sources: {
+          'mapbox-satellite-source': {
+            type: 'raster',
+            tiles: [
+              `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/tiles/256/{z}/{x}/{y}?access_token=${MAPBOX_TOKEN}`
+            ],
+            tileSize: 256,
+            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          }
+        },
+        layers: [
+          {
+            id: 'mapbox-satellite-layer',
+            type: 'raster',
+            source: 'mapbox-satellite-source',
+            minzoom: 0,
+            maxzoom: 22
+          }
+        ]
+      };
+    }
+    // Default Mapbox Dark v11
+    return `https://api.mapbox.com/styles/v1/mapbox/dark-v11?access_token=${MAPBOX_TOKEN}`;
+  };
 
- if (styleType === 'maptiler-dark') {
- return `https://api.maptiler.com/maps/dataviz-dark/style.json?key=${MAPTILER_KEY}`;
- }
+  // Build GeoJSON FeatureCollection safely
+  const getBuildingsGeoJson = (bList) => {
+    return {
+      type: 'FeatureCollection',
+      features: bList.map(b => ({
+        type: 'Feature',
+        id: b.building_id,
+        properties: {
+          building_id: b.building_id,
+          name: b.name || 'VIT Building',
+          height_m: b.height_m || 24,
+          area_m2: b.area_m2 || 1000,
+          verified_floor_count: b.verified_floor_count || b.final_floor_count || 4,
+          ulpin: b.ulpin || `ULPIN-IN-TN-VEL-${b.building_id}`,
+          certainty: b.certainty || 'VERIFIED'
+        },
+        geometry: b.geometry
+      }))
+    };
+  };
 
- // Default Mapbox Dark v11 raster basemap
- return {
- version: 8,
- sources: {
- 'mapbox-dark-source': {
- type: 'raster',
- tiles: [
- `https://api.mapbox.com/styles/v1/mapbox/dark-v11/tiles/256/{z}/{x}/{y}?access_token=${MAPBOX_TOKEN}`
- ],
- tileSize: 256,
- attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a> &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
- }
- },
- layers: [
- {
- id: 'mapbox-dark-layer',
- type: 'raster',
- source: 'mapbox-dark-source',
- minzoom: 0,
- maxzoom: 22
- }
- ]
- };
- };
+  // Add Interactive Vector & Extrusion Layers
+  const setupMapLayers = (map) => {
+    if (!map.getSource('vit-buildings')) {
+      map.addSource('vit-buildings', {
+        type: 'geojson',
+        data: getBuildingsGeoJson(buildings)
+      });
+    }
 
- // Helper to create GeoJSON FeatureCollection
- const getBuildingsGeoJson = (bList) => ({
- type: 'FeatureCollection',
- features: (bList || []).map(b => ({
- type: 'Feature',
- properties: { ...b },
- geometry: b.geometry
- }))
- });
+    if (routes && !map.getSource('vit-routes')) {
+      map.addSource('vit-routes', {
+        type: 'geojson',
+        data: routes
+      });
 
- // Setup 3D Buildings & Routes Layers on Map
- const setupMapLayers = (map) => {
- if (!map) return;
+      // 1. Campus Roadway Casing
+      if (!map.getLayer('vit-routes-casing')) {
+        map.addLayer({
+          id: 'vit-routes-casing',
+          type: 'line',
+          source: 'vit-routes',
+          paint: {
+            'line-color': '#0284c7',
+            'line-width': 4.5,
+            'line-opacity': 0.4
+          }
+        });
+      }
 
- // Set 3D Light Source for Realistic Facade Shading
- try {
- map.setLight({
- anchor: 'viewport',
- color: '#ffffff',
- intensity: 0.85,
- position: [1.5, 90, 80]
- });
- } catch (e) {
- console.warn("3D Light setup note:", e);
- }
+      // 2. Campus Roadway Core
+      if (!map.getLayer('vit-routes-core')) {
+        map.addLayer({
+          id: 'vit-routes-core',
+          type: 'line',
+          source: 'vit-routes',
+          paint: {
+            'line-color': '#38bdf8',
+            'line-width': 2.0,
+            'line-opacity': 0.8
+          }
+        });
+      }
+    }
 
- // 1. Buildings Source
- if (!map.getSource('vit-buildings')) {
- map.addSource('vit-buildings', {
- type: 'geojson',
- data: getBuildingsGeoJson(buildings)
- });
- } else {
- map.getSource('vit-buildings').setData(getBuildingsGeoJson(buildings));
- }
+    // 3. 2D Footprints Base Layer (Completely Transparent in 2D to avoid solid blue blocks)
+    if (!map.getLayer('vit-footprints-2d')) {
+      map.addLayer({
+        id: 'vit-footprints-2d',
+        type: 'fill',
+        source: 'vit-buildings',
+        paint: {
+          'fill-color': [
+            'case',
+            ['==', ['get', 'building_id'], selectedBuildingId],
+            '#00f0ff',
+            '#0284c7'
+          ],
+          'fill-opacity': [
+            'case',
+            ['==', ['get', 'building_id'], selectedBuildingId],
+            0.15,
+            0.02
+          ]
+        }
+      });
+    }
 
- // 2. Routes Source
- if (routes) {
- if (!map.getSource('vit-routes')) {
- map.addSource('vit-routes', {
- type: 'geojson',
- data: routes
- });
- } else {
- map.getSource('vit-routes').setData(routes);
- }
+    // 4. Cadastral Boundary Line Outlines
+    if (!map.getLayer('vit-footprints-selected')) {
+      map.addLayer({
+        id: 'vit-footprints-selected',
+        type: 'line',
+        source: 'vit-buildings',
+        paint: {
+          'line-color': [
+            'case',
+            ['==', ['get', 'building_id'], selectedBuildingId],
+            '#00f0ff',
+            '#38bdf8'
+          ],
+          'line-width': [
+            'case',
+            ['==', ['get', 'building_id'], selectedBuildingId],
+            3.0,
+            1.5
+          ]
+        }
+      });
+    }
 
- if (!map.getLayer('vit-routes-layer')) {
- map.addLayer({
- id: 'vit-routes-layer',
- type: 'line',
- source: 'vit-routes',
- layout: {
- 'line-join': 'round',
- 'line-cap': 'round'
- },
- paint: {
- 'line-color': '#38bdf8',
- 'line-width': 4,
- 'line-opacity': 0.9,
- 'line-dasharray': [2, 1]
- }
- });
- }
- }
+    // 5. 3D Building Extrusions Layer
+    if (!map.getLayer('vit-buildings-3d')) {
+      map.addLayer({
+        id: 'vit-buildings-3d',
+        type: 'fill-extrusion',
+        source: 'vit-buildings',
+        layout: {
+          'visibility': is3dView ? 'visible' : 'none'
+        },
+        paint: {
+          'fill-extrusion-color': [
+            'case',
+            ['==', ['get', 'building_id'], selectedBuildingId],
+            '#00f0ff',
+            '#0284c7'
+          ],
+          'fill-extrusion-height': ['get', 'height_m'],
+          'fill-extrusion-base': 0,
+          'fill-extrusion-opacity': 0.85
+        }
+      });
+    }
 
- // 3. 2D Footprints Base Layer (All Campus Buildings)
- if (!map.getLayer('vit-footprints-2d')) {
- map.addLayer({
- id: 'vit-footprints-2d',
- type: 'fill',
- source: 'vit-buildings',
- paint: {
- 'fill-color': [
- 'case',
- ['==', ['get', 'building_id'], selectedBuildingId],
- '#00f0ff',
- '#0284c7'
- ],
- 'fill-opacity': [
- 'case',
- ['==', ['get', 'building_id'], selectedBuildingId],
- 0.95,
- 0.45
- ]
- }
- });
- }
+    // 6. Collision-Aware Building Text Labels Layer
+    if (!map.getLayer('vit-building-labels')) {
+      map.addLayer({
+        id: 'vit-building-labels',
+        type: 'symbol',
+        source: 'vit-buildings',
+        layout: {
+          'text-field': ['get', 'name'],
+          'text-size': 11.5,
+          'text-allow-overlap': false,
+          'text-ignore-placement': false,
+          'text-radial-offset': 0.5,
+          'text-justify': 'auto'
+        },
+        paint: {
+          'text-color': [
+            'case',
+            ['==', ['get', 'building_id'], selectedBuildingId],
+            '#00f0ff',
+            '#ffffff'
+          ],
+          'text-halo-color': '#050812',
+          'text-halo-width': 2.0
+        }
+      });
+    }
 
- // 4. Selected Building Electric Cyan Highlight Layer
- if (!map.getLayer('vit-footprints-selected')) {
- map.addLayer({
- id: 'vit-footprints-selected',
- type: 'line',
- source: 'vit-buildings',
- paint: {
- 'line-color': [
- 'case',
- ['==', ['get', 'building_id'], selectedBuildingId],
- '#00f0ff',
- '#38bdf8'
- ],
- 'line-width': [
- 'case',
- ['==', ['get', 'building_id'], selectedBuildingId],
- 4.0,
- 1.5
- ]
- }
- });
- }
+    // Interaction Handlers
+    const handleLayerClick = (e) => {
+      if (e.features && e.features.length > 0) {
+        const props = e.features[0].properties;
+        if (props.building_id) {
+          onSelectBuilding(props.building_id);
+        }
+      }
+    };
 
- // 5. 3D Building Extrusions Layer (Cyan Highlight for Selected, Neutral Blue for Campus)
- if (!map.getLayer('vit-buildings-3d')) {
- map.addLayer({
- id: 'vit-buildings-3d',
- type: 'fill-extrusion',
- source: 'vit-buildings',
- layout: {
- 'visibility': is3dView ? 'visible' : 'none'
- },
- paint: {
- 'fill-extrusion-color': [
- 'case',
- ['==', ['get', 'building_id'], selectedBuildingId],
- '#00f0ff', // Electric Cyan Blue highlight for selected building!
- '#0284c7' // Cool Neutral Blue for all other campus buildings
- ],
- 'fill-extrusion-height': ['get', 'height_m'],
- 'fill-extrusion-base': 0,
- 'fill-extrusion-opacity': 0.85
- }
- });
- }
+    map.on('click', 'vit-buildings-3d', handleLayerClick);
+    map.on('click', 'vit-footprints-2d', handleLayerClick);
 
- // 6. Collision-Aware Building Text Labels Layer
- if (!map.getLayer('vit-building-labels')) {
- map.addLayer({
- id: 'vit-building-labels',
- type: 'symbol',
- source: 'vit-buildings',
- layout: {
- 'text-field': ['get', 'name'],
- 'text-size': 11.5,
- 'text-allow-overlap': false,
- 'text-ignore-placement': false,
- 'text-radial-offset': 0.5,
- 'text-justify': 'auto'
- },
- paint: {
- 'text-color': [
- 'case',
- ['==', ['get', 'building_id'], selectedBuildingId],
- '#00f0ff',
- '#ffffff'
- ],
- 'text-halo-color': '#050812',
- 'text-halo-width': 2.0
- }
- });
- }
+    const handlePointerMove = (e) => {
+      if (e.features && e.features.length > 0) {
+        map.getCanvas().style.cursor = 'pointer';
+        const props = e.features[0].properties;
+        setHoveredInfo(props);
+        onHoverBuilding(props.building_id);
+      } else {
+        map.getCanvas().style.cursor = '';
+        setHoveredInfo(null);
+        onHoverBuilding(null);
+      }
+    };
 
- // Interaction Handlers
- const handleLayerClick = (e) => {
- if (e.features && e.features.length > 0) {
- const props = e.features[0].properties;
- if (props.building_id) {
- onSelectBuilding(props.building_id);
- }
- }
- };
+    map.on('mousemove', 'vit-buildings-3d', handlePointerMove);
+    map.on('mouseleave', 'vit-buildings-3d', () => {
+      map.getCanvas().style.cursor = '';
+      setHoveredInfo(null);
+      onHoverBuilding(null);
+    });
+    map.on('mousemove', 'vit-footprints-2d', handlePointerMove);
+    map.on('mouseleave', 'vit-footprints-2d', () => {
+      map.getCanvas().style.cursor = '';
+      setHoveredInfo(null);
+      onHoverBuilding(null);
+    });
+  };
 
- map.on('click', 'vit-buildings-3d', handleLayerClick);
- map.on('click', 'vit-footprints-2d', handleLayerClick);
+  // Universal Selection & Camera Fly-To Function
+  const updateBuildingSelectionAndFlyTo = (map, selId, is3d, bList) => {
+    if (!map || !map.isStyleLoaded()) return;
 
- const handlePointerMove = (e) => {
- if (e.features && e.features.length > 0) {
- map.getCanvas().style.cursor = 'pointer';
- const props = e.features[0].properties;
- setHoveredInfo(props);
- onHoverBuilding(props.building_id);
- } else {
- map.getCanvas().style.cursor = '';
- setHoveredInfo(null);
- onHoverBuilding(null);
- }
- };
+    if (map.getLayer('vit-buildings-3d')) {
+      map.setLayoutProperty('vit-buildings-3d', 'visibility', is3d ? 'visible' : 'none');
+    }
 
- map.on('mousemove', 'vit-buildings-3d', handlePointerMove);
- map.on('mouseleave', 'vit-buildings-3d', () => {
- map.getCanvas().style.cursor = '';
- setHoveredInfo(null);
- onHoverBuilding(null);
- });
- map.on('mousemove', 'vit-footprints-2d', handlePointerMove);
- map.on('mouseleave', 'vit-footprints-2d', () => {
- map.getCanvas().style.cursor = '';
- setHoveredInfo(null);
- onHoverBuilding(null);
- });
- };
+    const selectedColor = ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#0284c7'];
+    const selectedOutlineColor = ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#38bdf8'];
 
- // Initialize Map with optimal 3D camera pitch & zoom
- useEffect(() => {
- if (!mapContainerRef.current) return;
+    if (map.getLayer('vit-buildings-3d')) {
+      map.setPaintProperty('vit-buildings-3d', 'fill-extrusion-color', selectedColor);
+    }
+    if (map.getLayer('vit-footprints-2d')) {
+      map.setPaintProperty('vit-footprints-2d', 'fill-color', selectedColor);
+      map.setPaintProperty('vit-footprints-2d', 'fill-opacity', ['case', ['==', ['get', 'building_id'], selId || ''], 0.15, 0.02]);
+    }
+    if (map.getLayer('vit-footprints-selected')) {
+      map.setPaintProperty('vit-footprints-selected', 'line-color', selectedOutlineColor);
+      map.setPaintProperty('vit-footprints-selected', 'line-width', ['case', ['==', ['get', 'building_id'], selId || ''], 3.0, 1.5]);
+    }
+    if (map.getLayer('vit-building-labels')) {
+      map.setPaintProperty('vit-building-labels', 'text-color', ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#ffffff']);
+    }
 
- const map = new maplibregl.Map({
- container: mapContainerRef.current,
- style: getStyleDefinition(mapStyle),
- center: [VIT_CENTER_LON, VIT_CENTER_LAT],
- zoom: 15.8,
- pitch: is3dView ? 50 : 0,
- bearing: -25,
- antialias: true
- });
+    if (!selId) return;
 
- mapRef.current = map;
- map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
+    const targetBuilding = bList.find(b => b.building_id === selId);
+    if (!targetBuilding) {
+      map.easeTo({
+        pitch: is3d ? 50 : 0,
+        bearing: is3d ? -25 : 0,
+        duration: 800
+      });
+      return;
+    }
 
- map.on('load', () => {
- setupMapLayers(map);
- updateBuildingSelectionAndFlyTo(map, selectedBuildingId, is3dView, buildings);
- });
+    // Extract all [lon, lat] points recursively for Polygon or MultiPolygon
+    let minLon = 180, maxLon = -180, minLat = 90, maxLat = -90;
+    let pointCount = 0;
 
- return () => {
- map.remove();
- };
- }, []);
+    const extractPoints = (arr) => {
+      if (!Array.isArray(arr) || arr.length === 0) return;
+      if (typeof arr[0] === 'number' && typeof arr[1] === 'number') {
+        const [lon, lat] = arr;
+        if (lon < minLon) minLon = lon;
+        if (lon > maxLon) maxLon = lon;
+        if (lat < minLat) minLat = lat;
+        if (lat > maxLat) maxLat = lat;
+        pointCount++;
+      } else {
+        arr.forEach(item => extractPoints(item));
+      }
+    };
 
- // Universal Selection & Camera Fly-To Function
- const updateBuildingSelectionAndFlyTo = (map, selId, is3d, bList) => {
- if (!map || !map.isStyleLoaded()) return;
+    if (targetBuilding.geometry && targetBuilding.geometry.coordinates) {
+      extractPoints(targetBuilding.geometry.coordinates);
+    }
 
- if (map.getLayer('vit-buildings-3d')) {
- map.setLayoutProperty('vit-buildings-3d', 'visibility', is3d ? 'visible' : 'none');
- }
+    if (pointCount > 0 && minLon <= maxLon && minLat <= maxLat) {
+      const dLon = Math.abs(maxLon - minLon);
+      const dLat = Math.abs(maxLat - minLat);
 
- const selectedColor = ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#0284c7'];
- const selectedOutlineColor = ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#38bdf8'];
+      if (dLon > 0.0001 && dLat > 0.0001) {
+        map.fitBounds([
+          [minLon, minLat],
+          [maxLon, maxLat]
+        ], {
+          padding: { top: 90, bottom: 90, left: 320, right: 360 },
+          pitch: is3d ? 50 : 0,
+          bearing: is3d ? -25 : 0,
+          duration: 1000,
+          maxZoom: 17.6
+        });
+      } else {
+        const centerLon = (minLon + maxLon) / 2;
+        const centerLat = (minLat + maxLat) / 2;
+        map.flyTo({
+          center: [centerLon, centerLat],
+          zoom: 17.2,
+          pitch: is3d ? 50 : 0,
+          bearing: is3d ? -25 : 0,
+          duration: 1000,
+          essential: true
+        });
+      }
+    } else if (targetBuilding.centroid_lat && targetBuilding.centroid_lon) {
+      map.flyTo({
+        center: [targetBuilding.centroid_lon, targetBuilding.centroid_lat],
+        zoom: 17.2,
+        pitch: is3d ? 50 : 0,
+        bearing: is3d ? -25 : 0,
+        duration: 1000,
+        essential: true
+      });
+    }
+  };
 
- if (map.getLayer('vit-buildings-3d')) {
- map.setPaintProperty('vit-buildings-3d', 'fill-extrusion-color', selectedColor);
- }
- if (map.getLayer('vit-footprints-2d')) {
- map.setPaintProperty('vit-footprints-2d', 'fill-color', selectedColor);
- map.setPaintProperty('vit-footprints-2d', 'fill-opacity', ['case', ['==', ['get', 'building_id'], selId || ''], 0.95, 0.45]);
- }
- if (map.getLayer('vit-footprints-selected')) {
- map.setPaintProperty('vit-footprints-selected', 'line-color', selectedOutlineColor);
- map.setPaintProperty('vit-footprints-selected', 'line-width', ['case', ['==', ['get', 'building_id'], selId || ''], 4.0, 1.5]);
- }
- if (map.getLayer('vit-building-labels')) {
- map.setPaintProperty('vit-building-labels', 'text-color', ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#ffffff']);
- }
+  // Initialize Map with optimal 3D camera pitch & zoom
+  useEffect(() => {
+    if (!mapContainerRef.current) return;
 
- if (!selId) return;
+    const map = new maplibregl.Map({
+      container: mapContainerRef.current,
+      style: getStyleDefinition(mapStyle),
+      center: [VIT_CENTER_LON, VIT_CENTER_LAT],
+      zoom: 15.8,
+      pitch: is3dView ? 50 : 0,
+      bearing: -25,
+      antialias: true
+    });
 
- const targetBuilding = bList.find(b => b.building_id === selId);
- if (!targetBuilding) {
- map.easeTo({
- pitch: is3d ? 50 : 0,
- bearing: is3d ? -25 : 0,
- duration: 800
- });
- return;
- }
+    mapRef.current = map;
+    map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
 
- // Extract all [lon, lat] points recursively for Polygon or MultiPolygon
- let minLon = 180, maxLon = -180, minLat = 90, maxLat = -90;
- let pointCount = 0;
+    map.on('load', () => {
+      setupMapLayers(map);
+      updateBuildingSelectionAndFlyTo(map, selectedBuildingId, is3dView, buildings);
+    });
 
- const extractPoints = (arr) => {
- if (!Array.isArray(arr) || arr.length === 0) return;
- if (typeof arr[0] === 'number' && typeof arr[1] === 'number') {
- const [lon, lat] = arr;
- if (lon < minLon) minLon = lon;
- if (lon > maxLon) maxLon = lon;
- if (lat < minLat) minLat = lat;
- if (lat > maxLat) maxLat = lat;
- pointCount++;
- } else {
- arr.forEach(item => extractPoints(item));
- }
- };
+    return () => {
+      map.remove();
+    };
+  }, []);
 
- if (targetBuilding.geometry && targetBuilding.geometry.coordinates) {
- extractPoints(targetBuilding.geometry.coordinates);
- }
+  // Handle Basemap Style Switch
+  const handleStyleChange = (newStyle) => {
+    if (newStyle === mapStyle) return;
+    setMapStyle(newStyle);
+    const map = mapRef.current;
+    if (map) {
+      map.setStyle(getStyleDefinition(newStyle));
+      map.once('style.load', () => {
+        setupMapLayers(map);
+        updateBuildingSelectionAndFlyTo(map, selectedBuildingId, is3dView, buildings);
+      });
+    }
+  };
 
- if (pointCount > 0 && minLon <= maxLon && minLat <= maxLat) {
- const dLon = Math.abs(maxLon - minLon);
- const dLat = Math.abs(maxLat - minLat);
+  // Update Data Sources dynamically whenever buildings or routes props change
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !map.isStyleLoaded()) return;
 
- if (dLon > 0.0001 && dLat > 0.0001) {
- map.fitBounds([
- [minLon, minLat],
- [maxLon, maxLat]
- ], {
- padding: { top: 90, bottom: 90, left: 320, right: 360 },
- pitch: is3d ? 50 : 0,
- bearing: is3d ? -25 : 0,
- duration: 1000,
- maxZoom: 17.6
- });
- } else {
- const centerLon = (minLon + maxLon) / 2;
- const centerLat = (minLat + maxLat) / 2;
- map.flyTo({
- center: [centerLon, centerLat],
- zoom: 17.2,
- pitch: is3d ? 50 : 0,
- bearing: is3d ? -25 : 0,
- duration: 1000,
- essential: true
- });
- }
- } else if (targetBuilding.centroid_lat && targetBuilding.centroid_lon) {
- map.flyTo({
- center: [targetBuilding.centroid_lon, targetBuilding.centroid_lat],
- zoom: 17.2,
- pitch: is3d ? 50 : 0,
- bearing: is3d ? -25 : 0,
- duration: 1000,
- essential: true
- });
- }
- };
+    const source = map.getSource('vit-buildings');
+    if (source) {
+      source.setData(getBuildingsGeoJson(buildings));
+    }
 
- // Handle Basemap Style Switch
- const handleStyleChange = (newStyle) => {
- if (newStyle === mapStyle) return;
- setMapStyle(newStyle);
- const map = mapRef.current;
- if (map) {
- map.setStyle(getStyleDefinition(newStyle));
- map.once('style.load', () => {
- setupMapLayers(map);
- updateBuildingSelectionAndFlyTo(map, selectedBuildingId, is3dView, buildings);
- });
- }
- };
+    if (routes) {
+      const routesSource = map.getSource('vit-routes');
+      if (routesSource) {
+        routesSource.setData(routes);
+      }
+    }
+  }, [buildings, routes]);
 
- // Update Data Sources dynamically whenever buildings or routes props change
- useEffect(() => {
- const map = mapRef.current;
- if (!map || !map.isStyleLoaded()) return;
+  // Update Selection, Highlighting & Camera Fly-To on prop change
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !map.isStyleLoaded()) return;
+    updateBuildingSelectionAndFlyTo(map, selectedBuildingId, is3dView, buildings);
+  }, [selectedBuildingId, is3dView, buildings]);
 
- const source = map.getSource('vit-buildings');
- if (source) {
- source.setData(getBuildingsGeoJson(buildings));
- }
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
+      {/* Mapbox / MapLibre Canvas Container */}
+      <div ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
 
- if (routes) {
- const routesSource = map.getSource('vit-routes');
- if (routesSource) {
- routesSource.setData(routes);
- }
- }
- }, [buildings, routes]);
+      {/* Floating Basemap Style Switcher */}
+      <div style={{
+        position: 'absolute',
+        top: '16px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 10,
+        display: 'flex',
+        background: 'rgba(10, 16, 32, 0.92)',
+        border: '1px solid rgba(56, 189, 248, 0.3)',
+        borderRadius: '8px',
+        padding: '3px',
+        backdropFilter: 'blur(8px)'
+      }}>
+        <button
+          onClick={() => handleStyleChange('mapbox-dark')}
+          style={{
+            background: mapStyle === 'mapbox-dark' ? '#0284c7' : 'transparent',
+            border: 'none',
+            color: mapStyle === 'mapbox-dark' ? '#fff' : '#94a3b8',
+            padding: '5px 14px',
+            borderRadius: '6px',
+            fontSize: '11px',
+            fontWeight: '700',
+            cursor: 'pointer'
+          }}
+        >
+          Dark Map
+        </button>
+        <button
+          onClick={() => handleStyleChange('mapbox-satellite')}
+          style={{
+            background: mapStyle === 'mapbox-satellite' ? '#10b981' : 'transparent',
+            border: 'none',
+            color: mapStyle === 'mapbox-satellite' ? '#fff' : '#94a3b8',
+            padding: '5px 14px',
+            borderRadius: '6px',
+            fontSize: '11px',
+            fontWeight: '700',
+            cursor: 'pointer'
+          }}
+        >
+          Satellite 3D
+        </button>
+      </div>
 
- // Update Selection, Cyan Highlighting & Camera Fly-To on prop change
- useEffect(() => {
- const map = mapRef.current;
- if (!map || !map.isStyleLoaded()) return;
- updateBuildingSelectionAndFlyTo(map, selectedBuildingId, is3dView, buildings);
- }, [selectedBuildingId, is3dView, buildings]);
-
-
- return (
- <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
- {/* Mapbox / MapLibre Canvas Container */}
- <div ref={mapContainerRef} style={{ width: '100%', height: '100%' }} />
-
- {/* Floating Basemap Style Switcher */}
- <div style={{
- position: 'absolute',
- top: '16px',
- left: '50%',
- transform: 'translateX(-50%)',
- zIndex: 10,
- display: 'flex',
- background: 'rgba(10, 16, 32, 0.92)',
- border: '1px solid rgba(56, 189, 248, 0.3)',
- borderRadius: '8px',
- padding: '3px',
- backdropFilter: 'blur(8px)'
- }}>
- <button
- onClick={() => handleStyleChange('mapbox-dark')}
- style={{
- background: mapStyle === 'mapbox-dark' ? '#0284c7' : 'transparent',
- border: 'none',
- color: mapStyle === 'mapbox-dark' ? '#fff' : '#94a3b8',
- padding: '5px 14px',
- borderRadius: '6px',
- fontSize: '11px',
- fontWeight: '700',
- cursor: 'pointer'
- }}
- >
- Dark Map
- </button>
- <button
- onClick={() => handleStyleChange('mapbox-satellite')}
- style={{
- background: mapStyle === 'mapbox-satellite' ? '#10b981' : 'transparent',
- border: 'none',
- color: mapStyle === 'mapbox-satellite' ? '#fff' : '#94a3b8',
- padding: '5px 14px',
- borderRadius: '6px',
- fontSize: '11px',
- fontWeight: '700',
- cursor: 'pointer'
- }}
- >
- Satellite 3D
- </button>
- </div>
-
- {/* Hover Info Tooltip */}
- {hoveredInfo && (
- <div style={{
- position: 'absolute',
- bottom: '24px',
- left: '50%',
- transform: 'translateX(-50%)',
- background: 'rgba(10, 16, 32, 0.95)',
- border: '1.5px solid #38bdf8',
- boxShadow: '0 0 25px rgba(56, 189, 248, 0.5)',
- padding: '8px 20px',
- borderRadius: '9999px',
- color: '#fff',
- fontSize: '13px',
- fontWeight: 700,
- pointerEvents: 'none',
- zIndex: 50,
- backdropFilter: 'blur(10px)',
- display: 'flex',
- alignItems: 'center',
- gap: '12px'
- }}>
- <span style={{ color: '#38bdf8' }}> {hoveredInfo.name}</span>
- <span style={{ color: '#94a3b8', fontSize: '11px', fontFamily: 'var(--font-mono)' }}>({hoveredInfo.building_id})</span>
- <span style={{ color: '#fbbf24', fontSize: '11.5px' }}>• {hoveredInfo.area_m2 ? `${hoveredInfo.area_m2.toLocaleString()} m²` : ''}</span>
- <span style={{ color: '#34d399', fontSize: '11.5px' }}>• Height: {hoveredInfo.height_m}m</span>
- </div>
- )}
- </div>
- );
+      {/* Hover Info Tooltip */}
+      {hoveredInfo && (
+        <div style={{
+          position: 'absolute',
+          bottom: '24px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'rgba(10, 16, 32, 0.95)',
+          border: '1.5px solid #38bdf8',
+          boxShadow: '0 0 25px rgba(56, 189, 248, 0.5)',
+          padding: '8px 20px',
+          borderRadius: '9999px',
+          color: '#fff',
+          fontSize: '13px',
+          fontWeight: 700,
+          pointerEvents: 'none',
+          zIndex: 50,
+          backdropFilter: 'blur(10px)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '12px'
+        }}>
+          <span style={{ color: '#38bdf8' }}>{hoveredInfo.name}</span>
+          <span style={{ color: '#94a3b8', fontSize: '11px', fontFamily: 'var(--font-mono)' }}>({hoveredInfo.building_id})</span>
+          <span style={{ color: '#fbbf24', fontSize: '11.5px' }}>• {hoveredInfo.area_m2 ? `${hoveredInfo.area_m2.toLocaleString()} m²` : ''}</span>
+          <span style={{ color: '#34d399', fontSize: '11.5px' }}>• Height: {hoveredInfo.height_m}m</span>
+        </div>
+      )}
+    </div>
+  );
 }
