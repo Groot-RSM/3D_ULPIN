@@ -356,12 +356,10 @@ class ShapelyFloorSubdivisionEngine:
 
         perimeter_space = poly.difference(core_box)
 
-        # Slice perimeter into 4 to 6 perimeter rooms
+        # Slice perimeter cleanly into perimeter rooms with full crossing lines
         cutters = [
-            LineString([(center_x, center_y + core_h / 2), (center_x, maxy + 10)]),
-            LineString([(center_x, center_y - core_h / 2), (center_x, miny - 10)]),
-            LineString([(center_x + core_w / 2, center_y), (maxx + 10, center_y)]),
-            LineString([(center_x - core_w / 2, center_y), (minx - 10, center_y)])
+            LineString([(center_x, miny - 20), (center_x, maxy + 20)]),
+            LineString([(minx - 20, center_y), (maxx + 20, center_y)])
         ]
 
         rooms = split_polygon_by_lines(perimeter_space, cutters)
