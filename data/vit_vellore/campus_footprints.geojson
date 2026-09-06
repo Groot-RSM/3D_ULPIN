@@ -924,9 +924,9 @@
         "building_id": "VIT-B008",
         "name": "CDMM - Centre for Disaster Mitigation and Management",
         "name_confirmed": true,
-        "centroid_lat": 12.96935,
-        "centroid_lon": 79.15465,
-        "area_m2": 1512.0,
+        "centroid_lat": 12.96898,
+        "centroid_lon": 79.15498,
+        "area_m2": 1476.0,
         "height_m": 16.0,
         "height_source": "ESTIMATED_SURVEY",
         "osm_id": "osm_vit_b008",
@@ -951,24 +951,24 @@
         "coordinates": [
           [
             [
-              79.1542551,
-              12.969377
+              79.1546028,
+              12.968896
             ],
             [
-              79.1549989,
-              12.9691667
+              79.1553584,
+              12.9689013
             ],
             [
-              79.1550449,
-              12.969323
+              79.1553572,
+              12.969064
             ],
             [
-              79.1543011,
-              12.9695333
+              79.1546016,
+              12.9690587
             ],
             [
-              79.1542551,
-              12.969377
+              79.1546028,
+              12.968896
             ]
           ]
         ]
