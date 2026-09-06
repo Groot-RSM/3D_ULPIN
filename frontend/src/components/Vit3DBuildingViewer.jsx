@@ -514,48 +514,6 @@ export default function Vit3DBuildingViewer({
  </div>
 
  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
- {/* View Mode Toggle */}
- <div style={{ display: 'flex', background: '#0f172a', padding: '3px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }}>
- <button
- onClick={() => setViewMode('3d')}
- style={{
- background: viewMode === '3d' ? 'linear-gradient(135deg, #0284c7, #38bdf8)' : 'transparent',
- border: 'none',
- color: viewMode === '3d' ? '#fff' : '#94a3b8',
- padding: '5px 12px',
- borderRadius: '6px',
- fontSize: '11px',
- fontWeight: '700',
- cursor: 'pointer',
- display: 'flex',
- alignItems: 'center',
- gap: '5px'
- }}
- >
- <Eye size={13} />
- 3D Slices
- </button>
- <button
- onClick={() => setViewMode('2d')}
- style={{
- background: viewMode === '2d' ? 'linear-gradient(135deg, #0284c7, #38bdf8)' : 'transparent',
- border: 'none',
- color: viewMode === '2d' ? '#fff' : '#94a3b8',
- padding: '5px 12px',
- borderRadius: '6px',
- fontSize: '11px',
- fontWeight: '700',
- cursor: 'pointer',
- display: 'flex',
- alignItems: 'center',
- gap: '5px'
- }}
- >
- <LayoutGrid size={13} />
- 2D Blueprint
- </button>
- </div>
-
  <button
  onClick={onClose}
  style={{
@@ -877,20 +835,6 @@ export default function Vit3DBuildingViewer({
  </div>
 
  <div style={{ display: 'flex', justifyContent: 'space-between' }}>
- <span style={{ color: '#94a3b8' }}>Strategy:</span>
- <span style={{ color: '#38bdf8', fontWeight: '700' }}>
- {floorPlanData.layout_strategy?.strategy || 'CORRIDOR_BILATERAL'}
-</span>
- </div>
-
- <div style={{ display: 'flex', justifyContent: 'space-between' }}>
- <span style={{ color: '#94a3b8' }}>Theme:</span>
- <span style={{ color: '#fff', fontSize: '10.5px' }}>
- {floorPlanData.layout_strategy?.functional_theme || 'Academic Labs & Classrooms'}
-</span>
- </div>
-
- <div style={{ display: 'flex', justifyContent: 'space-between' }}>
  <span style={{ color: '#94a3b8' }}>Units Count:</span>
  <span style={{ color: '#34d399', fontWeight: '700' }}>
  {floorPlanData.rooms?.length || 0} Sub-Parcels
@@ -936,11 +880,6 @@ export default function Vit3DBuildingViewer({
  <span className="detail-value-text" style={{ color: '#34d399', fontWeight: '800' }}>
  {(building?.area_m2 * (building?.height_m || 24)).toLocaleString()} m³
 </span>
- </div>
-
- <div className="detail-row-aligned">
- <span className="detail-label-text">Authoritative</span>
- <span className="detail-value-text" style={{ color: '#f87171' }}>NO (AI_PROPOSED)</span>
  </div>
 
  <div style={{ marginTop: 'auto', background: 'rgba(52, 211, 153, 0.12)', border: '1px solid #34d399', padding: '10px', borderRadius: '8px', fontSize: '11px', color: '#34d399', display: 'flex', alignItems: 'center', gap: '6px' }}>

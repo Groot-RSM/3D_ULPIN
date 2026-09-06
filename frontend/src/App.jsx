@@ -48,208 +48,106 @@ export default function App() {
  const hasSubterranean = Boolean(selectedBuilding?.has_subterranean || selectedBuilding?.building_id === 'VIT-B001');
  const hasConflict = Boolean(rec && (rec.agreement_status === 'SOURCE_CONFLICT' || rec.review_required));
 
- const steps = [
- { id: 1, label: '3D Campus View', isAvailable: true },
- { id: 2, label: '2D GIS Footprints', isAvailable: true },
- { id: 3, label: 'Exploded Floor Slices', isAvailable: true },
- { id: 4, label: '3D Property Sub-Parcels', isAvailable: true },
- { id: 5, label: 'Subterranean Basements', isAvailable: hasSubterranean, badge: hasSubterranean ? 'Demo' : 'No Data' },
- { id: 6, label: 'Topology & Conflict Audit', isAvailable: true, badge: 'Certified' }
- ];
+  const handleToggle3D = () => {
+    setIs3dModalOpen(true);
+  };
 
- const handleStepClick = (step) => {
- if (step.id === 1) {
- setActiveStep(1);
- setIs3dView(true);
- } else if (step.id === 2) {
- setActiveStep(2);
- setIs3dView(false);
- } else if (step.id === 3 || step.id === 4) {
- setActiveStep(step.id);
- setIs3dModalOpen(true);
- } else if (step.id === 5) {
- setActiveStep(5);
- if (step.isAvailable) {
- setIs3dModalOpen(true);
- } else {
- alert("Subterranean records unavailable for this building.");
- }
- } else if (step.id === 6) {
- setActiveStep(6);
- setIs3dModalOpen(true);
- }
- };
+  const handleSelectBuilding = (buildingId, activate3d = true) => {
+    setSelectedBuildingId(buildingId);
+    if (activate3d) {
+      setIs3dView(true);
+    }
+  };
 
- const handleToggle3D = () => {
- setIs3dModalOpen(true);
- };
+  const handleToggleMap3D = () => {
+    setIs3dView(!is3dView);
+  };
 
- const handleSelectBuilding = (buildingId, activate3d = true) => {
- setSelectedBuildingId(buildingId);
- if (activate3d) {
- setIs3dView(true);
- setActiveStep(1);
- }
- };
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100vw', height: '100vh', background: '#050812', overflow: 'hidden' }}>
+      
+      {/* TOP HEADER BAR */}
+      <header style={{
+        height: '60px',
+        background: 'rgba(10, 16, 32, 0.95)',
+        borderBottom: '1px solid rgba(56, 189, 248, 0.25)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 24px',
+        zIndex: 100
+      }}>
+        {/* Left: Brand Title & Campus Subtitle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <div>
+            <span style={{ fontSize: '18px', fontWeight: '900', color: '#f59e0b', letterSpacing: '0.5px' }}>3D ULPIN</span>
+            <span style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', marginLeft: '6px' }}>| VIT Vellore Campus</span>
+          </div>
 
- const handleToggleMap3D = () => {
- const next3d = !is3dView;
- setIs3dView(next3d);
- setActiveStep(next3d ? 1 : 2);
- };
+          <div style={{ fontSize: '11.5px', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <span>3D Cadastral Volumetric Parcels (Vellore, Tamil Nadu, India)</span>
+          </div>
+        </div>
 
- return (
- <div style={{ display: 'flex', flexDirection: 'column', width: '100vw', height: '100vh', background: '#050812', overflow: 'hidden' }}>
- 
- {/* TOP HEADER BAR */}
- <header style={{
- height: '60px',
- background: 'rgba(10, 16, 32, 0.95)',
- borderBottom: '1px solid rgba(56, 189, 248, 0.25)',
- display: 'flex',
- alignItems: 'center',
- justifyContent: 'space-between',
- padding: '0 24px',
- zIndex: 100
- }}>
- {/* Left: Brand Title & Campus Subtitle */}
- <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
- <div>
- <span style={{ fontSize: '18px', fontWeight: '900', color: '#f59e0b', letterSpacing: '0.5px' }}>3D ULPIN</span>
- <span style={{ fontSize: '18px', fontWeight: '800', color: '#ffffff', marginLeft: '6px' }}>| VIT Vellore Campus</span>
- </div>
+        {/* Right Capsules & Control Toggle */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <div className="header-capsule-gold">
+            <span>Lat: 12.96920° N | Lon: 79.15600° E</span>
+          </div>
 
- <div style={{ fontSize: '11.5px', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '6px' }}>
- <span>Real-Time 3D Cadastral Spatial Mapping (Vellore, Tamil Nadu, India)</span>
- </div>
- </div>
+          <div className="header-capsule-cyan">
+            <span>EPSG:4326 | EPSG:32644 (UTM 44N)</span>
+          </div>
 
- {/* Right Capsules & Control Toggle */}
- <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
- <div className="header-capsule-gold">
- <span></span>
- <span>Lat: 12.96920° N | Lon: 79.15600° E</span>
- </div>
+          <div style={{
+            background: 'rgba(16, 185, 129, 0.15)',
+            border: '1px solid rgba(16, 185, 129, 0.4)',
+            color: '#34d399',
+            padding: '4px 10px',
+            borderRadius: '9999px',
+            fontSize: '11px',
+            fontWeight: '700',
+            letterSpacing: '0.5px'
+          }}>
+            3D CADASTRAL REGISTRY
+          </div>
+        </div>
+      </header>
 
- <div className="header-capsule-cyan">
- <span></span>
- <span>EPSG:4326 | EPSG:32644 (UTM 44N)</span>
- </div>
+      {/* CENTER VIEWPORT & FLOATING PANELS */}
+      <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+        
+        {/* 3D WebGL / GIS Canvas */}
+        <VitCampusMap
+          buildings={buildings}
+          routes={routes}
+          selectedBuildingId={selectedBuildingId}
+          onSelectBuilding={(id) => handleSelectBuilding(id, true)}
+          hoveredBuildingId={hoveredBuildingId}
+          onHoverBuilding={setHoveredBuildingId}
+          is3dView={true}
+        />
 
- <div style={{
- background: 'rgba(16, 185, 129, 0.15)',
- border: '1px solid rgba(16, 185, 129, 0.4)',
- color: '#34d399',
- padding: '4px 10px',
- borderRadius: '9999px',
- fontSize: '11px',
- fontWeight: '700',
- letterSpacing: '0.5px'
- }}>
- PHASE 1 — 3D CAMPUS MAPPING
- </div>
+        {/* LEFT FLOATING PANEL: VIT BUILDING SEARCH & LIST */}
+        <div className="left-floor-card">
+          <VitBuildingList
+            buildings={buildings}
+            selectedBuildingId={selectedBuildingId}
+            onSelectBuilding={(id) => handleSelectBuilding(id, true)}
+          />
+        </div>
 
- {/* 2D / 3D Mode Switcher */}
- <div style={{ display: 'flex', background: '#070b14', border: '1px solid #334155', borderRadius: '8px', padding: '2px', marginLeft: '8px' }}>
- <button
- onClick={() => { setIs3dView(true); setActiveStep(1); }}
- style={{
- background: is3dView ? '#f59e0b' : 'transparent',
- border: 'none',
- color: is3dView ? '#000' : '#94a3b8',
- padding: '4px 12px',
- borderRadius: '6px',
- fontSize: '11px',
- fontWeight: '700',
- cursor: 'pointer'
- }}
- >
- 3D Campus View
- </button>
- <button
- onClick={() => { setIs3dView(false); setActiveStep(2); }}
- style={{
- background: !is3dView ? '#0284c7' : 'transparent',
- border: 'none',
- color: !is3dView ? '#fff' : '#94a3b8',
- padding: '4px 12px',
- borderRadius: '6px',
- fontSize: '11px',
- fontWeight: '700',
- cursor: 'pointer'
- }}
- >
- 2D GIS Map
- </button>
- </div>
- </div>
- </header>
+        {/* RIGHT FLOATING PANEL: SINGLE-CARD BUILDING DETAILS INSPECTOR */}
+        <div className="right-details-card">
+          <VitBuildingDetails
+            building={selectedBuilding}
+            is3dView={true}
+            onToggle3dView={handleToggle3D}
+            onToggleMap3D={handleToggleMap3D}
+          />
+        </div>
 
- {/* CENTER VIEWPORT & FLOATING PANELS */}
- <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
- 
- {/* 3D WebGL / GIS Canvas */}
- <VitCampusMap
- buildings={buildings}
- routes={routes}
- selectedBuildingId={selectedBuildingId}
- onSelectBuilding={(id) => handleSelectBuilding(id, true)}
- hoveredBuildingId={hoveredBuildingId}
- onHoverBuilding={setHoveredBuildingId}
- is3dView={is3dView}
- />
-
- {/* LEFT FLOATING PANEL: VIT BUILDING SEARCH & LIST */}
- <div className="left-floor-card">
- <VitBuildingList
- buildings={buildings}
- selectedBuildingId={selectedBuildingId}
- onSelectBuilding={(id) => handleSelectBuilding(id, true)}
- />
- </div>
-
- {/* RIGHT FLOATING PANEL: SINGLE-CARD BUILDING DETAILS INSPECTOR */}
- <div className="right-details-card">
- <VitBuildingDetails
- building={selectedBuilding}
- is3dView={is3dView}
- onToggle3dView={handleToggle3D}
- onToggleMap3D={handleToggleMap3D}
- />
- </div>
-
- {/* FLOATING BOTTOM STEP NAVIGATION BAR */}
- <div className="bottom-step-bar-container">
- {steps.map(s => {
- const isActive = activeStep === s.id;
- const isAvail = s.isAvailable;
-
- return (
- <button
- key={s.id}
- onClick={() => handleStepClick(s)}
- className={`step-item ${isActive ? 'active-step' : ''}`}
- style={{
- opacity: isAvail ? 1 : 0.65,
- cursor: 'pointer'
- }}
- title={s.label}
- >
- <div className="step-number" style={{ background: !isAvail ? 'rgba(255,255,255,0.05)' : undefined }}>
- {s.id}
- </div>
- <span>{s.label}</span>
- {s.badge && (
- <span style={{ fontSize: '9px', background: 'rgba(255,255,255,0.08)', color: '#94a3b8', padding: '1px 5px', borderRadius: '4px', marginLeft: '2px' }}>
- {s.badge}
-</span>
- )}
- </button>
- );
- })}
- </div>
-
- </div>
+      </div>
 
  {/* ISOLATED 3D BUILDING INSPECTOR MODAL */}
  {is3dModalOpen && selectedBuilding && (
