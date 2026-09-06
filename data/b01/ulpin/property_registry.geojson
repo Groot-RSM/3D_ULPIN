@@ -1,0 +1,900 @@
+{
+  "type": "FeatureCollection",
+  "name": "3D_ULPIN_Property_Registry_2D",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F01-U101",
+        "entity_type": "residential_unit",
+        "unit_id": "U101",
+        "level": 1,
+        "z_min": 15.0,
+        "z_max": 18.0,
+        "height": 3.0,
+        "area_m2": 88.9,
+        "volume_m3": 266.71,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "40b780f9f1375afe",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21229449973494,
+              13.118101960647612
+            ],
+            [
+              80.21229143355691,
+              13.118200497087242
+            ],
+            [
+              80.21236727851269,
+              13.118202740778516
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F01-U102",
+        "entity_type": "residential_unit",
+        "unit_id": "U102",
+        "level": 1,
+        "z_min": 15.0,
+        "z_max": 18.0,
+        "height": 3.0,
+        "area_m2": 87.07,
+        "volume_m3": 261.21,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "10fd16a3d0b03d7e",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21236727851269,
+              13.118202740778516
+            ],
+            [
+              80.21243738798182,
+              13.11820481477929
+            ],
+            [
+              80.21244058197246,
+              13.11810240739014
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F01-U103",
+        "entity_type": "residential_unit",
+        "unit_id": "U103",
+        "level": 1,
+        "z_min": 15.0,
+        "z_max": 18.0,
+        "height": 3.0,
+        "area_m2": 87.71,
+        "volume_m3": 263.14,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "7da49cddf923efbc",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.2123679239197,
+              13.118000000010344
+            ],
+            [
+              80.2122976724597,
+              13.118
+            ],
+            [
+              80.21229449973494,
+              13.118101960647612
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F01-U104",
+        "entity_type": "residential_unit",
+        "unit_id": "U104",
+        "level": 1,
+        "z_min": 15.0,
+        "z_max": 18.0,
+        "height": 3.0,
+        "area_m2": 91.27,
+        "volume_m3": 273.8,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "3b085f9076f6a155",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21244058197246,
+              13.11810240739014
+            ],
+            [
+              80.21244377595794,
+              13.117999999999997
+            ],
+            [
+              80.2123679239197,
+              13.118000000010344
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F02-U201",
+        "entity_type": "residential_unit",
+        "unit_id": "U201",
+        "level": 2,
+        "z_min": 18.0,
+        "z_max": 21.0,
+        "height": 3.0,
+        "area_m2": 88.9,
+        "volume_m3": 266.71,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "da159fb060be932c",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21229449973494,
+              13.118101960647612
+            ],
+            [
+              80.21229143355691,
+              13.118200497087242
+            ],
+            [
+              80.21236727851269,
+              13.118202740778516
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F02-U202",
+        "entity_type": "residential_unit",
+        "unit_id": "U202",
+        "level": 2,
+        "z_min": 18.0,
+        "z_max": 21.0,
+        "height": 3.0,
+        "area_m2": 87.07,
+        "volume_m3": 261.21,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "1389722a04403bbd",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21236727851269,
+              13.118202740778516
+            ],
+            [
+              80.21243738798182,
+              13.11820481477929
+            ],
+            [
+              80.21244058197246,
+              13.11810240739014
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F02-U203",
+        "entity_type": "residential_unit",
+        "unit_id": "U203",
+        "level": 2,
+        "z_min": 18.0,
+        "z_max": 21.0,
+        "height": 3.0,
+        "area_m2": 87.71,
+        "volume_m3": 263.14,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "bdaf68f867b26ae6",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.2123679239197,
+              13.118000000010344
+            ],
+            [
+              80.2122976724597,
+              13.118
+            ],
+            [
+              80.21229449973494,
+              13.118101960647612
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F02-U204",
+        "entity_type": "residential_unit",
+        "unit_id": "U204",
+        "level": 2,
+        "z_min": 18.0,
+        "z_max": 21.0,
+        "height": 3.0,
+        "area_m2": 91.27,
+        "volume_m3": 273.8,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "a62fbb81b3e313f2",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21244058197246,
+              13.11810240739014
+            ],
+            [
+              80.21244377595794,
+              13.117999999999997
+            ],
+            [
+              80.2123679239197,
+              13.118000000010344
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F03-U301",
+        "entity_type": "residential_unit",
+        "unit_id": "U301",
+        "level": 3,
+        "z_min": 21.0,
+        "z_max": 24.0,
+        "height": 3.0,
+        "area_m2": 88.9,
+        "volume_m3": 266.71,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "476ad6338b753863",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21229449973494,
+              13.118101960647612
+            ],
+            [
+              80.21229143355691,
+              13.118200497087242
+            ],
+            [
+              80.21236727851269,
+              13.118202740778516
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F03-U302",
+        "entity_type": "residential_unit",
+        "unit_id": "U302",
+        "level": 3,
+        "z_min": 21.0,
+        "z_max": 24.0,
+        "height": 3.0,
+        "area_m2": 87.07,
+        "volume_m3": 261.21,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "140c85e1b82c4710",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21236727851269,
+              13.118202740778516
+            ],
+            [
+              80.21243738798182,
+              13.11820481477929
+            ],
+            [
+              80.21244058197246,
+              13.11810240739014
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F03-U303",
+        "entity_type": "residential_unit",
+        "unit_id": "U303",
+        "level": 3,
+        "z_min": 21.0,
+        "z_max": 24.0,
+        "height": 3.0,
+        "area_m2": 87.71,
+        "volume_m3": 263.14,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "b9da8cdb55eccc9f",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.2123679239197,
+              13.118000000010344
+            ],
+            [
+              80.2122976724597,
+              13.118
+            ],
+            [
+              80.21229449973494,
+              13.118101960647612
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F03-U304",
+        "entity_type": "residential_unit",
+        "unit_id": "U304",
+        "level": 3,
+        "z_min": 21.0,
+        "z_max": 24.0,
+        "height": 3.0,
+        "area_m2": 91.27,
+        "volume_m3": 273.8,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "a61508877c15d2f4",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21244058197246,
+              13.11810240739014
+            ],
+            [
+              80.21244377595794,
+              13.117999999999997
+            ],
+            [
+              80.2123679239197,
+              13.118000000010344
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F04-U401",
+        "entity_type": "residential_unit",
+        "unit_id": "U401",
+        "level": 4,
+        "z_min": 24.0,
+        "z_max": 27.0,
+        "height": 3.0,
+        "area_m2": 88.9,
+        "volume_m3": 266.71,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "6d5a0ab48b747ce7",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21229449973494,
+              13.118101960647612
+            ],
+            [
+              80.21229143355691,
+              13.118200497087242
+            ],
+            [
+              80.21236727851269,
+              13.118202740778516
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F04-U402",
+        "entity_type": "residential_unit",
+        "unit_id": "U402",
+        "level": 4,
+        "z_min": 24.0,
+        "z_max": 27.0,
+        "height": 3.0,
+        "area_m2": 87.07,
+        "volume_m3": 261.21,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "a126f8f70de900e2",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21236727851269,
+              13.118202740778516
+            ],
+            [
+              80.21243738798182,
+              13.11820481477929
+            ],
+            [
+              80.21244058197246,
+              13.11810240739014
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F04-U403",
+        "entity_type": "residential_unit",
+        "unit_id": "U403",
+        "level": 4,
+        "z_min": 24.0,
+        "z_max": 27.0,
+        "height": 3.0,
+        "area_m2": 87.71,
+        "volume_m3": 263.14,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "4bd1132431948f72",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.2123679239197,
+              13.118000000010344
+            ],
+            [
+              80.2122976724597,
+              13.118
+            ],
+            [
+              80.21229449973494,
+              13.118101960647612
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-B01-F04-U404",
+        "entity_type": "residential_unit",
+        "unit_id": "U404",
+        "level": 4,
+        "z_min": 24.0,
+        "z_max": 27.0,
+        "height": 3.0,
+        "area_m2": 91.27,
+        "volume_m3": 273.8,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "036b37ecd4278a23",
+        "building_name": "Soorya Apartments"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21236759862686,
+              13.118102184205913
+            ],
+            [
+              80.21244058197246,
+              13.11810240739014
+            ],
+            [
+              80.21244377595794,
+              13.117999999999997
+            ],
+            [
+              80.2123679239197,
+              13.118000000010344
+            ],
+            [
+              80.21236759862686,
+              13.118102184205913
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-UG-B01",
+        "entity_type": "basement_service_volume",
+        "category": "below_ground",
+        "z_min": 12.0,
+        "z_max": 15.0,
+        "height": 3.0,
+        "area_m2": 249.18,
+        "volume_m3": 747.55,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "c6745733b9bec728"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21230568678708,
+              13.118187349832338
+            ],
+            [
+              80.21242397940036,
+              13.118190849219369
+            ],
+            [
+              80.2124295088054,
+              13.118013562732221
+            ],
+            [
+              80.21231109454084,
+              13.118013562731658
+            ],
+            [
+              80.21230568678708,
+              13.118187349832338
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-UG-C01",
+        "entity_type": "utility_corridor",
+        "category": "below_ground",
+        "z_min": 12.0,
+        "z_max": 13.0,
+        "height": 1.0,
+        "area_m2": 82.88,
+        "volume_m3": 82.88,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "89fa0dd5584fdbbd"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21245915272759,
+              13.118241048784826
+            ],
+            [
+              80.21245911675176,
+              13.118252351003504
+            ],
+            [
+              80.21248217946291,
+              13.118252421524428
+            ],
+            [
+              80.2124830976436,
+              13.117963952783702
+            ],
+            [
+              80.2124831336175,
+              13.117952650564709
+            ],
+            [
+              80.21246007093428,
+              13.117952580045452
+            ],
+            [
+              80.21245915272759,
+              13.118241048784826
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-UG-W01",
+        "entity_type": "water_sewer_conduit",
+        "category": "below_ground",
+        "z_min": 10.5,
+        "z_max": 11.5,
+        "height": 1.0,
+        "area_m2": 37.97,
+        "volume_m3": 37.97,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "77371f099321722f"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21251761684768,
+              13.117987567174483
+            ],
+            [
+              80.2125231518925,
+              13.117987584098099
+            ],
+            [
+              80.21252318642577,
+              13.11797673396778
+            ],
+            [
+              80.21223679776169,
+              13.11797585816772
+            ],
+            [
+              80.21223126271752,
+              13.117975841237959
+            ],
+            [
+              80.21223122817146,
+              13.117986691367518
+            ],
+            [
+              80.21251761684768,
+              13.117987567174483
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "property_id": "P001-AS-B01",
+        "entity_type": "airspace_spatial_right",
+        "category": "above_ground_airspace",
+        "z_min": 27.0,
+        "z_max": 32.0,
+        "height": 5.0,
+        "area_m2": 354.95,
+        "volume_m3": 1774.76,
+        "validation_status": "VALIDATED",
+        "geometry_hash": "f4c217f3f93f2d2a"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21229143355691,
+              13.118200497087242
+            ],
+            [
+              80.21243738798182,
+              13.11820481477929
+            ],
+            [
+              80.21244377595794,
+              13.117999999999997
+            ],
+            [
+              80.2122976724597,
+              13.118
+            ],
+            [
+              80.21229143355691,
+              13.118200497087242
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

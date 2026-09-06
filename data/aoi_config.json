@@ -1,0 +1,31 @@
+{
+  "aoi_id": "kolathur_central",
+  "name": "Kolathur Central AOI",
+  "locality": "Kolathur",
+  "city": "Chennai",
+  "state": "Tamil Nadu",
+  "country": "India",
+  "source_crs": "EPSG:4326",
+  "bbox": [80.2050, 13.1180, 80.2180, 13.1300],
+  "bounds": {
+    "west": 80.2050,
+    "south": 13.1180,
+    "east": 80.2180,
+    "north": 13.1300
+  },
+  "approx_dimensions_km": {
+    "width_ew": 1.41,
+    "height_ns": 1.33,
+    "area_sq_km": 1.88
+  },
+  "hero_building_target": {
+    "id": "B01",
+    "type": "residential_apartment",
+    "required_attributes": [
+      "microsoft_footprint",
+      "osm_footprint",
+      "building:levels_or_height",
+      "residential_cadastral_parcel"
+    ]
+  }
+}

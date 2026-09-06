@@ -1,0 +1,65 @@
+{
+  "engine": "3D_Cadastral_Topology_Conflict_Detection_Engine",
+  "tolerance": {
+    "linear_tolerance_m": 0.001,
+    "volume_tolerance_m3": 0.0001
+  },
+  "scenarios_evaluated": 3,
+  "scenarios_detected": 3,
+  "conflict_detection_rate_pct": 100.0,
+  "scenarios": [
+    {
+      "scenario_id": "C01",
+      "name": "Apartment Volume Horizontal Overlap",
+      "primary_entity": "P001-B01-F01-U101",
+      "conflicting_entity": "U101_CONFLICT (Shift X +2.0m)",
+      "conflict_type": "PROPERTY_VOLUME_OVERLAP",
+      "severity": "HIGH",
+      "spatial_predicate": "OVERLAPS",
+      "detected": true,
+      "overlap_volume_m3": 200.14,
+      "affected_units": [
+        "U101",
+        "U102"
+      ],
+      "file": "apartment_overlap.glb",
+      "description": "Two private property units claim overlapping physical 3D space on Floor 01"
+    },
+    {
+      "scenario_id": "C02",
+      "name": "Underground Utility Infrastructure Intrusion",
+      "primary_entity": "B01-F01 (Ground Floor / Units U103..U104)",
+      "conflicting_entity": "UG-W01_CONFLICT (Elevated to Z=16.5..17.5m)",
+      "conflict_type": "UNDERGROUND_INFRASTRUCTURE_INTRUSION",
+      "severity": "CRITICAL",
+      "spatial_predicate": "OVERLAPS",
+      "detected": true,
+      "overlap_volume_m3": 19.0,
+      "affected_units": [
+        "U103",
+        "U104"
+      ],
+      "file": "utility_intrusion.glb",
+      "description": "Subsurface municipal hydraulic asset penetrates private habitable cadastral volume"
+    },
+    {
+      "scenario_id": "C03",
+      "name": "Airspace Spatial Right Vertical Intrusion",
+      "primary_entity": "B01-F04 (Level 4: Z=24..27m)",
+      "conflicting_entity": "AS-CONFLICT-01 (Lowered to Z=25..30m)",
+      "conflict_type": "AIRSPACE_VOLUME_INTRUSION",
+      "severity": "HIGH",
+      "spatial_predicate": "OVERLAPS",
+      "detected": true,
+      "overlap_volume_m3": 709.91,
+      "affected_units": [
+        "U401",
+        "U402",
+        "U403",
+        "U404"
+      ],
+      "file": "airspace_intrusion.glb",
+      "description": "Overlying airspace spatial right encroaches 2.0m into top-floor residential units"
+    }
+  ]
+}

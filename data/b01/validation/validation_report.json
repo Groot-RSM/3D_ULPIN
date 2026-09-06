@@ -1,0 +1,51 @@
+{
+  "summary": {
+    "parcel_id": "P001",
+    "building_id": "B01",
+    "total_entities_analyzed": 25,
+    "counts": {
+      "building": 1,
+      "floors": 4,
+      "apartments": 16,
+      "underground": 3,
+      "airspace": 1
+    },
+    "validation_status": "PASS",
+    "topology_status": "PASS",
+    "conflict_detection_status": "PASS"
+  },
+  "hierarchy_validation": {
+    "building_within_parcel": "PASS",
+    "floors_within_building": "4 / 4 PASS",
+    "units_within_floors": "16 / 16 PASS"
+  },
+  "floor_topology": {
+    "adjacent_interfaces_pass": "3 / 3 PASS",
+    "interior_floor_overlaps": 0,
+    "floor_gaps": 0
+  },
+  "unit_topology": {
+    "unit_pairs_tested": 24,
+    "interior_overlaps": 0,
+    "unexpected_gaps": 0,
+    "shared_boundaries": "PASS"
+  },
+  "volume_conservation": {
+    "original_b01_volume_m3": 4259.43,
+    "sum_unit_volumes_m3": 4259.44,
+    "difference_m3": 0.01,
+    "conservation_status": "PASS"
+  },
+  "infrastructure_relationships": {
+    "UG-B01": "TOUCH / PASS",
+    "UG-C01": "DISJOINT / PASS",
+    "UG-W01": "DISJOINT / PASS",
+    "AS-B01": "TOUCH / PASS"
+  },
+  "conflict_engine_benchmarks": {
+    "C01_apartment_overlap": "DETECTED",
+    "C02_utility_intrusion": "DETECTED",
+    "C03_airspace_intrusion": "DETECTED",
+    "false_negative_rate": 0.0
+  }
+}

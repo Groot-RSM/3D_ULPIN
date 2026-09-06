@@ -1,0 +1,762 @@
+{
+  "building_id": "B01",
+  "building_name": "Soorya Apartments",
+  "parcel_id": "P001",
+  "crs": "EPSG:32644",
+  "crs_geographic": "EPSG:4326",
+  "total_floors": 4,
+  "units_per_floor": 4,
+  "total_private_units": 16,
+  "total_building_volume_m3": 4259.43,
+  "sum_units_volume_m3": 4259.44,
+  "volume_conservation_percentage": 99.9998,
+  "unit_area_breakdown_m2": {
+    "U01_NW": 88.9,
+    "U02_NE": 87.07,
+    "U03_SW": 87.71,
+    "U04_SE": 91.27,
+    "total_floor_area": 354.95
+  },
+  "topology_checks": {
+    "all_units_watertight": true,
+    "all_units_valid_volumes": true,
+    "overlapping_units_count": 0,
+    "volume_conservation_status": "PASS",
+    "floor_reports": {
+      "B01-F01": {
+        "floor_id": "B01-F01",
+        "level": 1,
+        "units_count": 4,
+        "total_unit_area_m2": 354.95,
+        "expected_floor_area_m2": 354.95,
+        "area_conservation_pass": false,
+        "total_unit_volume_m3": 1064.86,
+        "expected_floor_volume_m3": 1064.86,
+        "volume_conservation_pass": true,
+        "internal_overlap": "NONE",
+        "gaps": "NONE"
+      },
+      "B01-F02": {
+        "floor_id": "B01-F02",
+        "level": 2,
+        "units_count": 4,
+        "total_unit_area_m2": 354.95,
+        "expected_floor_area_m2": 354.95,
+        "area_conservation_pass": false,
+        "total_unit_volume_m3": 1064.86,
+        "expected_floor_volume_m3": 1064.86,
+        "volume_conservation_pass": true,
+        "internal_overlap": "NONE",
+        "gaps": "NONE"
+      },
+      "B01-F03": {
+        "floor_id": "B01-F03",
+        "level": 3,
+        "units_count": 4,
+        "total_unit_area_m2": 354.95,
+        "expected_floor_area_m2": 354.95,
+        "area_conservation_pass": false,
+        "total_unit_volume_m3": 1064.86,
+        "expected_floor_volume_m3": 1064.86,
+        "volume_conservation_pass": true,
+        "internal_overlap": "NONE",
+        "gaps": "NONE"
+      },
+      "B01-F04": {
+        "floor_id": "B01-F04",
+        "level": 4,
+        "units_count": 4,
+        "total_unit_area_m2": 354.95,
+        "expected_floor_area_m2": 354.95,
+        "area_conservation_pass": false,
+        "total_unit_volume_m3": 1064.86,
+        "expected_floor_volume_m3": 1064.86,
+        "volume_conservation_pass": true,
+        "internal_overlap": "NONE",
+        "gaps": "NONE"
+      }
+    }
+  },
+  "units": [
+    {
+      "unit_id": "U101",
+      "property_id": "P001-B01-F01-U101",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F01",
+      "level": 1,
+      "quadrant_position": "North-West (NW)",
+      "unit_type": "private_residential",
+      "z_min_m": 15.0,
+      "z_max_m": 18.0,
+      "height_m": 3.0,
+      "area_m2": 88.9,
+      "volume_m3": 266.71,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2123303,
+        13.1181522
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414617.987,
+          1450329.445,
+          15.0
+        ],
+        "max": [
+          414626.209,
+          1450340.566,
+          18.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F01-U101.obj",
+        "glb": "P001-B01-F01-U101.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U102",
+      "property_id": "P001-B01-F01-U102",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F01",
+      "level": 1,
+      "quadrant_position": "North-East (NE)",
+      "unit_type": "private_residential",
+      "z_min_m": 15.0,
+      "z_max_m": 18.0,
+      "height_m": 3.0,
+      "area_m2": 87.07,
+      "volume_m3": 261.21,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2124033,
+        13.1181527
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414626.209,
+          1450329.445,
+          15.0
+        ],
+        "max": [
+          414634.121,
+          1450340.772,
+          18.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F01-U102.obj",
+        "glb": "P001-B01-F01-U102.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U103",
+      "property_id": "P001-B01-F01-U103",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F01",
+      "level": 1,
+      "quadrant_position": "South-West (SW)",
+      "unit_type": "private_residential",
+      "z_min_m": 15.0,
+      "z_max_m": 18.0,
+      "height_m": 3.0,
+      "area_m2": 87.71,
+      "volume_m3": 263.14,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2123319,
+        13.1180514
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414618.286,
+          1450318.143,
+          15.0
+        ],
+        "max": [
+          414626.209,
+          1450329.445,
+          18.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F01-U103.obj",
+        "glb": "P001-B01-F01-U103.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U104",
+      "property_id": "P001-B01-F01-U104",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F01",
+      "level": 1,
+      "quadrant_position": "South-East (SE)",
+      "unit_type": "private_residential",
+      "z_min_m": 15.0,
+      "z_max_m": 18.0,
+      "height_m": 3.0,
+      "area_m2": 91.27,
+      "volume_m3": 273.8,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.212405,
+        13.1180508
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414626.209,
+          1450318.118,
+          15.0
+        ],
+        "max": [
+          414634.432,
+          1450329.445,
+          18.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F01-U104.obj",
+        "glb": "P001-B01-F01-U104.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U201",
+      "property_id": "P001-B01-F02-U201",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F02",
+      "level": 2,
+      "quadrant_position": "North-West (NW)",
+      "unit_type": "private_residential",
+      "z_min_m": 18.0,
+      "z_max_m": 21.0,
+      "height_m": 3.0,
+      "area_m2": 88.9,
+      "volume_m3": 266.71,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2123303,
+        13.1181522
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414617.987,
+          1450329.445,
+          18.0
+        ],
+        "max": [
+          414626.209,
+          1450340.566,
+          21.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F02-U201.obj",
+        "glb": "P001-B01-F02-U201.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U202",
+      "property_id": "P001-B01-F02-U202",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F02",
+      "level": 2,
+      "quadrant_position": "North-East (NE)",
+      "unit_type": "private_residential",
+      "z_min_m": 18.0,
+      "z_max_m": 21.0,
+      "height_m": 3.0,
+      "area_m2": 87.07,
+      "volume_m3": 261.21,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2124033,
+        13.1181527
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414626.209,
+          1450329.445,
+          18.0
+        ],
+        "max": [
+          414634.121,
+          1450340.772,
+          21.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F02-U202.obj",
+        "glb": "P001-B01-F02-U202.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U203",
+      "property_id": "P001-B01-F02-U203",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F02",
+      "level": 2,
+      "quadrant_position": "South-West (SW)",
+      "unit_type": "private_residential",
+      "z_min_m": 18.0,
+      "z_max_m": 21.0,
+      "height_m": 3.0,
+      "area_m2": 87.71,
+      "volume_m3": 263.14,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2123319,
+        13.1180514
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414618.286,
+          1450318.143,
+          18.0
+        ],
+        "max": [
+          414626.209,
+          1450329.445,
+          21.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F02-U203.obj",
+        "glb": "P001-B01-F02-U203.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U204",
+      "property_id": "P001-B01-F02-U204",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F02",
+      "level": 2,
+      "quadrant_position": "South-East (SE)",
+      "unit_type": "private_residential",
+      "z_min_m": 18.0,
+      "z_max_m": 21.0,
+      "height_m": 3.0,
+      "area_m2": 91.27,
+      "volume_m3": 273.8,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.212405,
+        13.1180508
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414626.209,
+          1450318.118,
+          18.0
+        ],
+        "max": [
+          414634.432,
+          1450329.445,
+          21.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F02-U204.obj",
+        "glb": "P001-B01-F02-U204.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U301",
+      "property_id": "P001-B01-F03-U301",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F03",
+      "level": 3,
+      "quadrant_position": "North-West (NW)",
+      "unit_type": "private_residential",
+      "z_min_m": 21.0,
+      "z_max_m": 24.0,
+      "height_m": 3.0,
+      "area_m2": 88.9,
+      "volume_m3": 266.71,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2123303,
+        13.1181522
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414617.987,
+          1450329.445,
+          21.0
+        ],
+        "max": [
+          414626.209,
+          1450340.566,
+          24.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F03-U301.obj",
+        "glb": "P001-B01-F03-U301.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U302",
+      "property_id": "P001-B01-F03-U302",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F03",
+      "level": 3,
+      "quadrant_position": "North-East (NE)",
+      "unit_type": "private_residential",
+      "z_min_m": 21.0,
+      "z_max_m": 24.0,
+      "height_m": 3.0,
+      "area_m2": 87.07,
+      "volume_m3": 261.21,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2124033,
+        13.1181527
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414626.209,
+          1450329.445,
+          21.0
+        ],
+        "max": [
+          414634.121,
+          1450340.772,
+          24.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F03-U302.obj",
+        "glb": "P001-B01-F03-U302.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U303",
+      "property_id": "P001-B01-F03-U303",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F03",
+      "level": 3,
+      "quadrant_position": "South-West (SW)",
+      "unit_type": "private_residential",
+      "z_min_m": 21.0,
+      "z_max_m": 24.0,
+      "height_m": 3.0,
+      "area_m2": 87.71,
+      "volume_m3": 263.14,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2123319,
+        13.1180514
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414618.286,
+          1450318.143,
+          21.0
+        ],
+        "max": [
+          414626.209,
+          1450329.445,
+          24.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F03-U303.obj",
+        "glb": "P001-B01-F03-U303.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U304",
+      "property_id": "P001-B01-F03-U304",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F03",
+      "level": 3,
+      "quadrant_position": "South-East (SE)",
+      "unit_type": "private_residential",
+      "z_min_m": 21.0,
+      "z_max_m": 24.0,
+      "height_m": 3.0,
+      "area_m2": 91.27,
+      "volume_m3": 273.8,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.212405,
+        13.1180508
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414626.209,
+          1450318.118,
+          21.0
+        ],
+        "max": [
+          414634.432,
+          1450329.445,
+          24.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F03-U304.obj",
+        "glb": "P001-B01-F03-U304.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U401",
+      "property_id": "P001-B01-F04-U401",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F04",
+      "level": 4,
+      "quadrant_position": "North-West (NW)",
+      "unit_type": "private_residential",
+      "z_min_m": 24.0,
+      "z_max_m": 27.0,
+      "height_m": 3.0,
+      "area_m2": 88.9,
+      "volume_m3": 266.71,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2123303,
+        13.1181522
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414617.987,
+          1450329.445,
+          24.0
+        ],
+        "max": [
+          414626.209,
+          1450340.566,
+          27.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F04-U401.obj",
+        "glb": "P001-B01-F04-U401.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U402",
+      "property_id": "P001-B01-F04-U402",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F04",
+      "level": 4,
+      "quadrant_position": "North-East (NE)",
+      "unit_type": "private_residential",
+      "z_min_m": 24.0,
+      "z_max_m": 27.0,
+      "height_m": 3.0,
+      "area_m2": 87.07,
+      "volume_m3": 261.21,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2124033,
+        13.1181527
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414626.209,
+          1450329.445,
+          24.0
+        ],
+        "max": [
+          414634.121,
+          1450340.772,
+          27.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F04-U402.obj",
+        "glb": "P001-B01-F04-U402.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U403",
+      "property_id": "P001-B01-F04-U403",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F04",
+      "level": 4,
+      "quadrant_position": "South-West (SW)",
+      "unit_type": "private_residential",
+      "z_min_m": 24.0,
+      "z_max_m": 27.0,
+      "height_m": 3.0,
+      "area_m2": 87.71,
+      "volume_m3": 263.14,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.2123319,
+        13.1180514
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414618.286,
+          1450318.143,
+          24.0
+        ],
+        "max": [
+          414626.209,
+          1450329.445,
+          27.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F04-U403.obj",
+        "glb": "P001-B01-F04-U403.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    },
+    {
+      "unit_id": "U404",
+      "property_id": "P001-B01-F04-U404",
+      "parcel_id": "P001",
+      "building_id": "B01",
+      "floor_id": "B01-F04",
+      "level": 4,
+      "quadrant_position": "South-East (SE)",
+      "unit_type": "private_residential",
+      "z_min_m": 24.0,
+      "z_max_m": 27.0,
+      "height_m": 3.0,
+      "area_m2": 91.27,
+      "volume_m3": 273.8,
+      "is_watertight": true,
+      "is_valid": true,
+      "centroid_lon_lat": [
+        80.212405,
+        13.1180508
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414626.209,
+          1450318.118,
+          24.0
+        ],
+        "max": [
+          414634.432,
+          1450329.445,
+          27.0
+        ]
+      },
+      "files": {
+        "obj": "P001-B01-F04-U404.obj",
+        "glb": "P001-B01-F04-U404.glb"
+      },
+      "provenance": {
+        "geometry_source": "procedural_prototype_footprint_aware",
+        "status": "prototype",
+        "legal_status": "demonstration_cadastral_unit"
+      }
+    }
+  ],
+  "combined_scene_file": "B01_units.glb",
+  "unit_partitions_geojson": "unit_partitions.geojson",
+  "provenance_lineage": {
+    "cadastral_model": "3D_Cadastre_Prototype_Subdivision",
+    "unit_generation": "Footprint-Aware Procedural 2x2 Quadrant Clipping",
+    "spatial_projection": "EPSG:32644",
+    "vertical_datum": "AMSL (Copernicus DEM 15.0m Base + NBC 3.0m/floor)"
+  }
+}

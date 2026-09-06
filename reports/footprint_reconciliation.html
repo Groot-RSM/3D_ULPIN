@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kolathur Cadastre — Footprint Reconciliation Report</title>
+    <style>
+        :root {
+            --bg: #0b0f19;
+            --surface: #141c2e;
+            --surface-hover: #1b263f;
+            --border: #233252;
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.2);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background: var(--bg); color: var(--text-main); line-height: 1.6; padding: 2.5rem 1.5rem; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        header { margin-bottom: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1.5rem; }
+        .badge-bar { display: inline-flex; gap: 0.5rem; margin-bottom: 0.75rem; }
+        .badge { padding: 0.25rem 0.6rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; }
+        .badge.primary { background: rgba(56, 189, 248, 0.15); color: var(--primary); border: 1px solid var(--primary); }
+        .badge.strong { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid var(--success); }
+        .badge.possible { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid var(--warning); }
+        .badge.name { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid #c084fc; }
+        .badge.highlight { background: rgba(59, 130, 246, 0.2); color: #60a5fa; font-size: 0.85rem; border: 1px solid #3b82f6; }
+        .badge.muted { background: rgba(148, 163, 184, 0.1); color: var(--text-muted); }
+        h1 { font-size: 2.2rem; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+        p.subtitle { color: var(--text-muted); font-size: 1.05rem; margin-top: 0.4rem; }
+        .grid-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 2.5rem; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem; }
+        .card .label { font-size: 0.82rem; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.05em; margin-bottom: 0.35rem; }
+        .card .value { font-size: 1.85rem; font-weight: 700; color: #fff; }
+        .card .delta { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem; }
+        .card.highlight { border-color: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
+        .card.highlight .value { color: var(--primary); }
+        h2 { font-size: 1.4rem; margin: 2rem 0 1rem; color: #fff; display: flex; align-items: center; gap: 0.6rem; }
+        .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: left; }
+        th { background: rgba(255,255,255,0.03); padding: 0.85rem 1rem; color: var(--text-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+        td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--surface-hover); }
+        code { background: rgba(0,0,0,0.3); padding: 0.2rem 0.45rem; border-radius: 4px; font-family: monospace; font-size: 0.85rem; color: #38bdf8; }
+        .score { font-weight: 700; color: #f59e0b; font-size: 1rem; }
+        .disclaimer { margin-top: 2.5rem; background: rgba(35, 50, 82, 0.4); border-left: 4px solid var(--primary); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; color: var(--text-muted); font-size: 0.88rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="badge-bar">
+            <span class="badge primary">Step 3 Report</span>
+            <span class="badge strong">EPSG:32644 Metric</span>
+            <span class="badge muted">Greedy 1:1 Matching</span>
+        </div>
+        <h1>Footprint Reconciliation & IoU Analysis</h1>
+        <p class="subtitle">Spatial cross-source alignment between Microsoft ML footprints and OpenStreetMap in Kolathur AOI, Chennai</p>
+    </header>
+
+    <div class="grid-stats">
+        <div class="card">
+            <div class="label">Microsoft ML Total</div>
+            <div class="value">2962</div>
+            <div class="delta">Raw ML Footprints</div>
+        </div>
+        <div class="card">
+            <div class="label">OSM Buildings Total</div>
+            <div class="value">1913</div>
+            <div class="delta">Crowdsourced Features</div>
+        </div>
+        <div class="card highlight">
+            <div class="label">Reconciled Matches</div>
+            <div class="value">390</div>
+            <div class="delta">21 Strong (IoU ≥ 0.70)</div>
+        </div>
+        <div class="card">
+            <div class="label">Possible Matches</div>
+            <div class="value">369</div>
+            <div class="delta">0.40 ≤ IoU &lt; 0.70</div>
+        </div>
+        <div class="card">
+            <div class="label">Mean / Median IoU</div>
+            <div class="value">0.53 / 0.51</div>
+            <div class="delta">Across matched pairs</div>
+        </div>
+        <div class="card">
+            <div class="label">Microsoft Only</div>
+            <div class="value">2572</div>
+            <div class="delta">No matching OSM building</div>
+        </div>
+        <div class="card">
+            <div class="label">OSM Only</div>
+            <div class="value">1523</div>
+            <div class="delta">No matching MS footprint</div>
+        </div>
+    </div>
+
+    <h2>Top B01 Hero Building Candidates</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Microsoft ID</th>
+                    <th>OSM ID</th>
+                    <th>Building Name</th>
+                    <th>Levels</th>
+                    <th>IoU</th>
+                    <th>Class</th>
+                    <th>Footprint Area</th>
+                    <th>Candidate Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+        <tr>
+            <td><strong>#1</strong></td>
+            <td><code>MS_00804</code></td>
+            <td><code>way/354496166</code></td>
+            <td><span class='badge name'>Soorya Apartments</span></td>
+            <td><span class='badge highlight'>4</span></td>
+            <td><strong>0.58</strong></td>
+            <td><span class='badge possible'>POSSIBLE</span></td>
+            <td>354.95 m²</td>
+            <td><span class='score'>120.13</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>#2</strong></td>
+            <td><code>MS_02810</code></td>
+            <td><code>way/354495989</code></td>
+            <td><span class='badge muted'>Unnamed</span></td>
+            <td><span class='badge highlight'>3</span></td>
+            <td><strong>0.60</strong></td>
+            <td><span class='badge possible'>POSSIBLE</span></td>
+            <td>614.11 m²</td>
+            <td><span class='score'>101.16</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>#3</strong></td>
+            <td><code>MS_02755</code></td>
+            <td><code>way/384128358</code></td>
+            <td><span class='badge muted'>Unnamed</span></td>
+            <td><span class='badge highlight'>2</span></td>
+            <td><strong>0.45</strong></td>
+            <td><span class='badge possible'>POSSIBLE</span></td>
+            <td>142.76 m²</td>
+            <td><span class='score'>83.77</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>#4</strong></td>
+            <td><code>MS_01163</code></td>
+            <td><code>way/354736629</code></td>
+            <td><span class='badge muted'>Unnamed</span></td>
+            <td><span class='badge muted'>N/A</span></td>
+            <td><strong>0.87</strong></td>
+            <td><span class='badge strong'>STRONG</span></td>
+            <td>158.02 m²</td>
+            <td><span class='score'>45.44</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>#5</strong></td>
+            <td><code>MS_00600</code></td>
+            <td><code>way/354443247</code></td>
+            <td><span class='badge muted'>Unnamed</span></td>
+            <td><span class='badge muted'>N/A</span></td>
+            <td><strong>0.82</strong></td>
+            <td><span class='badge strong'>STRONG</span></td>
+            <td>213.5 m²</td>
+            <td><span class='score'>43.64</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>#6</strong></td>
+            <td><code>MS_00124</code></td>
+            <td><code>way/354443412</code></td>
+            <td><span class='badge muted'>Unnamed</span></td>
+            <td><span class='badge muted'>N/A</span></td>
+            <td><strong>0.82</strong></td>
+            <td><span class='badge strong'>STRONG</span></td>
+            <td>204.18 m²</td>
+            <td><span class='score'>43.55</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>#7</strong></td>
+            <td><code>MS_01167</code></td>
+            <td><code>way/354443401</code></td>
+            <td><span class='badge muted'>Unnamed</span></td>
+            <td><span class='badge muted'>N/A</span></td>
+            <td><strong>0.80</strong></td>
+            <td><span class='badge strong'>STRONG</span></td>
+            <td>167.56 m²</td>
+            <td><span class='score'>42.99</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>#8</strong></td>
+            <td><code>MS_00893</code></td>
+            <td><code>way/355061776</code></td>
+            <td><span class='badge muted'>Unnamed</span></td>
+            <td><span class='badge muted'>N/A</span></td>
+            <td><strong>0.79</strong></td>
+            <td><span class='badge strong'>STRONG</span></td>
+            <td>211.17 m²</td>
+            <td><span class='score'>42.76</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>#9</strong></td>
+            <td><code>MS_00664</code></td>
+            <td><code>way/354455746</code></td>
+            <td><span class='badge muted'>Unnamed</span></td>
+            <td><span class='badge muted'>N/A</span></td>
+            <td><strong>0.78</strong></td>
+            <td><span class='badge strong'>STRONG</span></td>
+            <td>183.33 m²</td>
+            <td><span class='score'>42.15</span></td>
+        </tr>
+        
+        <tr>
+            <td><strong>#10</strong></td>
+            <td><code>MS_02766</code></td>
+            <td><code>way/354471322</code></td>
+            <td><span class='badge muted'>Unnamed</span></td>
+            <td><span class='badge muted'>N/A</span></td>
+            <td><strong>0.77</strong></td>
+            <td><span class='badge strong'>STRONG</span></td>
+            <td>244.78 m²</td>
+            <td><span class='score'>41.81</span></td>
+        </tr>
+        
+            </tbody>
+        </table>
+    </div>
+
+    <div class="disclaimer">
+        <strong>Technical Note for 3D Cadastral Property Engine:</strong> In our cadastral data lineage, these matches represent <em>"Cross-source spatially reconciled building footprints"</em> rather than legally surveyed title boundaries. High IoU validates geometric agreement between satellite ML detection and community ground-truth.
+    </div>
+</div>
+</body>
+</html>

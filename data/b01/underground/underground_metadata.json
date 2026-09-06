@@ -1,0 +1,177 @@
+{
+  "parcel_id": "P001",
+  "building_id": "B01",
+  "ground_elevation_m": 15.0,
+  "crs": "EPSG:32644",
+  "crs_geographic": "EPSG:4326",
+  "underground_entities_count": 3,
+  "airspace_entities_count": 1,
+  "total_entities": 4,
+  "validation": {
+    "all_watertight": true,
+    "all_valid_solids": true,
+    "z_range_validation": "PASS",
+    "mesh_validation": "PASS"
+  },
+  "entities": [
+    {
+      "entity_id": "UG-B01",
+      "name": "B01 Basement & Subsurface Service Area",
+      "entity_type": "basement_service_volume",
+      "category": "below_ground",
+      "associated_parcel": "P001",
+      "associated_building": "B01",
+      "ground_datum_elevation_m": 15.0,
+      "z_min_m": 12.0,
+      "z_max_m": 15.0,
+      "height_m": 3.0,
+      "footprint_area_m2": 249.18,
+      "volume_m3": 747.55,
+      "is_watertight": true,
+      "is_valid": true,
+      "geometry_source": "simulated_prototype",
+      "status": "prototype",
+      "centroid_lon_lat": [
+        80.2123678,
+        13.1181013
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414619.528,
+          1450319.623,
+          12.0
+        ],
+        "max": [
+          414632.89,
+          1450339.232,
+          15.0
+        ]
+      },
+      "files": {
+        "obj": "UG-B01.obj",
+        "glb": "UG-B01.glb"
+      },
+      "description": "Subsurface structural basement & maintenance utility zone"
+    },
+    {
+      "entity_id": "UG-C01",
+      "name": "Municipal Common Utility Corridor",
+      "entity_type": "utility_corridor",
+      "category": "below_ground",
+      "associated_parcel": "P001",
+      "associated_building": "B01",
+      "ground_datum_elevation_m": 15.0,
+      "z_min_m": 12.0,
+      "z_max_m": 13.0,
+      "height_m": 1.0,
+      "footprint_area_m2": 82.88,
+      "volume_m3": 82.88,
+      "is_watertight": true,
+      "is_valid": true,
+      "geometry_source": "simulated_prototype",
+      "status": "prototype",
+      "centroid_lon_lat": [
+        80.2124711,
+        13.1181025
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414636.182,
+          1450312.868,
+          12.0
+        ],
+        "max": [
+          414638.682,
+          1450346.022,
+          13.0
+        ]
+      },
+      "files": {
+        "obj": "UG-C01.obj",
+        "glb": "UG-C01.glb"
+      },
+      "description": "Shared subterranean corridor for electrical/telecom routing"
+    },
+    {
+      "entity_id": "UG-W01",
+      "name": "Stormwater & Potable Water Conduit",
+      "entity_type": "water_sewer_conduit",
+      "category": "below_ground",
+      "associated_parcel": "P001",
+      "associated_building": "B01",
+      "ground_datum_elevation_m": 15.0,
+      "z_min_m": 10.5,
+      "z_max_m": 11.5,
+      "height_m": 1.0,
+      "footprint_area_m2": 37.97,
+      "volume_m3": 37.97,
+      "is_watertight": true,
+      "is_valid": true,
+      "geometry_source": "simulated_prototype",
+      "status": "prototype",
+      "centroid_lon_lat": [
+        80.2123772,
+        13.1179817
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414611.387,
+          1450315.518,
+          10.5
+        ],
+        "max": [
+          414643.032,
+          1450316.718,
+          11.5
+        ]
+      },
+      "files": {
+        "obj": "UG-W01.obj",
+        "glb": "UG-W01.glb"
+      },
+      "description": "Linear subsurface hydraulic utility asset"
+    },
+    {
+      "entity_id": "AS-B01",
+      "name": "B01 Vertical Airspace Spatial Right Volume",
+      "entity_type": "airspace_spatial_right",
+      "category": "above_ground_airspace",
+      "associated_parcel": "P001",
+      "associated_building": "B01",
+      "ground_datum_elevation_m": 15.0,
+      "z_min_m": 27.0,
+      "z_max_m": 32.0,
+      "height_m": 5.0,
+      "footprint_area_m2": 354.95,
+      "volume_m3": 1774.76,
+      "is_watertight": true,
+      "is_valid": true,
+      "geometry_source": "derived_prototype",
+      "status": "prototype",
+      "centroid_lon_lat": [
+        80.2123678,
+        13.1181013
+      ],
+      "bounding_box_utm44n": {
+        "min": [
+          414617.987,
+          1450318.118,
+          27.0
+        ],
+        "max": [
+          414634.432,
+          1450340.772,
+          32.0
+        ]
+      },
+      "files": {
+        "obj": "AS-B01.obj",
+        "glb": "AS-B01.glb"
+      },
+      "description": "Vertical airspace clearance & solar easement zone above roof"
+    }
+  ],
+  "combined_scene_file": "underground_entities.glb",
+  "geojson_file": "underground_entities.geojson",
+  "provenance_policy": "All underground entities are explicitly tagged as simulated_prototype for hackathon demonstration."
+}

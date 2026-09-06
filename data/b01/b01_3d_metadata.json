@@ -1,0 +1,40 @@
+{
+  "building_id": "B01",
+  "name": "Soorya Apartments",
+  "osm_id": "way/354496166",
+  "microsoft_id": "MS_00804",
+  "crs": "EPSG:32644",
+  "crs_geographic": "EPSG:4326",
+  "footprint_area_m2": 354.95,
+  "z_min_m": 15.0,
+  "z_max_m": 27.0,
+  "height_m": 12.0,
+  "levels": 4,
+  "floor_height_m": 3.0,
+  "expected_volume_m3": 4259.43,
+  "computed_volume_m3": 4259.43,
+  "surface_area_m2": 1628.07,
+  "volume_accuracy_percentage": 100.0,
+  "mesh_stats": {
+    "vertices_count": 8,
+    "faces_count": 12,
+    "is_watertight": true,
+    "is_valid_volume": true,
+    "bounding_box_utm44n": {
+      "min": [
+        414617.987,
+        1450318.118,
+        15.0
+      ],
+      "max": [
+        414634.432,
+        1450340.772,
+        27.0
+      ]
+    }
+  },
+  "geometry_type": "vertical_extrusion",
+  "height_source": "OSM levels (4) \u00d7 NBC Residential Standard (3.0m/floor)",
+  "elevation_source": "Open-Meteo DEM (Copernicus/SRTM 30m)",
+  "status": "3d_reconstruction_complete"
+}

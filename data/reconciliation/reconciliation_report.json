@@ -1,0 +1,186 @@
+{
+  "aoi": {
+    "name": "Kolathur Central, Chennai",
+    "west": 80.205,
+    "south": 13.118,
+    "east": 80.218,
+    "north": 13.13,
+    "projected_crs": "EPSG:32644"
+  },
+  "totals": {
+    "microsoft_footprints": 2962,
+    "osm_buildings": 1913,
+    "combined_input_features": 4875
+  },
+  "reconciliation_summary": {
+    "total_matched": 390,
+    "strong_matches": 21,
+    "possible_matches": 369,
+    "microsoft_only": 2572,
+    "osm_only": 1523,
+    "mean_iou": 0.53,
+    "median_iou": 0.5113
+  },
+  "top_b01_candidates": [
+    {
+      "ms_id": "MS_00804",
+      "osm_id": "way/354496166",
+      "osm_name": "Soorya Apartments",
+      "osm_levels": "4",
+      "osm_height": null,
+      "osm_type": "apartments",
+      "iou": 0.5752,
+      "match_class": "POSSIBLE",
+      "area_m2": 354.95,
+      "score": 120.13,
+      "centroid": [
+        80.21236782682314,
+        13.11810133011646
+      ]
+    },
+    {
+      "ms_id": "MS_02810",
+      "osm_id": "way/354495989",
+      "osm_name": null,
+      "osm_levels": "3",
+      "osm_height": null,
+      "osm_type": "yes",
+      "iou": 0.6047,
+      "match_class": "POSSIBLE",
+      "area_m2": 614.11,
+      "score": 101.16,
+      "centroid": [
+        80.21768606669856,
+        13.127611115874117
+      ]
+    },
+    {
+      "ms_id": "MS_02755",
+      "osm_id": "way/384128358",
+      "osm_name": null,
+      "osm_levels": "2",
+      "osm_height": null,
+      "osm_type": "house",
+      "iou": 0.4506,
+      "match_class": "POSSIBLE",
+      "area_m2": 142.76,
+      "score": 83.77,
+      "centroid": [
+        80.21163725339677,
+        13.119619967854584
+      ]
+    },
+    {
+      "ms_id": "MS_01163",
+      "osm_id": "way/354736629",
+      "osm_name": null,
+      "osm_levels": null,
+      "osm_height": null,
+      "osm_type": "yes",
+      "iou": 0.8696,
+      "match_class": "STRONG",
+      "area_m2": 158.02,
+      "score": 45.44,
+      "centroid": [
+        80.20696777700911,
+        13.122197917262177
+      ]
+    },
+    {
+      "ms_id": "MS_00600",
+      "osm_id": "way/354443247",
+      "osm_name": null,
+      "osm_levels": null,
+      "osm_height": null,
+      "osm_type": "yes",
+      "iou": 0.8184,
+      "match_class": "STRONG",
+      "area_m2": 213.5,
+      "score": 43.64,
+      "centroid": [
+        80.2098201007855,
+        13.12073949880364
+      ]
+    },
+    {
+      "ms_id": "MS_00124",
+      "osm_id": "way/354443412",
+      "osm_name": null,
+      "osm_levels": null,
+      "osm_height": null,
+      "osm_type": "yes",
+      "iou": 0.8157,
+      "match_class": "STRONG",
+      "area_m2": 204.18,
+      "score": 43.55,
+      "centroid": [
+        80.20948903737943,
+        13.12131189563271
+      ]
+    },
+    {
+      "ms_id": "MS_01167",
+      "osm_id": "way/354443401",
+      "osm_name": null,
+      "osm_levels": null,
+      "osm_height": null,
+      "osm_type": "yes",
+      "iou": 0.7997,
+      "match_class": "STRONG",
+      "area_m2": 167.56,
+      "score": 42.99,
+      "centroid": [
+        80.2101504867706,
+        13.120737563143017
+      ]
+    },
+    {
+      "ms_id": "MS_00893",
+      "osm_id": "way/355061776",
+      "osm_name": null,
+      "osm_levels": null,
+      "osm_height": null,
+      "osm_type": "yes",
+      "iou": 0.7931,
+      "match_class": "STRONG",
+      "area_m2": 211.17,
+      "score": 42.76,
+      "centroid": [
+        80.21632748384123,
+        13.12924416088594
+      ]
+    },
+    {
+      "ms_id": "MS_00664",
+      "osm_id": "way/354455746",
+      "osm_name": null,
+      "osm_levels": null,
+      "osm_height": null,
+      "osm_type": "yes",
+      "iou": 0.7756,
+      "match_class": "STRONG",
+      "area_m2": 183.33,
+      "score": 42.15,
+      "centroid": [
+        80.2089453719822,
+        13.121572184159254
+      ]
+    },
+    {
+      "ms_id": "MS_02766",
+      "osm_id": "way/354471322",
+      "osm_name": null,
+      "osm_levels": null,
+      "osm_height": null,
+      "osm_type": "yes",
+      "iou": 0.766,
+      "match_class": "STRONG",
+      "area_m2": 244.78,
+      "score": 41.81,
+      "centroid": [
+        80.20661829302908,
+        13.120185761180252
+      ]
+    }
+  ]
+}

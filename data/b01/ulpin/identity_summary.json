@@ -1,0 +1,31 @@
+{
+  "identifier_system": "3D ULPIN Prototype",
+  "schema_version": "1.0",
+  "status": "PROPOSED",
+  "total_properties": 26,
+  "counts": {
+    "parcels": 1,
+    "buildings": 1,
+    "floors": 4,
+    "units": 16,
+    "underground": 3,
+    "airspace": 1
+  },
+  "integrity_metrics": {
+    "unique_unit_ids": 16,
+    "duplicate_ids": 0,
+    "missing_parent_ids": 0,
+    "broken_lineage": 0,
+    "invalid_references": 0
+  },
+  "spatial_query_test": {
+    "test_coordinate_utm44n": [
+      414622.186,
+      1450334.984,
+      16.5
+    ],
+    "resolved_property_id": "P001-B01-F01-U101",
+    "expected_property_id": "P001-B01-F01-U101",
+    "query_status": "PASS"
+  }
+}

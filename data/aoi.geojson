@@ -1,0 +1,36 @@
+{
+  "type": "FeatureCollection",
+  "name": "Kolathur_Central_AOI",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "kolathur_central_aoi",
+        "name": "Kolathur Central, Chennai",
+        "description": "Locked 1.88 km2 AOI for 3D Cadastre / B01 Reconciliation",
+        "west": 80.2050,
+        "south": 13.1180,
+        "east": 80.2180,
+        "north": 13.1300
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [80.2050, 13.1180],
+            [80.2180, 13.1180],
+            [80.2180, 13.1300],
+            [80.2050, 13.1300],
+            [80.2050, 13.1180]
+          ]
+        ]
+      }
+    }
+  ]
+}

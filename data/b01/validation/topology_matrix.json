@@ -1,0 +1,194 @@
+{
+  "P001-B01-F01-U101 <-> P001-B01-F01-U102": {
+    "source": "P001-B01-F01-U101",
+    "target": "P001-B01-F01-U102",
+    "floor": "B01-F01",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F01-U101 <-> P001-B01-F01-U103": {
+    "source": "P001-B01-F01-U101",
+    "target": "P001-B01-F01-U103",
+    "floor": "B01-F01",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F01-U101 <-> P001-B01-F01-U104": {
+    "source": "P001-B01-F01-U101",
+    "target": "P001-B01-F01-U104",
+    "floor": "B01-F01",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F01-U102 <-> P001-B01-F01-U103": {
+    "source": "P001-B01-F01-U102",
+    "target": "P001-B01-F01-U103",
+    "floor": "B01-F01",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F01-U102 <-> P001-B01-F01-U104": {
+    "source": "P001-B01-F01-U102",
+    "target": "P001-B01-F01-U104",
+    "floor": "B01-F01",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F01-U103 <-> P001-B01-F01-U104": {
+    "source": "P001-B01-F01-U103",
+    "target": "P001-B01-F01-U104",
+    "floor": "B01-F01",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F02-U201 <-> P001-B01-F02-U202": {
+    "source": "P001-B01-F02-U201",
+    "target": "P001-B01-F02-U202",
+    "floor": "B01-F02",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F02-U201 <-> P001-B01-F02-U203": {
+    "source": "P001-B01-F02-U201",
+    "target": "P001-B01-F02-U203",
+    "floor": "B01-F02",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F02-U201 <-> P001-B01-F02-U204": {
+    "source": "P001-B01-F02-U201",
+    "target": "P001-B01-F02-U204",
+    "floor": "B01-F02",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F02-U202 <-> P001-B01-F02-U203": {
+    "source": "P001-B01-F02-U202",
+    "target": "P001-B01-F02-U203",
+    "floor": "B01-F02",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F02-U202 <-> P001-B01-F02-U204": {
+    "source": "P001-B01-F02-U202",
+    "target": "P001-B01-F02-U204",
+    "floor": "B01-F02",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F02-U203 <-> P001-B01-F02-U204": {
+    "source": "P001-B01-F02-U203",
+    "target": "P001-B01-F02-U204",
+    "floor": "B01-F02",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F03-U301 <-> P001-B01-F03-U302": {
+    "source": "P001-B01-F03-U301",
+    "target": "P001-B01-F03-U302",
+    "floor": "B01-F03",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F03-U301 <-> P001-B01-F03-U303": {
+    "source": "P001-B01-F03-U301",
+    "target": "P001-B01-F03-U303",
+    "floor": "B01-F03",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F03-U301 <-> P001-B01-F03-U304": {
+    "source": "P001-B01-F03-U301",
+    "target": "P001-B01-F03-U304",
+    "floor": "B01-F03",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F03-U302 <-> P001-B01-F03-U303": {
+    "source": "P001-B01-F03-U302",
+    "target": "P001-B01-F03-U303",
+    "floor": "B01-F03",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F03-U302 <-> P001-B01-F03-U304": {
+    "source": "P001-B01-F03-U302",
+    "target": "P001-B01-F03-U304",
+    "floor": "B01-F03",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F03-U303 <-> P001-B01-F03-U304": {
+    "source": "P001-B01-F03-U303",
+    "target": "P001-B01-F03-U304",
+    "floor": "B01-F03",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F04-U401 <-> P001-B01-F04-U402": {
+    "source": "P001-B01-F04-U401",
+    "target": "P001-B01-F04-U402",
+    "floor": "B01-F04",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F04-U401 <-> P001-B01-F04-U403": {
+    "source": "P001-B01-F04-U401",
+    "target": "P001-B01-F04-U403",
+    "floor": "B01-F04",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F04-U401 <-> P001-B01-F04-U404": {
+    "source": "P001-B01-F04-U401",
+    "target": "P001-B01-F04-U404",
+    "floor": "B01-F04",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F04-U402 <-> P001-B01-F04-U403": {
+    "source": "P001-B01-F04-U402",
+    "target": "P001-B01-F04-U403",
+    "floor": "B01-F04",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F04-U402 <-> P001-B01-F04-U404": {
+    "source": "P001-B01-F04-U402",
+    "target": "P001-B01-F04-U404",
+    "floor": "B01-F04",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  },
+  "P001-B01-F04-U403 <-> P001-B01-F04-U404": {
+    "source": "P001-B01-F04-U403",
+    "target": "P001-B01-F04-U404",
+    "floor": "B01-F04",
+    "predicate": "TOUCHES",
+    "interior_overlap": false,
+    "status": "PASS"
+  }
+}

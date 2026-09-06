@@ -1,0 +1,196 @@
+{
+  "type": "FeatureCollection",
+  "name": "B01_Underground_Airspace_Entities_2D",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "entity_id": "UG-B01",
+        "name": "B01 Basement & Subsurface Service Area",
+        "type": "basement_service_volume",
+        "category": "below_ground",
+        "z_min": 12.0,
+        "z_max": 15.0,
+        "height": 3.0,
+        "area_m2": 249.18,
+        "volume_m3": 747.55,
+        "geometry_source": "simulated_prototype"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21230568678708,
+              13.118187349832338
+            ],
+            [
+              80.21242397940036,
+              13.118190849219369
+            ],
+            [
+              80.2124295088054,
+              13.118013562732221
+            ],
+            [
+              80.21231109454084,
+              13.118013562731658
+            ],
+            [
+              80.21230568678708,
+              13.118187349832338
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "entity_id": "UG-C01",
+        "name": "Municipal Common Utility Corridor",
+        "type": "utility_corridor",
+        "category": "below_ground",
+        "z_min": 12.0,
+        "z_max": 13.0,
+        "height": 1.0,
+        "area_m2": 82.88,
+        "volume_m3": 82.88,
+        "geometry_source": "simulated_prototype"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21245915272759,
+              13.118241048784826
+            ],
+            [
+              80.21245911675176,
+              13.118252351003504
+            ],
+            [
+              80.21248217946291,
+              13.118252421524428
+            ],
+            [
+              80.2124830976436,
+              13.117963952783702
+            ],
+            [
+              80.2124831336175,
+              13.117952650564709
+            ],
+            [
+              80.21246007093428,
+              13.117952580045452
+            ],
+            [
+              80.21245915272759,
+              13.118241048784826
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "entity_id": "UG-W01",
+        "name": "Stormwater & Potable Water Conduit",
+        "type": "water_sewer_conduit",
+        "category": "below_ground",
+        "z_min": 10.5,
+        "z_max": 11.5,
+        "height": 1.0,
+        "area_m2": 37.97,
+        "volume_m3": 37.97,
+        "geometry_source": "simulated_prototype"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21251761684768,
+              13.117987567174483
+            ],
+            [
+              80.2125231518925,
+              13.117987584098099
+            ],
+            [
+              80.21252318642577,
+              13.11797673396778
+            ],
+            [
+              80.21223679776169,
+              13.11797585816772
+            ],
+            [
+              80.21223126271752,
+              13.117975841237959
+            ],
+            [
+              80.21223122817146,
+              13.117986691367518
+            ],
+            [
+              80.21251761684768,
+              13.117987567174483
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "entity_id": "AS-B01",
+        "name": "B01 Vertical Airspace Spatial Right Volume",
+        "type": "airspace_spatial_right",
+        "category": "above_ground_airspace",
+        "z_min": 27.0,
+        "z_max": 32.0,
+        "height": 5.0,
+        "area_m2": 354.95,
+        "volume_m3": 1774.76,
+        "geometry_source": "derived_prototype"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21229143355691,
+              13.118200497087242
+            ],
+            [
+              80.21243738798182,
+              13.11820481477929
+            ],
+            [
+              80.21244377595794,
+              13.117999999999997
+            ],
+            [
+              80.2122976724597,
+              13.118
+            ],
+            [
+              80.21229143355691,
+              13.118200497087242
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

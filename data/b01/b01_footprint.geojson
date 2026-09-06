@@ -1,0 +1,55 @@
+{
+  "type": "FeatureCollection",
+  "name": "B01_Footprint_3D_Attributed",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "B01",
+        "name": "Soorya Apartments",
+        "osm_id": "way/354496166",
+        "ms_id": "MS_00804",
+        "levels": 4,
+        "z_min": 15.0,
+        "z_max": 27.0,
+        "height": 12.0,
+        "footprint_area_m2": 354.95,
+        "iou": 0.5752,
+        "match_class": "POSSIBLE"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.21229143355691,
+              13.118200497087244
+            ],
+            [
+              80.21243738798182,
+              13.11820481477929
+            ],
+            [
+              80.21244377595792,
+              13.118
+            ],
+            [
+              80.2122976724597,
+              13.118
+            ],
+            [
+              80.21229143355691,
+              13.118200497087244
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "building_id": "B01",
+  "name": "Soorya Apartments",
+  "type": "apartments",
+  "identifiers": {
+    "osm_id": "way/354496166",
+    "microsoft_id": "MS_00804"
+  },
+  "reconciliation": {
+    "iou": 0.5752,
+    "match_classification": "POSSIBLE",
+    "note": "POSSIBLE cross-source spatial alignment; 4 levels derived from OSM attribute"
+  },
+  "spatial": {
+    "centroid": {
+      "longitude": 80.2123678,
+      "latitude": 13.1181013
+    },
+    "footprint_area_m2": 354.95,
+    "crs_geographic": "EPSG:4326",
+    "crs_projected": "EPSG:32644"
+  },
+  "vertical_datum": {
+    "ground_elevation_zmin_m": 15.0,
+    "building_height_m": 12.0,
+    "roof_elevation_zmax_m": 27.0,
+    "dem_source": "Open-Meteo DEM (Copernicus/SRTM 30m)",
+    "height_source": "OSM levels (4) \u00d7 NBC Residential Standard (3.0m/floor)",
+    "floor_height_m": 3.0,
+    "total_levels": 4
+  },
+  "floors": [
+    {
+      "floor_number": 1,
+      "floor_label": "Floor 01 (Level 1)",
+      "z_min_m": 15.0,
+      "z_max_m": 18.0,
+      "height_m": 3.0,
+      "sample_units": [
+        "U101",
+        "U102",
+        "U103",
+        "U104"
+      ]
+    },
+    {
+      "floor_number": 2,
+      "floor_label": "Floor 02 (Level 2)",
+      "z_min_m": 18.0,
+      "z_max_m": 21.0,
+      "height_m": 3.0,
+      "sample_units": [
+        "U201",
+        "U202",
+        "U203",
+        "U204"
+      ]
+    },
+    {
+      "floor_number": 3,
+      "floor_label": "Floor 03 (Level 3)",
+      "z_min_m": 21.0,
+      "z_max_m": 24.0,
+      "height_m": 3.0,
+      "sample_units": [
+        "U301",
+        "U302",
+        "U303",
+        "U304"
+      ]
+    },
+    {
+      "floor_number": 4,
+      "floor_label": "Floor 04 (Level 4)",
+      "z_min_m": 24.0,
+      "z_max_m": 27.0,
+      "height_m": 3.0,
+      "sample_units": [
+        "U401",
+        "U402",
+        "U403",
+        "U404"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "building_id": "B01",
+  "building_name": "Soorya Apartments",
+  "crs": "EPSG:32644",
+  "floor_count": 4,
+  "floor_height_m": 3.0,
+  "z_min_m": 15.0,
+  "z_max_m": 27.0,
+  "original_building_volume_m3": 4259.43,
+  "total_floor_volume_m3": 4259.44,
+  "volume_difference_m3": 0.01,
+  "volume_conservation_percentage": 99.9998,
+  "topology_checks": {
+    "all_floors_watertight": true,
+    "all_floors_valid": true,
+    "boundary_continuity": "PASS",
+    "inter_floor_interfaces": [
+      {
+        "pair": "B01-F01 <-> B01-F02",
+        "interface_elevation_z_m": 18.0,
+        "overlap_depth_m": 0.0,
+        "status": "EXACT_COINCIDENT"
+      },
+      {
+        "pair": "B01-F02 <-> B01-F03",
+        "interface_elevation_z_m": 21.0,
+        "overlap_depth_m": 0.0,
+        "status": "EXACT_COINCIDENT"
+      },
+      {
+        "pair": "B01-F03 <-> B01-F04",
+        "interface_elevation_z_m": 24.0,
+        "overlap_depth_m": 0.0,
+        "status": "EXACT_COINCIDENT"
+      }
+    ]
+  },
+  "floors": [
+    {
+      "floor_id": "B01-F01",
+      "floor_number": 1,
+      "level_label": "Ground / Level 1",
+      "z_min_m": 15.0,
+      "z_max_m": 18.0,
+      "height_m": 3.0,
+      "footprint_area_m2": 354.95,
+      "volume_m3": 1064.86,
+      "is_watertight": true,
+      "is_valid": true,
+      "sample_subdivision_units": [
+        "U101",
+        "U102",
+        "U103",
+        "U104"
+      ],
+      "files": {
+        "obj": "B01-F01.obj",
+        "glb": "B01-F01.glb"
+      },
+      "bounding_box_utm44n": {
+        "min": [
+          414617.987,
+          1450318.118,
+          15.0
+        ],
+        "max": [
+          414634.432,
+          1450340.772,
+          18.0
+        ]
+      }
+    },
+    {
+      "floor_id": "B01-F02",
+      "floor_number": 2,
+      "level_label": "Level 2",
+      "z_min_m": 18.0,
+      "z_max_m": 21.0,
+      "height_m": 3.0,
+      "footprint_area_m2": 354.95,
+      "volume_m3": 1064.86,
+      "is_watertight": true,
+      "is_valid": true,
+      "sample_subdivision_units": [
+        "U201",
+        "U202",
+        "U203",
+        "U204"
+      ],
+      "files": {
+        "obj": "B01-F02.obj",
+        "glb": "B01-F02.glb"
+      },
+      "bounding_box_utm44n": {
+        "min": [
+          414617.987,
+          1450318.118,
+          18.0
+        ],
+        "max": [
+          414634.432,
+          1450340.772,
+          21.0
+        ]
+      }
+    },
+    {
+      "floor_id": "B01-F03",
+      "floor_number": 3,
+      "level_label": "Level 3",
+      "z_min_m": 21.0,
+      "z_max_m": 24.0,
+      "height_m": 3.0,
+      "footprint_area_m2": 354.95,
+      "volume_m3": 1064.86,
+      "is_watertight": true,
+      "is_valid": true,
+      "sample_subdivision_units": [
+        "U301",
+        "U302",
+        "U303",
+        "U304"
+      ],
+      "files": {
+        "obj": "B01-F03.obj",
+        "glb": "B01-F03.glb"
+      },
+      "bounding_box_utm44n": {
+        "min": [
+          414617.987,
+          1450318.118,
+          21.0
+        ],
+        "max": [
+          414634.432,
+          1450340.772,
+          24.0
+        ]
+      }
+    },
+    {
+      "floor_id": "B01-F04",
+      "floor_number": 4,
+      "level_label": "Level 4",
+      "z_min_m": 24.0,
+      "z_max_m": 27.0,
+      "height_m": 3.0,
+      "footprint_area_m2": 354.95,
+      "volume_m3": 1064.86,
+      "is_watertight": true,
+      "is_valid": true,
+      "sample_subdivision_units": [
+        "U401",
+        "U402",
+        "U403",
+        "U404"
+      ],
+      "files": {
+        "obj": "B01-F04.obj",
+        "glb": "B01-F04.glb"
+      },
+      "bounding_box_utm44n": {
+        "min": [
+          414617.987,
+          1450318.118,
+          24.0
+        ],
+        "max": [
+          414634.432,
+          1450340.772,
+          27.0
+        ]
+      }
+    }
+  ],
+  "combined_scene_file": "B01_floors.glb",
+  "provenance": "AI ML Footprint -> OSM 4 Levels Tag -> NBC Standard 3.0m/floor -> Metric Extrusion"
+}

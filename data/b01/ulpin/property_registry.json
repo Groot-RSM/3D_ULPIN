@@ -1,0 +1,1351 @@
+{
+  "schema_version": "1.0",
+  "identifier_system": {
+    "name": "3D ULPIN Prototype Property Identity System",
+    "status": "proposed",
+    "description": "Deterministic spatial hierarchical property identification for 3D cadastre"
+  },
+  "parcel_context": {
+    "parcel_id": "P001",
+    "city": "Chennai",
+    "locality": "Kolathur",
+    "datum_ground_m": 15.0,
+    "total_entities_registered": 26
+  },
+  "entities": [
+    {
+      "property_id": "P001",
+      "entity_type": "cadastral_parcel",
+      "hierarchy_level": "PARCEL",
+      "name": "Kolathur Cadastral Land Parcel P001",
+      "parent_id": null,
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 0.0,
+        "z_max_m": 50.0,
+        "height_m": 50.0,
+        "area_m2": 612.72,
+        "volume_m3": 30636.09,
+        "centroid_lon_lat": [
+          80.2123679,
+          13.1181013
+        ],
+        "centroid_utm44n": [
+          414626.244,
+          1450329.35
+        ]
+      },
+      "provenance": {
+        "source": "Kolathur AOI Cadastral Reference (Option B)",
+        "dem_elevation_datum": "AMSL 15.0m"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "3c27aa6219dea591",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01",
+      "entity_type": "residential_building",
+      "hierarchy_level": "BUILDING",
+      "name": "Soorya Apartments",
+      "parent_id": "P001",
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 15.0,
+        "z_max_m": 27.0,
+        "height_m": 12.0,
+        "area_m2": 354.95,
+        "volume_m3": 4259.43,
+        "centroid_lon_lat": [
+          80.2123678,
+          13.1181013
+        ],
+        "centroid_utm44n": [
+          414626.234,
+          1450329.35
+        ]
+      },
+      "provenance": {
+        "microsoft_footprint_id": "MS_00804",
+        "osm_way_id": "way/354496166",
+        "reconciliation_iou": 0.5752,
+        "reconciliation_classification": "POSSIBLE",
+        "elevation_source": "Open-Meteo DEM (Copernicus/SRTM 30m)",
+        "height_source": "OSM levels (4) \u00d7 NBC Residential Standard (3.0m/floor)"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "e2956db5cb52e27c",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F01",
+      "entity_type": "floor_volume",
+      "hierarchy_level": "FLOOR",
+      "name": "Soorya Apartments - Ground / Level 1",
+      "parent_id": "P001-B01",
+      "floor_number": 1,
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 15.0,
+        "z_max_m": 18.0,
+        "height_m": 3.0,
+        "area_m2": 354.95,
+        "volume_m3": 1064.86,
+        "centroid_lon_lat": [
+          80.2123678,
+          13.1181013
+        ],
+        "centroid_utm44n": [
+          414626.234,
+          1450329.35
+        ]
+      },
+      "provenance": {
+        "source": "Extruded OSM Floor Stacking",
+        "vertical_datum": "NBC Standard 3.0m per floor"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "fa3415290781b1a0",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F02",
+      "entity_type": "floor_volume",
+      "hierarchy_level": "FLOOR",
+      "name": "Soorya Apartments - Level 2",
+      "parent_id": "P001-B01",
+      "floor_number": 2,
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 18.0,
+        "z_max_m": 21.0,
+        "height_m": 3.0,
+        "area_m2": 354.95,
+        "volume_m3": 1064.86,
+        "centroid_lon_lat": [
+          80.2123678,
+          13.1181013
+        ],
+        "centroid_utm44n": [
+          414626.234,
+          1450329.35
+        ]
+      },
+      "provenance": {
+        "source": "Extruded OSM Floor Stacking",
+        "vertical_datum": "NBC Standard 3.0m per floor"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "def3cd9917e4b7b5",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F03",
+      "entity_type": "floor_volume",
+      "hierarchy_level": "FLOOR",
+      "name": "Soorya Apartments - Level 3",
+      "parent_id": "P001-B01",
+      "floor_number": 3,
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 21.0,
+        "z_max_m": 24.0,
+        "height_m": 3.0,
+        "area_m2": 354.95,
+        "volume_m3": 1064.86,
+        "centroid_lon_lat": [
+          80.2123678,
+          13.1181013
+        ],
+        "centroid_utm44n": [
+          414626.234,
+          1450329.35
+        ]
+      },
+      "provenance": {
+        "source": "Extruded OSM Floor Stacking",
+        "vertical_datum": "NBC Standard 3.0m per floor"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "4e70e700146840d3",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F04",
+      "entity_type": "floor_volume",
+      "hierarchy_level": "FLOOR",
+      "name": "Soorya Apartments - Level 4",
+      "parent_id": "P001-B01",
+      "floor_number": 4,
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 24.0,
+        "z_max_m": 27.0,
+        "height_m": 3.0,
+        "area_m2": 354.95,
+        "volume_m3": 1064.86,
+        "centroid_lon_lat": [
+          80.2123678,
+          13.1181013
+        ],
+        "centroid_utm44n": [
+          414626.234,
+          1450329.35
+        ]
+      },
+      "provenance": {
+        "source": "Extruded OSM Floor Stacking",
+        "vertical_datum": "NBC Standard 3.0m per floor"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "2f9bf718b5b83269",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F01-U101",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U101",
+      "unit_code": "U101",
+      "level": 1,
+      "quadrant": "North-West (NW)",
+      "parent_id": "P001-B01-F01",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F01",
+        "adjacent_units": [
+          "P001-B01-F01-U102",
+          "P001-B01-F01-U103"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 15.0,
+        "z_max_m": 18.0,
+        "height_m": 3.0,
+        "area_m2": 88.9,
+        "volume_m3": 266.71,
+        "centroid_lon_lat": [
+          80.2123303,
+          13.1181522
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414617.987,
+            1450329.445,
+            15.0
+          ],
+          "max": [
+            414626.209,
+            1450340.566,
+            18.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 1)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "40b780f9f1375afe",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F01-U102",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U102",
+      "unit_code": "U102",
+      "level": 1,
+      "quadrant": "North-East (NE)",
+      "parent_id": "P001-B01-F01",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F01",
+        "adjacent_units": [
+          "P001-B01-F01-U101",
+          "P001-B01-F01-U104"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 15.0,
+        "z_max_m": 18.0,
+        "height_m": 3.0,
+        "area_m2": 87.07,
+        "volume_m3": 261.21,
+        "centroid_lon_lat": [
+          80.2124033,
+          13.1181527
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414626.209,
+            1450329.445,
+            15.0
+          ],
+          "max": [
+            414634.121,
+            1450340.772,
+            18.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 1)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "10fd16a3d0b03d7e",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F01-U103",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U103",
+      "unit_code": "U103",
+      "level": 1,
+      "quadrant": "South-West (SW)",
+      "parent_id": "P001-B01-F01",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F01",
+        "adjacent_units": [
+          "P001-B01-F01-U101",
+          "P001-B01-F01-U104"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 15.0,
+        "z_max_m": 18.0,
+        "height_m": 3.0,
+        "area_m2": 87.71,
+        "volume_m3": 263.14,
+        "centroid_lon_lat": [
+          80.2123319,
+          13.1180514
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414618.286,
+            1450318.143,
+            15.0
+          ],
+          "max": [
+            414626.209,
+            1450329.445,
+            18.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 1)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "7da49cddf923efbc",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F01-U104",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U104",
+      "unit_code": "U104",
+      "level": 1,
+      "quadrant": "South-East (SE)",
+      "parent_id": "P001-B01-F01",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F01",
+        "adjacent_units": [
+          "P001-B01-F01-U102",
+          "P001-B01-F01-U103"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 15.0,
+        "z_max_m": 18.0,
+        "height_m": 3.0,
+        "area_m2": 91.27,
+        "volume_m3": 273.8,
+        "centroid_lon_lat": [
+          80.212405,
+          13.1180508
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414626.209,
+            1450318.118,
+            15.0
+          ],
+          "max": [
+            414634.432,
+            1450329.445,
+            18.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 1)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "3b085f9076f6a155",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F02-U201",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U201",
+      "unit_code": "U201",
+      "level": 2,
+      "quadrant": "North-West (NW)",
+      "parent_id": "P001-B01-F02",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F02",
+        "adjacent_units": [
+          "P001-B01-F02-U202",
+          "P001-B01-F02-U203"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 18.0,
+        "z_max_m": 21.0,
+        "height_m": 3.0,
+        "area_m2": 88.9,
+        "volume_m3": 266.71,
+        "centroid_lon_lat": [
+          80.2123303,
+          13.1181522
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414617.987,
+            1450329.445,
+            18.0
+          ],
+          "max": [
+            414626.209,
+            1450340.566,
+            21.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 2)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "da159fb060be932c",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F02-U202",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U202",
+      "unit_code": "U202",
+      "level": 2,
+      "quadrant": "North-East (NE)",
+      "parent_id": "P001-B01-F02",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F02",
+        "adjacent_units": [
+          "P001-B01-F02-U201",
+          "P001-B01-F02-U204"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 18.0,
+        "z_max_m": 21.0,
+        "height_m": 3.0,
+        "area_m2": 87.07,
+        "volume_m3": 261.21,
+        "centroid_lon_lat": [
+          80.2124033,
+          13.1181527
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414626.209,
+            1450329.445,
+            18.0
+          ],
+          "max": [
+            414634.121,
+            1450340.772,
+            21.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 2)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "1389722a04403bbd",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F02-U203",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U203",
+      "unit_code": "U203",
+      "level": 2,
+      "quadrant": "South-West (SW)",
+      "parent_id": "P001-B01-F02",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F02",
+        "adjacent_units": [
+          "P001-B01-F02-U201",
+          "P001-B01-F02-U204"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 18.0,
+        "z_max_m": 21.0,
+        "height_m": 3.0,
+        "area_m2": 87.71,
+        "volume_m3": 263.14,
+        "centroid_lon_lat": [
+          80.2123319,
+          13.1180514
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414618.286,
+            1450318.143,
+            18.0
+          ],
+          "max": [
+            414626.209,
+            1450329.445,
+            21.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 2)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "bdaf68f867b26ae6",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F02-U204",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U204",
+      "unit_code": "U204",
+      "level": 2,
+      "quadrant": "South-East (SE)",
+      "parent_id": "P001-B01-F02",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F02",
+        "adjacent_units": [
+          "P001-B01-F02-U202",
+          "P001-B01-F02-U203"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 18.0,
+        "z_max_m": 21.0,
+        "height_m": 3.0,
+        "area_m2": 91.27,
+        "volume_m3": 273.8,
+        "centroid_lon_lat": [
+          80.212405,
+          13.1180508
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414626.209,
+            1450318.118,
+            18.0
+          ],
+          "max": [
+            414634.432,
+            1450329.445,
+            21.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 2)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "a62fbb81b3e313f2",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F03-U301",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U301",
+      "unit_code": "U301",
+      "level": 3,
+      "quadrant": "North-West (NW)",
+      "parent_id": "P001-B01-F03",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F03",
+        "adjacent_units": [
+          "P001-B01-F03-U302",
+          "P001-B01-F03-U303"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 21.0,
+        "z_max_m": 24.0,
+        "height_m": 3.0,
+        "area_m2": 88.9,
+        "volume_m3": 266.71,
+        "centroid_lon_lat": [
+          80.2123303,
+          13.1181522
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414617.987,
+            1450329.445,
+            21.0
+          ],
+          "max": [
+            414626.209,
+            1450340.566,
+            24.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 3)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "476ad6338b753863",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F03-U302",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U302",
+      "unit_code": "U302",
+      "level": 3,
+      "quadrant": "North-East (NE)",
+      "parent_id": "P001-B01-F03",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F03",
+        "adjacent_units": [
+          "P001-B01-F03-U301",
+          "P001-B01-F03-U304"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 21.0,
+        "z_max_m": 24.0,
+        "height_m": 3.0,
+        "area_m2": 87.07,
+        "volume_m3": 261.21,
+        "centroid_lon_lat": [
+          80.2124033,
+          13.1181527
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414626.209,
+            1450329.445,
+            21.0
+          ],
+          "max": [
+            414634.121,
+            1450340.772,
+            24.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 3)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "140c85e1b82c4710",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F03-U303",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U303",
+      "unit_code": "U303",
+      "level": 3,
+      "quadrant": "South-West (SW)",
+      "parent_id": "P001-B01-F03",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F03",
+        "adjacent_units": [
+          "P001-B01-F03-U301",
+          "P001-B01-F03-U304"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 21.0,
+        "z_max_m": 24.0,
+        "height_m": 3.0,
+        "area_m2": 87.71,
+        "volume_m3": 263.14,
+        "centroid_lon_lat": [
+          80.2123319,
+          13.1180514
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414618.286,
+            1450318.143,
+            21.0
+          ],
+          "max": [
+            414626.209,
+            1450329.445,
+            24.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 3)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "b9da8cdb55eccc9f",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F03-U304",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U304",
+      "unit_code": "U304",
+      "level": 3,
+      "quadrant": "South-East (SE)",
+      "parent_id": "P001-B01-F03",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F03",
+        "adjacent_units": [
+          "P001-B01-F03-U302",
+          "P001-B01-F03-U303"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 21.0,
+        "z_max_m": 24.0,
+        "height_m": 3.0,
+        "area_m2": 91.27,
+        "volume_m3": 273.8,
+        "centroid_lon_lat": [
+          80.212405,
+          13.1180508
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414626.209,
+            1450318.118,
+            21.0
+          ],
+          "max": [
+            414634.432,
+            1450329.445,
+            24.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 3)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "a61508877c15d2f4",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F04-U401",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U401",
+      "unit_code": "U401",
+      "level": 4,
+      "quadrant": "North-West (NW)",
+      "parent_id": "P001-B01-F04",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F04",
+        "adjacent_units": [
+          "P001-B01-F04-U402",
+          "P001-B01-F04-U403"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 24.0,
+        "z_max_m": 27.0,
+        "height_m": 3.0,
+        "area_m2": 88.9,
+        "volume_m3": 266.71,
+        "centroid_lon_lat": [
+          80.2123303,
+          13.1181522
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414617.987,
+            1450329.445,
+            24.0
+          ],
+          "max": [
+            414626.209,
+            1450340.566,
+            27.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 4)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "6d5a0ab48b747ce7",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F04-U402",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U402",
+      "unit_code": "U402",
+      "level": 4,
+      "quadrant": "North-East (NE)",
+      "parent_id": "P001-B01-F04",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F04",
+        "adjacent_units": [
+          "P001-B01-F04-U401",
+          "P001-B01-F04-U404"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 24.0,
+        "z_max_m": 27.0,
+        "height_m": 3.0,
+        "area_m2": 87.07,
+        "volume_m3": 261.21,
+        "centroid_lon_lat": [
+          80.2124033,
+          13.1181527
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414626.209,
+            1450329.445,
+            24.0
+          ],
+          "max": [
+            414634.121,
+            1450340.772,
+            27.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 4)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "a126f8f70de900e2",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F04-U403",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U403",
+      "unit_code": "U403",
+      "level": 4,
+      "quadrant": "South-West (SW)",
+      "parent_id": "P001-B01-F04",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F04",
+        "adjacent_units": [
+          "P001-B01-F04-U401",
+          "P001-B01-F04-U404"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 24.0,
+        "z_max_m": 27.0,
+        "height_m": 3.0,
+        "area_m2": 87.71,
+        "volume_m3": 263.14,
+        "centroid_lon_lat": [
+          80.2123319,
+          13.1180514
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414618.286,
+            1450318.143,
+            24.0
+          ],
+          "max": [
+            414626.209,
+            1450329.445,
+            27.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 4)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "4bd1132431948f72",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-B01-F04-U404",
+      "entity_type": "private_residential_unit",
+      "hierarchy_level": "PROPERTY_UNIT",
+      "name": "Soorya Apartments Unit U404",
+      "unit_code": "U404",
+      "level": 4,
+      "quadrant": "South-East (SE)",
+      "parent_id": "P001-B01-F04",
+      "relationships": {
+        "parcel_id": "P001",
+        "building_id": "P001-B01",
+        "floor_id": "P001-B01-F04",
+        "adjacent_units": [
+          "P001-B01-F04-U402",
+          "P001-B01-F04-U403"
+        ]
+      },
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 24.0,
+        "z_max_m": 27.0,
+        "height_m": 3.0,
+        "area_m2": 91.27,
+        "volume_m3": 273.8,
+        "centroid_lon_lat": [
+          80.212405,
+          13.1180508
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414626.209,
+            1450318.118,
+            24.0
+          ],
+          "max": [
+            414634.432,
+            1450329.445,
+            27.0
+          ]
+        }
+      },
+      "provenance": {
+        "footprint_lineage": "Microsoft MS_00804 + OSM way/354496166 (IoU: 0.575)",
+        "vertical_lineage": "Open-Meteo DEM Base (15.0m) + NBC 3.0m/floor (Level 4)",
+        "horizontal_partition": "Footprint-Aware 2x2 Quadrant Clipping",
+        "geometry_source": "procedural_prototype"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "within_floor": true,
+        "overlap_free": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "036b37ecd4278a23",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-UG-B01",
+      "entity_type": "basement_service_volume",
+      "hierarchy_level": "NON_BUILDING_ENTITY",
+      "name": "B01 Basement & Subsurface Service Area",
+      "parent_id": "P001",
+      "category": "below_ground",
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 12.0,
+        "z_max_m": 15.0,
+        "height_m": 3.0,
+        "area_m2": 249.18,
+        "volume_m3": 747.55,
+        "centroid_lon_lat": [
+          80.2123678,
+          13.1181013
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414619.528,
+            1450319.623,
+            12.0
+          ],
+          "max": [
+            414632.89,
+            1450339.232,
+            15.0
+          ]
+        }
+      },
+      "provenance": {
+        "geometry_source": "simulated_prototype",
+        "description": "Subsurface structural basement & maintenance utility zone"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "c6745733b9bec728",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-UG-C01",
+      "entity_type": "utility_corridor",
+      "hierarchy_level": "NON_BUILDING_ENTITY",
+      "name": "Municipal Common Utility Corridor",
+      "parent_id": "P001",
+      "category": "below_ground",
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 12.0,
+        "z_max_m": 13.0,
+        "height_m": 1.0,
+        "area_m2": 82.88,
+        "volume_m3": 82.88,
+        "centroid_lon_lat": [
+          80.2124711,
+          13.1181025
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414636.182,
+            1450312.868,
+            12.0
+          ],
+          "max": [
+            414638.682,
+            1450346.022,
+            13.0
+          ]
+        }
+      },
+      "provenance": {
+        "geometry_source": "simulated_prototype",
+        "description": "Shared subterranean corridor for electrical/telecom routing"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "89fa0dd5584fdbbd",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-UG-W01",
+      "entity_type": "water_sewer_conduit",
+      "hierarchy_level": "NON_BUILDING_ENTITY",
+      "name": "Stormwater & Potable Water Conduit",
+      "parent_id": "P001",
+      "category": "below_ground",
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 10.5,
+        "z_max_m": 11.5,
+        "height_m": 1.0,
+        "area_m2": 37.97,
+        "volume_m3": 37.97,
+        "centroid_lon_lat": [
+          80.2123772,
+          13.1179817
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414611.387,
+            1450315.518,
+            10.5
+          ],
+          "max": [
+            414643.032,
+            1450316.718,
+            11.5
+          ]
+        }
+      },
+      "provenance": {
+        "geometry_source": "simulated_prototype",
+        "description": "Linear subsurface hydraulic utility asset"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "77371f099321722f",
+      "status": "proposed_3d_ulpin_prototype"
+    },
+    {
+      "property_id": "P001-AS-B01",
+      "entity_type": "airspace_spatial_right",
+      "hierarchy_level": "NON_BUILDING_ENTITY",
+      "name": "B01 Vertical Airspace Spatial Right Volume",
+      "parent_id": "P001",
+      "category": "above_ground_airspace",
+      "spatial": {
+        "crs": "EPSG:32644",
+        "crs_geographic": "EPSG:4326",
+        "z_min_m": 27.0,
+        "z_max_m": 32.0,
+        "height_m": 5.0,
+        "area_m2": 354.95,
+        "volume_m3": 1774.76,
+        "centroid_lon_lat": [
+          80.2123678,
+          13.1181013
+        ],
+        "bounding_box_utm44n": {
+          "min": [
+            414617.987,
+            1450318.118,
+            27.0
+          ],
+          "max": [
+            414634.432,
+            1450340.772,
+            32.0
+          ]
+        }
+      },
+      "provenance": {
+        "geometry_source": "derived_prototype",
+        "description": "Vertical airspace clearance & solar easement zone above roof"
+      },
+      "validation": {
+        "geometry_valid": true,
+        "watertight": true,
+        "topology_status": "VALIDATED"
+      },
+      "validation_status": "VALIDATED",
+      "geometry_hash": "f4c217f3f93f2d2a",
+      "status": "proposed_3d_ulpin_prototype"
+    }
+  ]
+}
