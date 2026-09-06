@@ -924,9 +924,9 @@
         "building_id": "VIT-B008",
         "name": "CDMM - Centre for Disaster Mitigation and Management",
         "name_confirmed": true,
-        "centroid_lat": 12.97152,
-        "centroid_lon": 79.16142,
-        "area_m2": 1476.0,
+        "centroid_lat": 12.96786,
+        "centroid_lon": 79.15718,
+        "area_m2": 1512.0,
         "height_m": 16.0,
         "height_source": "ESTIMATED_SURVEY",
         "osm_id": "osm_vit_b008",
@@ -939,11 +939,11 @@
         "review_required": false,
         "verification_status": "VERIFIED",
         "certainty": "VERIFIED_OFFICIAL",
-        "source": "Satellite Survey / High-Res Footprint",
+        "source": "Satellite Survey",
         "source_id": "osm_vit_b008",
         "status": "READY FOR EXTRUSION",
         "last_updated": "2026-09-06T17:14:30.632669Z",
-        "notes": "4 Floors (Ground + 3 upper floors). Centre for Disaster Mitigation and Management.",
+        "notes": "4 Floors (Ground + 3 upper floors). Located south of G.D. Naidu Block & Health Centre.",
         "ulpin": "ULPIN-IN-TN-VEL-VIT-B008"
       },
       "geometry": {
@@ -951,24 +951,24 @@
         "coordinates": [
           [
             [
-              79.1610428,
-              12.971436
+              79.156786,
+              12.9678972
             ],
             [
-              79.1617984,
-              12.9714413
+              79.1575239,
+              12.9676678
             ],
             [
-              79.1617972,
-              12.971604
+              79.157574,
+              12.9678228
             ],
             [
-              79.1610416,
-              12.9715987
+              79.1568361,
+              12.9680522
             ],
             [
-              79.1610428,
-              12.971436
+              79.156786,
+              12.9678972
             ]
           ]
         ]
