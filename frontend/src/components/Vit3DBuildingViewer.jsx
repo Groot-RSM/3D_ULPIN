@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { X, Box, Layers, ShieldCheck, CheckCircle2, Sliders, Info, Sparkles } from 'lucide-react';
+import { X, Box, CheckCircle2, Sliders, RotateCcw } from 'lucide-react';
 
 export default function Vit3DBuildingViewer({
   building = null,
@@ -12,8 +12,10 @@ export default function Vit3DBuildingViewer({
   const [selectedFloor, setSelectedFloor] = useState(null);
   const [reconciliation, setReconciliation] = useState(null);
 
+  const explodeFactorRef = useRef(explodeFactor);
+  explodeFactorRef.current = explodeFactor;
+
   const bId = building?.building_id || 'VIT-B001';
-  const name = building?.name || 'Building';
 
   // Load reconciliation evidence
   useEffect(() => {
@@ -29,58 +31,87 @@ export default function Vit3DBuildingViewer({
   }, [bId, building]);
 
   const floorGroupRef = useRef(null);
+  const resetCameraRef = useRef(null);
 
   useEffect(() => {
-    if (!mountRef.current || !building) return;
+    const container = mountRef.current;
+    if (!container || !building) return;
 
-    const width = mountRef.current.clientWidth || 600;
-    const height = mountRef.current.clientHeight || 450;
+    const width = container.clientWidth || 600;
+    const height = container.clientHeight || 450;
 
     // 1. Three.js Scene Setup
     const scene = new THREE.Scene();
     scene.background = new THREE.Color('#050812');
-    scene.fog = new THREE.FogExp2('#050812', 0.005);
+    scene.fog = new THREE.FogExp2('#050812', 0.002);
 
     // 2. Camera Setup
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    camera.position.set(45, 45, 45);
+    const camera = new THREE.PerspectiveCamera(45, width / height, 0.5, 2000);
 
     // 3. Renderer Setup
     const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = THREE.PCFShadowMap;
 
-    mountRef.current.appendChild(renderer.domElement);
+    container.appendChild(renderer.domElement);
 
     // 4. Orbit Controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.maxPolarAngle = Math.PI / 2 + 0.1;
+    controls.dampingFactor = 0.08;
+    controls.maxPolarAngle = Math.PI / 2 + 0.05;
 
-    // 5. Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.8);
+    // 5. Lighting Setup
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.6);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 2.5);
-    dirLight.position.set(50, 80, 50);
-    dirLight.castShadow = true;
-    scene.add(dirLight);
+    const dirLight1 = new THREE.DirectionalLight(0xffffff, 2.2);
+    dirLight1.position.set(80, 120, 80);
+    dirLight1.castShadow = true;
+    scene.add(dirLight1);
 
-    const cyanLight = new THREE.DirectionalLight(0x38bdf8, 1.2);
-    cyanLight.position.set(-50, 40, -50);
-    scene.add(cyanLight);
+    const cyanRimLight = new THREE.DirectionalLight(0x00f0ff, 1.5);
+    cyanRimLight.position.set(-80, 60, -80);
+    scene.add(cyanRimLight);
 
-    // Ground Grid
-    const grid = new THREE.GridHelper(100, 20, 0x38bdf8, 0x1e293b);
-    grid.position.y = 0;
-    scene.add(grid);
+    const warmFillLight = new THREE.DirectionalLight(0xf59e0b, 0.8);
+    warmFillLight.position.set(0, -50, 0);
+    scene.add(warmFillLight);
 
-    // 6. Extrude Building Slices into 3D Floors
-    const coords = building.geometry ? (building.geometry.coordinates[0] || building.geometry.coordinates[0][0]) : [];
-    const heightM = building.height_m || 30.0;
+    // 6. Parse Polygon / MultiPolygon Geometry
+    const polygons = [];
+    if (building.geometry) {
+      if (building.geometry.type === 'Polygon') {
+        polygons.push(building.geometry.coordinates);
+      } else if (building.geometry.type === 'MultiPolygon') {
+        building.geometry.coordinates.forEach(polyCoords => polygons.push(polyCoords));
+      }
+    }
+
+    // Collect all vertices to compute global centroid
+    const allLons = [];
+    const allLats = [];
+    polygons.forEach(poly => {
+      const outerRing = poly[0] || [];
+      outerRing.forEach(pt => {
+        if (Array.isArray(pt)) {
+          allLons.push(pt[0]);
+          allLats.push(pt[1]);
+        }
+      });
+    });
+
+    const minLon = allLons.length ? Math.min(...allLons) : 79.156;
+    const maxLon = allLons.length ? Math.max(...allLons) : 79.156;
+    const minLat = allLats.length ? Math.min(...allLats) : 12.969;
+    const maxLat = allLats.length ? Math.max(...allLats) : 12.969;
+
+    const centerLon = (minLon + maxLon) / 2;
+    const centerLat = (minLat + maxLat) / 2;
+
+    const heightM = building.height_m || 24.0;
     const finalFloorsCount = reconciliation?.final_floor_count || Math.max(1, Math.round(heightM / 4.0));
     const flHeightM = heightM / finalFloorsCount;
 
@@ -88,20 +119,14 @@ export default function Vit3DBuildingViewer({
     floorGroupRef.current = floorGroup;
     scene.add(floorGroup);
 
-    if (coords && coords.length > 0) {
-      // Calculate Centroid in degrees
-      const lats = coords.map(c => Array.isArray(c) ? c[1] : 0);
-      const lons = coords.map(c => Array.isArray(c) ? c[0] : 0);
-      const minLat = Math.min(...lats);
-      const maxLat = Math.max(...lats);
-      const minLon = Math.min(...lons);
-      const maxLon = Math.max(...lons);
-      const centerLat = (minLat + maxLat) / 2;
-      const centerLon = (minLon + maxLon) / 2;
+    // Build 2D Shapes (with courtyard holes if present)
+    const shapes = [];
+    polygons.forEach(poly => {
+      const outerRing = poly[0] || [];
+      if (outerRing.length < 3) return;
 
-      // Shape definition
       const shape = new THREE.Shape();
-      coords.forEach((pt, idx) => {
+      outerRing.forEach((pt, idx) => {
         if (!Array.isArray(pt)) return;
         const x = (pt[0] - centerLon) * 108500.0;
         const y = (pt[1] - centerLat) * 110800.0;
@@ -109,61 +134,129 @@ export default function Vit3DBuildingViewer({
         else shape.lineTo(x, y);
       });
 
-      // Build each floor slab mesh
-      for (let i = 0; i < finalFloorsCount; i++) {
-        const extrudeSettings = {
-          steps: 1,
-          depth: flHeightM * 0.95,
-          bevelEnabled: true,
-          bevelThickness: 0.15,
-          bevelSize: 0.15,
-          bevelSegments: 2
-        };
+      // Handle inner rings (courtyards / holes)
+      if (poly.length > 1) {
+        for (let r = 1; r < poly.length; r++) {
+          const holeRing = poly[r];
+          if (holeRing.length >= 3) {
+            const holePath = new THREE.Path();
+            holeRing.forEach((pt, hIdx) => {
+              if (!Array.isArray(pt)) return;
+              const hx = (pt[0] - centerLon) * 108500.0;
+              const hy = (pt[1] - centerLat) * 110800.0;
+              if (hIdx === 0) holePath.moveTo(hx, hy);
+              else holePath.lineTo(hx, hy);
+            });
+            shape.holes.push(holePath);
+          }
+        }
+      }
+      shapes.push(shape);
+    });
 
+    // 7. Extrude 3D Floor Slabs
+    for (let i = 0; i < finalFloorsCount; i++) {
+      const isGround = i === 0;
+      const isTop = i === finalFloorsCount - 1;
+
+      // Color scheme: Ground=Amber/Gold, Intermediate=Azure/Glass, Roof=Electric Cyan
+      const colorHex = isGround ? 0xf59e0b : isTop ? 0x00f0ff : 0x0284c7;
+      const emissiveHex = isGround ? 0x78350f : isTop ? 0x0891b2 : 0x075985;
+
+      const floorSlabGroup = new THREE.Group();
+      floorSlabGroup.userData = {
+        floorLevel: i + 1,
+        baseY: i * flHeightM,
+        flHeight: flHeightM
+      };
+
+      const extrudeSettings = {
+        steps: 1,
+        depth: Math.max(0.6, flHeightM * 0.92),
+        bevelEnabled: true,
+        bevelThickness: 0.12,
+        bevelSize: 0.12,
+        bevelSegments: 2
+      };
+
+      shapes.forEach(shape => {
         const slabGeo = new THREE.ExtrudeGeometry(shape, extrudeSettings);
         slabGeo.computeVertexNormals();
 
-        // Alternating Gold & Glass styling
-        const isGround = i === 0;
-        const isTop = i === finalFloorsCount - 1;
-        const colorHex = isGround ? 0xf59e0b : isTop ? 0x38bdf8 : 0x0284c7;
-
         const mat = new THREE.MeshStandardMaterial({
           color: colorHex,
-          emissive: colorHex,
-          emissiveIntensity: 0.35,
-          roughness: 0.3,
-          metalness: 0.4,
+          emissive: emissiveHex,
+          emissiveIntensity: 0.28,
+          roughness: 0.25,
+          metalness: 0.45,
           transparent: true,
-          opacity: 0.9
+          opacity: 0.88
         });
 
         const mesh = new THREE.Mesh(slabGeo, mat);
         mesh.rotation.x = -Math.PI / 2;
-        mesh.position.y = i * flHeightM;
         mesh.castShadow = true;
         mesh.receiveShadow = true;
-        mesh.userData = {
-          floorLevel: i + 1,
-          baseY: i * flHeightM,
-          flHeight: flHeightM
-        };
+        mesh.userData = { floorLevel: i + 1 };
 
-        // Slab Outline Wireframe
-        const edges = new THREE.EdgesGeometry(slabGeo, 15);
-        const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 1.5 }));
+        // Crisp outline edges
+        const edges = new THREE.EdgesGeometry(slabGeo, 20);
+        const line = new THREE.LineSegments(
+          edges,
+          new THREE.LineBasicMaterial({
+            color: isTop ? 0x38bdf8 : isGround ? 0xfde68a : 0xe0f2fe,
+            linewidth: 1.5,
+            transparent: true,
+            opacity: 0.95
+          })
+        );
         mesh.add(line);
+        floorSlabGroup.add(mesh);
+      });
 
-        floorGroup.add(mesh);
-      }
-
-      // Position Camera centered at 3D building top
-      camera.position.set(35, heightM * 1.3 + 15, 35);
-      controls.target.set(0, heightM / 2, 0);
-      controls.update();
+      floorSlabGroup.position.y = i * flHeightM;
+      floorGroup.add(floorSlabGroup);
     }
 
-    // 7. Raycaster for Floor Selection Click
+    // 8. Auto-calculate Bounding Box & Fit Camera Perfectly
+    const box = new THREE.Box3().setFromObject(floorGroup);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+
+    const maxHorizontal = Math.max(size.x, size.z, 20);
+    const maxDim = Math.max(maxHorizontal, size.y, 25);
+
+    // Dynamic ground grid
+    const gridDim = Math.max(120, Math.ceil((maxHorizontal * 2.5) / 20) * 20);
+    const grid = new THREE.GridHelper(gridDim, 20, 0x00f0ff, 0x1e293b);
+    grid.position.set(center.x, 0, center.z);
+    scene.add(grid);
+
+    // Camera perspective distance calculation
+    const fovRad = camera.fov * (Math.PI / 180);
+    let cameraDist = (maxDim / 2) / Math.tan(fovRad / 2);
+    cameraDist *= 1.45; // Generous framing padding
+
+    const setupCamera = () => {
+      camera.position.set(
+        center.x + cameraDist * 0.85,
+        center.y + cameraDist * 0.75,
+        center.z + cameraDist * 0.85
+      );
+      camera.near = 0.5;
+      camera.far = Math.max(2000, cameraDist * 10);
+      camera.updateProjectionMatrix();
+
+      controls.target.set(center.x, center.y, center.z);
+      controls.minDistance = maxDim * 0.2;
+      controls.maxDistance = cameraDist * 5;
+      controls.update();
+    };
+
+    setupCamera();
+    resetCameraRef.current = setupCamera;
+
+    // 9. Raycasting for Floor Selection
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
@@ -188,9 +281,9 @@ export default function Vit3DBuildingViewer({
             label: level === 1 ? 'Ground Floor (G)' : `Floor ${level}`,
             z_min: (level - 1) * flHeightM,
             z_max: level * flHeightM,
-            height_m: flHeightM,
+            height_m: parseFloat(flHeightM.toFixed(1)),
             area_m2: building.area_m2 || 1000,
-            volume_m3: (building.area_m2 || 1000) * flHeightM,
+            volume_m3: Math.round((building.area_m2 || 1000) * flHeightM),
             generation_method: reconciliation?.generation_method || 'DYNAMIC',
             certainty_tier: reconciliation?.certainty_tier || 'DERIVED'
           };
@@ -201,18 +294,21 @@ export default function Vit3DBuildingViewer({
 
     renderer.domElement.addEventListener('click', handleCanvasClick);
 
-    // 8. Animation Loop
+    // 10. Smooth 60FPS Animation Loop
     let animId;
     const animate = () => {
       animId = requestAnimationFrame(animate);
 
-      // Animate exploded floor displacement
+      // Smooth vertical lerp when explode factor changes
+      const currentFactor = explodeFactorRef.current;
       if (floorGroupRef.current) {
         floorGroupRef.current.children.forEach((child) => {
           if (child.userData && child.userData.floorLevel) {
             const level = child.userData.floorLevel;
-            const targetY = child.userData.baseY + (level - 1) * (explodeFactor * 1.8);
-            child.position.y += (targetY - child.position.y) * 0.1;
+            // Progressive gap expansion per level
+            const displacement = (level - 1) * (currentFactor * (flHeightM * 0.9 + 3.0));
+            const targetY = child.userData.baseY + displacement;
+            child.position.y += (targetY - child.position.y) * 0.12;
           }
         });
       }
@@ -222,16 +318,30 @@ export default function Vit3DBuildingViewer({
     };
     animate();
 
+    // 11. Handle Resizing
+    const handleResize = () => {
+      if (!container) return;
+      const w = container.clientWidth;
+      const h = container.clientHeight;
+      camera.aspect = w / h;
+      camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    };
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup
     return () => {
       cancelAnimationFrame(animId);
+      window.removeEventListener('resize', handleResize);
       if (renderer.domElement) {
         renderer.domElement.removeEventListener('click', handleCanvasClick);
       }
-      if (mountRef.current && renderer.domElement) {
-        mountRef.current.removeChild(renderer.domElement);
+      if (container && renderer.domElement && container.contains(renderer.domElement)) {
+        container.removeChild(renderer.domElement);
       }
+      renderer.dispose();
     };
-  }, [building, reconciliation, explodeFactor]);
+  }, [building, reconciliation, bId]);
 
   if (!building) return null;
 
@@ -251,7 +361,7 @@ export default function Vit3DBuildingViewer({
       padding: '24px'
     }}>
       <div style={{
-        width: '940px',
+        width: '980px',
         maxHeight: '92vh',
         background: 'rgba(10, 16, 32, 0.96)',
         border: '1.5px solid #f59e0b',
@@ -297,7 +407,7 @@ export default function Vit3DBuildingViewer({
           </button>
         </div>
 
-        {/* STEP 9: EXPLODE FLOORS SLIDER BAR */}
+        {/* EXPLODE FLOORS SLIDER BAR */}
         <div style={{
           padding: '10px 24px',
           background: 'rgba(15, 23, 42, 0.75)',
@@ -321,29 +431,74 @@ export default function Vit3DBuildingViewer({
             type="range"
             min="0"
             max="3"
-            step="0.1"
+            step="0.05"
             value={explodeFactor}
             onChange={(e) => setExplodeFactor(parseFloat(e.target.value))}
             style={{ width: '240px', accentColor: '#f59e0b', cursor: 'pointer' }}
           />
 
           <div style={{ fontSize: '10.5px', color: '#94a3b8' }}>
-            💡 Displays vertical visual separation without modifying true stored Z coordinates.
+            💡 Drag slider to visually separate vertical floor plates in real-time.
           </div>
         </div>
 
         {/* 3D CANVAS & DETAILS SPLIT VIEW */}
-        <div style={{ display: 'flex', flex: 1, height: '480px' }}>
+        <div style={{ display: 'flex', flex: 1, height: '490px' }}>
           {/* 3D CANVAS VIEWPORT */}
           <div style={{ flex: 1, position: 'relative', height: '100%' }}>
             <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
-            <div style={{ position: 'absolute', bottom: '12px', left: '16px', fontSize: '11px', color: '#94a3b8', background: 'rgba(5,8,18,0.75)', padding: '4px 10px', borderRadius: '6px' }}>
-              🖱️ Click any 3D floor slab to inspect metadata | Drag to rotate
+            
+            {/* Control Badges Overlay */}
+            <div style={{
+              position: 'absolute',
+              bottom: '12px',
+              left: '16px',
+              fontSize: '11px',
+              color: '#94a3b8',
+              background: 'rgba(5,8,18,0.85)',
+              padding: '6px 12px',
+              borderRadius: '6px',
+              border: '1px solid rgba(255,255,255,0.1)'
+            }}>
+              🖱️ Left-Click: Orbit | Right-Click: Pan | Scroll: Zoom | Click Slab: Select
             </div>
+
+            {/* Reset Camera Button */}
+            <button
+              onClick={() => resetCameraRef.current && resetCameraRef.current()}
+              style={{
+                position: 'absolute',
+                top: '12px',
+                right: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '6px',
+                background: 'rgba(15, 23, 42, 0.85)',
+                border: '1px solid rgba(56, 189, 248, 0.4)',
+                color: '#38bdf8',
+                padding: '6px 10px',
+                borderRadius: '6px',
+                fontSize: '11px',
+                fontWeight: '700',
+                cursor: 'pointer'
+              }}
+            >
+              <RotateCcw size={13} />
+              Reset View
+            </button>
           </div>
 
           {/* RIGHT METRICS PANEL */}
-          <div style={{ width: '310px', borderLeft: '1px solid rgba(255,255,255,0.08)', padding: '16px', background: '#070b14', display: 'flex', flexDirection: 'column', gap: '10px', overflowY: 'auto' }}>
+          <div style={{
+            width: '320px',
+            borderLeft: '1px solid rgba(255,255,255,0.08)',
+            padding: '16px',
+            background: '#070b14',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+            overflowY: 'auto'
+          }}>
             
             {/* SELECTED FLOOR DETAILS */}
             {selectedFloor ? (

@@ -207,12 +207,7 @@ export default function VitCampusMap({
           ],
           'fill-extrusion-height': ['get', 'height_m'],
           'fill-extrusion-base': 0,
-          'fill-extrusion-opacity': [
-            'case',
-            ['==', ['get', 'building_id'], selectedBuildingId],
-            0.98,
-            0.50
-          ]
+          'fill-extrusion-opacity': 0.85
         }
       });
     }
@@ -352,11 +347,9 @@ export default function VitCampusMap({
 
     const selectedColor = ['case', ['==', ['get', 'building_id'], selectedBuildingId], '#00f0ff', '#0284c7'];
     const selectedOutlineColor = ['case', ['==', ['get', 'building_id'], selectedBuildingId], '#00f0ff', '#38bdf8'];
-    const selectedOpacity = ['case', ['==', ['get', 'building_id'], selectedBuildingId], 0.98, 0.50];
 
     if (map.getLayer('vit-buildings-3d')) {
       map.setPaintProperty('vit-buildings-3d', 'fill-extrusion-color', selectedColor);
-      map.setPaintProperty('vit-buildings-3d', 'fill-extrusion-opacity', selectedOpacity);
     }
     if (map.getLayer('vit-footprints-2d')) {
       map.setPaintProperty('vit-footprints-2d', 'fill-color', selectedColor);
@@ -398,6 +391,12 @@ export default function VitCampusMap({
           maxZoom: 17.5
         });
       }
+    } else {
+      map.easeTo({
+        pitch: is3dView ? 50 : 0,
+        bearing: is3dView ? -25 : 0,
+        duration: 800
+      });
     }
   }, [selectedBuildingId, is3dView, buildings]);
 

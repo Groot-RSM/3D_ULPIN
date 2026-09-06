@@ -52,13 +52,13 @@ VERIFIED_MAP = {
         "notes": "5 Floors (Lower Ground + Upper Ground + 1st + Mezzanine + 2nd). IGBC Platinum rated."
     },
     "VIT-B006": {
-        "name": "Central Library",
+        "name": "Periyar EVR Central Library",
         "verified_floor_count": 7,
         "height_m": 28.0,
         "floor_count_source": "OFFICIAL_VIT_RECORD",
         "verification_status": "VERIFIED",
         "certainty": "VERIFIED_OFFICIAL",
-        "notes": "7 Floors (Ground + 6 upper floors, 7,770 m² total area)."
+        "notes": "7 Floors (Ground + 6 upper floors, Periyar EVR Central Library, VIT Vellore campus)."
     },
     "VIT-B007": {
         "name": "CBMR - Center for Biomedical Research",
