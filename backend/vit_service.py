@@ -221,6 +221,7 @@ class VitCampusService:
                 self.routes_data = json.load(f)
 
     def get_all_buildings(self) -> List[Dict[str, Any]]:
+        self.load_data()
         result = []
         for b in self.buildings_by_id.values():
             reconciliation = self.get_building_reconciliation(b.get("building_id"))
@@ -231,6 +232,7 @@ class VitCampusService:
         return result
 
     def get_building_by_id(self, building_id: str) -> Optional[Dict[str, Any]]:
+        self.load_data()
         b = self.buildings_by_id.get(building_id.upper()) or self.buildings_by_id.get(building_id)
         if not b:
             return None
