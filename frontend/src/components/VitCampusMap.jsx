@@ -27,7 +27,7 @@ export default function VitCampusMap({
       return {
         version: 8,
         sources: {
-          'mapbox-satellite-source': {
+          'satellite-tiles': {
             type: 'raster',
             tiles: [
               `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/tiles/256/{z}/{x}/{y}?access_token=${MAPBOX_TOKEN}`
@@ -38,9 +38,9 @@ export default function VitCampusMap({
         },
         layers: [
           {
-            id: 'mapbox-satellite-layer',
+            id: 'satellite-tiles-layer',
             type: 'raster',
-            source: 'mapbox-satellite-source',
+            source: 'satellite-tiles',
             minzoom: 0,
             maxzoom: 22
           }
@@ -104,200 +104,23 @@ export default function VitCampusMap({
     };
   };
 
-  // Add Interactive Vector & Extrusion Layers
-  const setupMapLayers = (map) => {
-    if (!map.getSource('vit-buildings')) {
-      map.addSource('vit-buildings', {
-        type: 'geojson',
-        data: getBuildingsGeoJson(buildings)
-      });
-    } else {
-      map.getSource('vit-buildings').setData(getBuildingsGeoJson(buildings));
-    }
 
-    if (routes) {
-      if (!map.getSource('vit-routes')) {
-        map.addSource('vit-routes', {
-          type: 'geojson',
-          data: routes
-        });
-      } else {
-        map.getSource('vit-routes').setData(routes);
-      }
 
-      // 1. Campus Roadway Casing
-      if (!map.getLayer('vit-routes-casing')) {
-        map.addLayer({
-          id: 'vit-routes-casing',
-          type: 'line',
-          source: 'vit-routes',
-          paint: {
-            'line-color': '#0284c7',
-            'line-width': 4.5,
-            'line-opacity': 0.4
-          }
-        });
-      }
+  const propsRef = useRef({
+    buildings,
+    routes,
+    selectedBuildingId,
+    is3dView
+  });
 
-      // 2. Campus Roadway Core
-      if (!map.getLayer('vit-routes-core')) {
-        map.addLayer({
-          id: 'vit-routes-core',
-          type: 'line',
-          source: 'vit-routes',
-          paint: {
-            'line-color': '#38bdf8',
-            'line-width': 2.0,
-            'line-opacity': 0.8
-          }
-        });
-      }
-    }
-
-    // 3. 2D Footprints Base Layer (Completely Transparent in 2D to avoid solid blue blocks)
-    if (!map.getLayer('vit-footprints-2d')) {
-      map.addLayer({
-        id: 'vit-footprints-2d',
-        type: 'fill',
-        source: 'vit-buildings',
-        paint: {
-          'fill-color': [
-            'case',
-            ['==', ['get', 'building_id'], selectedBuildingId],
-            '#00f0ff',
-            '#0284c7'
-          ],
-          'fill-opacity': [
-            'case',
-            ['==', ['get', 'building_id'], selectedBuildingId],
-            0.15,
-            0.02
-          ]
-        }
-      });
-    }
-
-    // 4. Cadastral Boundary Line Outlines
-    if (!map.getLayer('vit-footprints-selected')) {
-      map.addLayer({
-        id: 'vit-footprints-selected',
-        type: 'line',
-        source: 'vit-buildings',
-        paint: {
-          'line-color': [
-            'case',
-            ['==', ['get', 'building_id'], selectedBuildingId],
-            '#00f0ff',
-            '#38bdf8'
-          ],
-          'line-width': [
-            'case',
-            ['==', ['get', 'building_id'], selectedBuildingId],
-            3.0,
-            1.5
-          ]
-        }
-      });
-    }
-
-    // Configure 3D Extrusion Lighting
-    try {
-      map.setLight({
-        anchor: 'viewport',
-        color: '#ffffff',
-        intensity: 0.75
-      });
-    } catch (e) {}
-
-    // 5. 3D Building Extrusions Layer
-    if (!map.getLayer('vit-buildings-3d')) {
-      map.addLayer({
-        id: 'vit-buildings-3d',
-        type: 'fill-extrusion',
-        source: 'vit-buildings',
-        layout: {
-          'visibility': is3dView ? 'visible' : 'none'
-        },
-        paint: {
-          'fill-extrusion-color': [
-            'case',
-            ['==', ['get', 'building_id'], selectedBuildingId],
-            '#00f0ff',
-            '#0284c7'
-          ],
-          'fill-extrusion-height': ['get', 'height_m'],
-          'fill-extrusion-base': 0,
-          'fill-extrusion-opacity': 0.88
-        }
-      });
-    }
-
-    // 6. Collision-Aware Building Text Labels Layer
-    if (!map.getLayer('vit-building-labels')) {
-      map.addLayer({
-        id: 'vit-building-labels',
-        type: 'symbol',
-        source: 'vit-buildings',
-        layout: {
-          'text-field': ['get', 'name'],
-          'text-size': 11.5,
-          'text-allow-overlap': false,
-          'text-ignore-placement': false,
-          'text-radial-offset': 0.5,
-          'text-justify': 'auto'
-        },
-        paint: {
-          'text-color': [
-            'case',
-            ['==', ['get', 'building_id'], selectedBuildingId],
-            '#00f0ff',
-            '#ffffff'
-          ],
-          'text-halo-color': '#050812',
-          'text-halo-width': 2.0
-        }
-      });
-    }
-
-    // Interaction Handlers
-    const handleLayerClick = (e) => {
-      if (e.features && e.features.length > 0) {
-        const props = e.features[0].properties;
-        if (props.building_id) {
-          onSelectBuilding(props.building_id);
-        }
-      }
+  useEffect(() => {
+    propsRef.current = {
+      buildings,
+      routes,
+      selectedBuildingId,
+      is3dView
     };
-
-    map.on('click', 'vit-buildings-3d', handleLayerClick);
-    map.on('click', 'vit-footprints-2d', handleLayerClick);
-
-    const handlePointerMove = (e) => {
-      if (e.features && e.features.length > 0) {
-        map.getCanvas().style.cursor = 'pointer';
-        const props = e.features[0].properties;
-        setHoveredInfo(props);
-        onHoverBuilding(props.building_id);
-      } else {
-        map.getCanvas().style.cursor = '';
-        setHoveredInfo(null);
-        onHoverBuilding(null);
-      }
-    };
-
-    map.on('mousemove', 'vit-buildings-3d', handlePointerMove);
-    map.on('mouseleave', 'vit-buildings-3d', () => {
-      map.getCanvas().style.cursor = '';
-      setHoveredInfo(null);
-      onHoverBuilding(null);
-    });
-    map.on('mousemove', 'vit-footprints-2d', handlePointerMove);
-    map.on('mouseleave', 'vit-footprints-2d', () => {
-      map.getCanvas().style.cursor = '';
-      setHoveredInfo(null);
-      onHoverBuilding(null);
-    });
-  };
+  }, [buildings, routes, selectedBuildingId, is3dView]);
 
   // Universal Selection & Camera Fly-To Function
   const updateBuildingSelectionAndFlyTo = (map, selId, is3d, bList) => {
@@ -309,17 +132,24 @@ export default function VitCampusMap({
 
     const selectedColor = ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#0284c7'];
     const selectedOutlineColor = ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#38bdf8'];
+    const selectedFillOpacity = [
+      'case',
+      ['==', ['get', 'building_id'], selId || ''],
+      is3d ? 0.20 : 0.35,
+      is3d ? 0.04 : 0.18
+    ];
+    const selectedLineWidth = ['case', ['==', ['get', 'building_id'], selId || ''], 4.0, 2.2];
 
     if (map.getLayer('vit-buildings-3d')) {
       map.setPaintProperty('vit-buildings-3d', 'fill-extrusion-color', selectedColor);
     }
     if (map.getLayer('vit-footprints-2d')) {
       map.setPaintProperty('vit-footprints-2d', 'fill-color', selectedColor);
-      map.setPaintProperty('vit-footprints-2d', 'fill-opacity', ['case', ['==', ['get', 'building_id'], selId || ''], 0.15, 0.02]);
+      map.setPaintProperty('vit-footprints-2d', 'fill-opacity', selectedFillOpacity);
     }
     if (map.getLayer('vit-footprints-selected')) {
       map.setPaintProperty('vit-footprints-selected', 'line-color', selectedOutlineColor);
-      map.setPaintProperty('vit-footprints-selected', 'line-width', ['case', ['==', ['get', 'building_id'], selId || ''], 3.0, 1.5]);
+      map.setPaintProperty('vit-footprints-selected', 'line-width', selectedLineWidth);
     }
     if (map.getLayer('vit-building-labels')) {
       map.setPaintProperty('vit-building-labels', 'text-color', ['case', ['==', ['get', 'building_id'], selId || ''], '#00f0ff', '#ffffff']);
@@ -332,7 +162,7 @@ export default function VitCampusMap({
 
     if (!selId) return;
 
-    const targetBuilding = bList.find(b => b.building_id === selId);
+    const targetBuilding = (bList || []).find(b => b.building_id === selId);
     if (!targetBuilding) return;
 
     // Extract all [lon, lat] points recursively for Polygon or MultiPolygon
@@ -396,6 +226,210 @@ export default function VitCampusMap({
     }
   };
 
+  // Add Interactive Vector & Extrusion Layers
+  const setupMapLayers = (map, currentBuildings, currentRoutes, selId, is3d) => {
+    if (!map) return;
+    const bList = currentBuildings || propsRef.current.buildings || [];
+    const rData = currentRoutes || propsRef.current.routes;
+    const activeSelId = selId !== undefined ? selId : propsRef.current.selectedBuildingId;
+    const active3d = is3d !== undefined ? is3d : propsRef.current.is3dView;
+
+    if (!map.getSource('vit-buildings')) {
+      map.addSource('vit-buildings', {
+        type: 'geojson',
+        data: getBuildingsGeoJson(bList)
+      });
+    } else {
+      map.getSource('vit-buildings').setData(getBuildingsGeoJson(bList));
+    }
+
+    if (rData) {
+      if (!map.getSource('vit-routes')) {
+        map.addSource('vit-routes', {
+          type: 'geojson',
+          data: rData
+        });
+      } else {
+        map.getSource('vit-routes').setData(rData);
+      }
+
+      // 1. Campus Roadway Casing
+      if (!map.getLayer('vit-routes-casing')) {
+        map.addLayer({
+          id: 'vit-routes-casing',
+          type: 'line',
+          source: 'vit-routes',
+          paint: {
+            'line-color': '#0284c7',
+            'line-width': 4.5,
+            'line-opacity': 0.4
+          }
+        });
+      }
+
+      // 2. Campus Roadway Core
+      if (!map.getLayer('vit-routes-core')) {
+        map.addLayer({
+          id: 'vit-routes-core',
+          type: 'line',
+          source: 'vit-routes',
+          paint: {
+            'line-color': '#38bdf8',
+            'line-width': 2.0,
+            'line-opacity': 0.8
+          }
+        });
+      }
+    }
+
+    // 3. 2D Footprints Base Layer
+    if (!map.getLayer('vit-footprints-2d')) {
+      map.addLayer({
+        id: 'vit-footprints-2d',
+        type: 'fill',
+        source: 'vit-buildings',
+        paint: {
+          'fill-color': [
+            'case',
+            ['==', ['get', 'building_id'], activeSelId],
+            '#00f0ff',
+            '#0284c7'
+          ],
+          'fill-opacity': [
+            'case',
+            ['==', ['get', 'building_id'], activeSelId],
+            active3d ? 0.20 : 0.35,
+            active3d ? 0.04 : 0.18
+          ]
+        }
+      });
+    }
+
+    // 4. Cadastral Boundary Line Outlines
+    if (!map.getLayer('vit-footprints-selected')) {
+      map.addLayer({
+        id: 'vit-footprints-selected',
+        type: 'line',
+        source: 'vit-buildings',
+        paint: {
+          'line-color': [
+            'case',
+            ['==', ['get', 'building_id'], activeSelId],
+            '#00f0ff',
+            '#38bdf8'
+          ],
+          'line-width': [
+            'case',
+            ['==', ['get', 'building_id'], activeSelId],
+            4.0,
+            2.2
+          ],
+          'line-opacity': 0.95
+        }
+      });
+    }
+
+    // Configure 3D Extrusion Lighting
+    try {
+      map.setLight({
+        anchor: 'viewport',
+        color: '#ffffff',
+        intensity: 0.8
+      });
+    } catch (e) {}
+
+    // 5. 3D Building Extrusions Layer
+    if (!map.getLayer('vit-buildings-3d')) {
+      map.addLayer({
+        id: 'vit-buildings-3d',
+        type: 'fill-extrusion',
+        source: 'vit-buildings',
+        layout: {
+          'visibility': active3d ? 'visible' : 'none'
+        },
+        paint: {
+          'fill-extrusion-color': [
+            'case',
+            ['==', ['get', 'building_id'], activeSelId],
+            '#00f0ff',
+            '#0284c7'
+          ],
+          'fill-extrusion-height': ['get', 'height_m'],
+          'fill-extrusion-base': 0,
+          'fill-extrusion-opacity': 0.88
+        }
+      });
+    }
+
+    // 6. Collision-Aware Building Text Labels Layer
+    if (!map.getLayer('vit-building-labels')) {
+      map.addLayer({
+        id: 'vit-building-labels',
+        type: 'symbol',
+        source: 'vit-buildings',
+        layout: {
+          'text-field': ['get', 'name'],
+          'text-size': 11.5,
+          'text-allow-overlap': false,
+          'text-ignore-placement': false,
+          'text-radial-offset': 0.5,
+          'text-justify': 'auto'
+        },
+        paint: {
+          'text-color': [
+            'case',
+            ['==', ['get', 'building_id'], activeSelId],
+            '#00f0ff',
+            '#ffffff'
+          ],
+          'text-halo-color': '#050812',
+          'text-halo-width': 2.5
+        }
+      });
+    }
+
+    // Interaction Handlers
+    const handleLayerClick = (e) => {
+      if (e.features && e.features.length > 0) {
+        const props = e.features[0].properties;
+        if (props.building_id) {
+          onSelectBuilding(props.building_id);
+        }
+      }
+    };
+
+    map.off('click', 'vit-buildings-3d', handleLayerClick);
+    map.off('click', 'vit-footprints-2d', handleLayerClick);
+    map.on('click', 'vit-buildings-3d', handleLayerClick);
+    map.on('click', 'vit-footprints-2d', handleLayerClick);
+
+    const handlePointerMove = (e) => {
+      if (e.features && e.features.length > 0) {
+        map.getCanvas().style.cursor = 'pointer';
+        const props = e.features[0].properties;
+        setHoveredInfo(props);
+        onHoverBuilding(props.building_id);
+      } else {
+        map.getCanvas().style.cursor = '';
+        setHoveredInfo(null);
+        onHoverBuilding(null);
+      }
+    };
+
+    map.on('mousemove', 'vit-buildings-3d', handlePointerMove);
+    map.on('mouseleave', 'vit-buildings-3d', () => {
+      map.getCanvas().style.cursor = '';
+      setHoveredInfo(null);
+      onHoverBuilding(null);
+    });
+    map.on('mousemove', 'vit-footprints-2d', handlePointerMove);
+    map.on('mouseleave', 'vit-footprints-2d', () => {
+      map.getCanvas().style.cursor = '';
+      setHoveredInfo(null);
+      onHoverBuilding(null);
+    });
+  };
+
   // Initialize Map with optimal 3D camera pitch & zoom
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -413,10 +447,14 @@ export default function VitCampusMap({
     mapRef.current = map;
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
 
-    map.on('load', () => {
-      setupMapLayers(map);
-      updateBuildingSelectionAndFlyTo(map, selectedBuildingId, is3dView, buildings);
-    });
+    const handleStyleLoad = () => {
+      const { buildings: currentBuildings, routes: currentRoutes, selectedBuildingId: currentSelId, is3dView: currentIs3d } = propsRef.current;
+      setupMapLayers(map, currentBuildings, currentRoutes, currentSelId, currentIs3d);
+      updateBuildingSelectionAndFlyTo(map, currentSelId, currentIs3d, currentBuildings);
+    };
+
+    map.on('style.load', handleStyleLoad);
+    map.on('load', handleStyleLoad);
 
     return () => {
       map.remove();
@@ -430,10 +468,6 @@ export default function VitCampusMap({
     const map = mapRef.current;
     if (map) {
       map.setStyle(getStyleDefinition(newStyle));
-      map.once('style.load', () => {
-        setupMapLayers(map);
-        updateBuildingSelectionAndFlyTo(map, selectedBuildingId, is3dView, buildings);
-      });
     }
   };
 
@@ -445,6 +479,8 @@ export default function VitCampusMap({
     const source = map.getSource('vit-buildings');
     if (source) {
       source.setData(getBuildingsGeoJson(buildings));
+    } else {
+      setupMapLayers(map, buildings, routes, selectedBuildingId, is3dView);
     }
 
     if (routes) {
