@@ -10,11 +10,12 @@ from pydantic import BaseModel
 
 from backend.vit_service import vit_service
 from backend.gemini_service import gemini_service
-
+from backend.serpapi_service import serpapi_service
+from backend.floor_layout_engine import generate_cadastral_floor_layout
 
 app = FastAPI(
     title="3D ULPIN | VIT Vellore Campus Mapping Platform API",
-    description="Phase 1: AI-Assisted Campus Building Footprint Mapping & 3D Extrusion Engine",
+    description="Phase 1: Real-World Ground Truth Cadastral Floor Subdivision Engine",
     version="1.0.0"
 )
 
@@ -60,7 +61,7 @@ def health_check():
         "service": "3D_ULPIN_VIT_Vellore_API",
         "campus": "VIT Vellore, Tamil Nadu, India",
         "center_coordinates": {"lat": 12.9692, "lon": 79.1560},
-        "phase": "PHASE 1 — BUILDING FOOTPRINT MAPPING",
+        "phase": "PHASE 1 — BUILDING FOOTPRINT & 3D CADASTRAL MAPPING",
         "buildings_count": len(vit_service.get_all_buildings())
     }
 
@@ -91,14 +92,27 @@ def get_vit_routes():
 class AIInsightRequest(BaseModel):
     building_id: str
     query: Optional[str] = None
+    provider: Optional[str] = "serpapi"
 
 @app.post("/api/vit/ai-insight")
-def generate_ai_insight(req: AIInsightRequest):
+@app.post("/api/vit/serp-insight")
+def generate_building_insight(req: AIInsightRequest):
     b = vit_service.get_building_by_id(req.building_id)
     if not b:
         raise HTTPException(status_code=404, detail=f"Building '{req.building_id}' not found.")
-    return gemini_service.generate_building_insight(b, req.query)
+    
+    if req.provider == "gemini":
+        return gemini_service.generate_building_insight(b, req.query)
+    
+    # Default to SerpApi Ground-Truth Search
+    return serpapi_service.generate_building_insight(b, req.query)
 
+@app.get("/api/vit/buildings/{building_id}/serpapi-search")
+def get_building_serpapi_search(building_id: str):
+    b = vit_service.get_building_by_id(building_id)
+    if not b:
+        raise HTTPException(status_code=404, detail=f"Building '{building_id}' not found.")
+    return serpapi_service.search_building_info(b.get("name", "VIT Building"))
 
 # FLOOR RECONCILIATION & MULTI-SOURCE EVIDENCE ENDPOINTS
 class FloorOverrideRequest(BaseModel):
@@ -131,20 +145,66 @@ def override_building_floors(building_id: str, req: FloorOverrideRequest):
 def get_verification_queue():
     return vit_service.get_verification_queue()
 
-@app.post("/api/vit/buildings/{building_id}/generate-floors")
-def generate_building_floors(building_id: str):
-    rec = vit_service.get_building_reconciliation(building_id)
-    if not rec:
+# CAD SUBDIVISION & 3D FLOOR PLANS
+class GenerateFloorPlanRequest(BaseModel):
+    floor_level: Optional[int] = 1
+    custom_strategy: Optional[str] = None
+
+_FLOOR_PLANS_CACHE: Dict[str, Dict[int, Any]] = {}
+
+@app.post("/api/vit/buildings/{building_id}/generate-floor-plan")
+def api_generate_floor_plan(building_id: str, req: Optional[GenerateFloorPlanRequest] = None):
+    b = vit_service.get_building_by_id(building_id)
+    if not b:
         raise HTTPException(status_code=404, detail=f"Building '{building_id}' not found.")
-    return {
-        "status": "SUCCESS",
-        "message": f"Successfully generated {rec['final_floor_count']} floor volumes for building {building_id}",
-        "reconciliation": rec,
-        "floors_count": len(rec["generated_floors"]),
-        "floors": rec["generated_floors"]
-    }
+    
+    floor_level = req.floor_level if req and req.floor_level is not None else 1
+    total_floors = b.get("final_floor_count") or b.get("verified_floor_count") or b.get("floors", 1)
+    if floor_level < 1 or floor_level > total_floors:
+        raise HTTPException(status_code=400, detail=f"Floor level {floor_level} is out of bounds for building with {total_floors} floors.")
+    
+    elevation_base = b.get("elevation_base", 150.0)
 
+    plan = generate_cadastral_floor_layout(
+        building_data=b,
+        floor_level=floor_level,
+        total_floors=total_floors,
+        ground_datum_z=elevation_base
+    )
+    
+    if building_id not in _FLOOR_PLANS_CACHE:
+        _FLOOR_PLANS_CACHE[building_id] = {}
+    _FLOOR_PLANS_CACHE[building_id][floor_level] = plan
+    
+    return plan
 
+@app.get("/api/vit/buildings/{building_id}/floor-plan/{floor_level}")
+def api_get_floor_plan(building_id: str, floor_level: int):
+    b = vit_service.get_building_by_id(building_id)
+    if not b:
+        raise HTTPException(status_code=404, detail=f"Building '{building_id}' not found.")
+    
+    if building_id in _FLOOR_PLANS_CACHE and floor_level in _FLOOR_PLANS_CACHE[building_id]:
+        return _FLOOR_PLANS_CACHE[building_id][floor_level]
+    
+    # Auto-generate if not cached
+    total_floors = b.get("final_floor_count") or b.get("verified_floor_count") or b.get("floors", 1)
+    if floor_level < 1 or floor_level > total_floors:
+        raise HTTPException(status_code=400, detail=f"Floor level {floor_level} is out of bounds for building with {total_floors} floors.")
+    
+    elevation_base = b.get("elevation_base", 150.0)
+
+    plan = generate_cadastral_floor_layout(
+        building_data=b,
+        floor_level=floor_level,
+        total_floors=total_floors,
+        ground_datum_z=elevation_base
+    )
+    
+    if building_id not in _FLOOR_PLANS_CACHE:
+        _FLOOR_PLANS_CACHE[building_id] = {}
+    _FLOOR_PLANS_CACHE[building_id][floor_level] = plan
+    return plan
 
 if __name__ == "__main__":
     import uvicorn

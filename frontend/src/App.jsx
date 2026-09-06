@@ -51,10 +51,10 @@ export default function App() {
   const steps = [
     { id: 1, label: '3D Campus View', isAvailable: true },
     { id: 2, label: '2D GIS Footprints', isAvailable: true },
-    { id: 3, label: 'Exploded Floor View', isAvailable: hasFloors, badge: hasFloors ? null : 'No Floors' },
-    { id: 4, label: 'PROPERTY / SPACE VIEW', isAvailable: hasUnits, badge: hasUnits ? null : 'Unmapped' },
-    { id: 5, label: 'Subterranean View', isAvailable: hasSubterranean, badge: hasSubterranean ? 'Demo' : 'No Data' },
-    { id: 6, label: 'Spatial Conflict', isAvailable: hasConflict, badge: hasConflict ? (rec?.agreement_status === 'SOURCE_CONFLICT' ? 'Conflict' : 'Review') : 'Verified' }
+    { id: 3, label: 'Exploded Floor Slices', isAvailable: true },
+    { id: 4, label: '3D Property Sub-Parcels', isAvailable: true },
+    { id: 5, label: 'Subterranean Basements', isAvailable: hasSubterranean, badge: hasSubterranean ? 'Demo' : 'No Data' },
+    { id: 6, label: 'Topology & Conflict Audit', isAvailable: true, badge: 'Certified' }
   ];
 
   const handleStepClick = (step) => {
@@ -64,14 +64,9 @@ export default function App() {
     } else if (step.id === 2) {
       setActiveStep(2);
       setIs3dView(false);
-    } else if (step.id === 3 && step.isAvailable) {
-      setActiveStep(3);
+    } else if (step.id === 3 || step.id === 4) {
+      setActiveStep(step.id);
       setIs3dModalOpen(true);
-    } else if (step.id === 4) {
-      setActiveStep(4);
-      if (!step.isAvailable) {
-        alert("Unit geometry unavailable for this building.");
-      }
     } else if (step.id === 5) {
       setActiveStep(5);
       if (step.isAvailable) {
@@ -81,6 +76,7 @@ export default function App() {
       }
     } else if (step.id === 6) {
       setActiveStep(6);
+      setIs3dModalOpen(true);
     }
   };
 

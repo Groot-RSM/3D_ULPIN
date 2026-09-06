@@ -586,9 +586,9 @@
         "building_id": "VIT-B003",
         "name": "Dr. M.G.R. Block (Main Building)",
         "name_confirmed": true,
-        "centroid_lat": 12.9692,
-        "centroid_lon": 79.1558,
-        "area_m2": 9604.4,
+        "centroid_lat": 12.969177,
+        "centroid_lon": 79.155802,
+        "area_m2": 14113.6,
         "height_m": 24.0,
         "height_source": "ESTIMATED_SURVEY",
         "osm_id": "osm_vit_b003",
@@ -605,7 +605,7 @@
         "source_id": "osm_vit_b003",
         "status": "READY FOR EXTRUSION",
         "last_updated": "2026-09-06T17:14:30.632669Z",
-        "notes": "5 Levels (Basement + Ground + 3 upper floors).",
+        "notes": "Main Building with central landscaped courtyard, bounded by Chandra Ave, Fleming Rd, and King Rd.",
         "ulpin": "ULPIN-IN-TN-VEL-VIT-B003"
       },
       "geometry": {
@@ -613,24 +613,70 @@
         "coordinates": [
           [
             [
-              79.1553,
-              12.969600000000002
+              79.15495,
+              12.96965
+            ],
+            [
+              79.15545,
+              12.96982
+            ],
+            [
+              79.1561,
+              12.9696
+            ],
+            [
+              79.15685,
+              12.96915
+            ],
+            [
+              79.15672,
+              12.96875
+            ],
+            [
+              79.15585,
+              12.9686
+            ],
+            [
+              79.15525,
+              12.9687
+            ],
+            [
+              79.1548,
+              12.96915
+            ],
+            [
+              79.15495,
+              12.96965
+            ]
+          ],
+          [
+            [
+              79.15525,
+              12.96945
+            ],
+            [
+              79.1556,
+              12.9695
+            ],
+            [
+              79.15635,
+              12.96908
             ],
             [
               79.1563,
-              12.969600000000002
+              12.9689
             ],
             [
-              79.1563,
-              12.9688
+              79.1555,
+              12.96885
             ],
             [
-              79.1553,
-              12.9688
+              79.1551,
+              12.96915
             ],
             [
-              79.1553,
-              12.969600000000002
+              79.15525,
+              12.96945
             ]
           ]
         ]

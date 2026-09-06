@@ -138,12 +138,36 @@ export default function VitBuildingDetails({
       
       {/* HEADER */}
       <div style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '14px', marginBottom: '16px' }}>
-        <div style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px', color: '#38bdf8', fontWeight: '700', marginBottom: '4px' }}>
-          Selected VIT Building
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '6px' }}>
+          <span style={{ fontSize: '11px', textTransform: 'uppercase', letterSpacing: '1px', color: '#38bdf8', fontWeight: '800' }}>
+            Selected Cadastral Parcel
+          </span>
+          <span style={{ fontSize: '10px', background: 'rgba(52, 211, 153, 0.15)', color: '#34d399', padding: '2px 8px', borderRadius: '4px', fontWeight: '700' }}>
+            {bId}
+          </span>
         </div>
-        <h2 style={{ fontSize: '17px', fontWeight: '700', margin: 0, color: '#fff', lineHeight: '1.3' }}>
+
+        <h2 style={{ fontSize: '18px', fontWeight: '800', margin: '0 0 8px 0', color: '#fff', lineHeight: '1.3' }}>
           {name}
         </h2>
+
+        {/* 3D ULPIN Deed ID Banner */}
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(217, 119, 6, 0.1))',
+          border: '1px solid rgba(245, 158, 11, 0.4)',
+          borderRadius: '8px',
+          padding: '8px 10px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+          <span style={{ fontSize: '10px', color: '#94a3b8', textTransform: 'uppercase', fontWeight: '700' }}>
+            3D ULPIN
+          </span>
+          <span style={{ fontFamily: 'var(--font-mono)', fontSize: '11px', color: '#fbbf24', fontWeight: '800', letterSpacing: '0.3px' }}>
+            {building.ulpin || `ULPIN-IN-TN-VEL-${bId}`}
+          </span>
+        </div>
       </div>
 
       {/* ALIGNED DETAILS ROWS */}
@@ -372,46 +396,88 @@ export default function VitBuildingDetails({
         ) : null}
       </div>
 
-      {/* GEMINI AI SPATIAL INTELLIGENCE SECTION */}
+      {/* AI SPATIAL INTELLIGENCE & GROUND-TRUTH SECTION */}
       <div style={{ marginTop: '16px', background: 'linear-gradient(135deg, rgba(79, 70, 229, 0.18), rgba(124, 58, 237, 0.12))', border: '1px solid rgba(124, 58, 237, 0.4)', borderRadius: '12px', padding: '12px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#a78bfa', fontSize: '12px', fontWeight: '800', letterSpacing: '0.5px' }}>
             <Sparkles size={15} color="#c084fc" />
-            <span>GEMINI AI SPATIAL INSIGHT</span>
+            <span>AI SPATIAL REASONING & CADASTRE</span>
           </div>
-          <span style={{ fontSize: '9px', background: 'rgba(192, 132, 252, 0.2)', color: '#e9d5ff', padding: '1px 6px', borderRadius: '4px', fontWeight: '700' }}>
-            GEMINI FLASH
+          <span style={{ fontSize: '9px', background: 'rgba(192, 132, 252, 0.2)', color: '#e9d5ff', padding: '2px 6px', borderRadius: '4px', fontWeight: '700' }}>
+            GEMINI + SERPAPI
           </span>
         </div>
 
         {aiInsight ? (
-          <div style={{ fontSize: '11.5px', color: '#e2e8f0', lineHeight: '1.5', whiteSpace: 'pre-line' }}>
-            {aiInsight}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div style={{ fontSize: '11.5px', color: '#e2e8f0', lineHeight: '1.5', whiteSpace: 'pre-line', background: 'rgba(0,0,0,0.25)', padding: '10px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)' }}>
+              {aiInsight}
+            </div>
+            <div style={{ display: 'flex', gap: '6px' }}>
+              <button
+                onClick={() => handleGenerateAiInsight('gemini')}
+                disabled={loadingAi}
+                style={{ flex: 1, background: 'rgba(99, 102, 241, 0.2)', border: '1px solid #6366f1', color: '#a5b4fc', padding: '5px 8px', borderRadius: '6px', fontSize: '10.5px', fontWeight: '700', cursor: 'pointer' }}
+              >
+                ✨ Refresh Gemini AI
+              </button>
+              <button
+                onClick={() => handleGenerateAiInsight('serpapi')}
+                disabled={loadingAi}
+                style={{ flex: 1, background: 'rgba(56, 189, 248, 0.2)', border: '1px solid #38bdf8', color: '#38bdf8', padding: '5px 8px', borderRadius: '6px', fontSize: '10.5px', fontWeight: '700', cursor: 'pointer' }}
+              >
+                🔍 Live SerpApi Search
+              </button>
+            </div>
           </div>
         ) : (
-          <button
-            onClick={handleGenerateAiInsight}
-            disabled={loadingAi}
-            style={{
-              width: '100%',
-              background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-              border: 'none',
-              color: '#fff',
-              padding: '8px 12px',
-              borderRadius: '8px',
-              fontSize: '11.5px',
-              fontWeight: '700',
-              cursor: loadingAi ? 'wait' : 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '6px',
-              boxShadow: '0 2px 10px rgba(99, 102, 241, 0.3)'
-            }}
-          >
-            {loadingAi ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
-            <span>{loadingAi ? 'Analyzing Cadastral Data...' : '✨ Generate Gemini AI Insight'}</span>
-          </button>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+            <button
+              onClick={() => handleGenerateAiInsight('gemini')}
+              disabled={loadingAi}
+              style={{
+                width: '100%',
+                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
+                border: 'none',
+                color: '#fff',
+                padding: '8px 12px',
+                borderRadius: '8px',
+                fontSize: '11.5px',
+                fontWeight: '700',
+                cursor: loadingAi ? 'wait' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px',
+                boxShadow: '0 2px 10px rgba(99, 102, 241, 0.3)'
+              }}
+            >
+              {loadingAi ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
+              <span>{loadingAi ? 'Analyzing Cadastral Data...' : '✨ Ask Gemini AI Cadastre'}</span>
+            </button>
+
+            <button
+              onClick={() => handleGenerateAiInsight('serpapi')}
+              disabled={loadingAi}
+              style={{
+                width: '100%',
+                background: 'rgba(15, 23, 42, 0.6)',
+                border: '1px solid rgba(56, 189, 248, 0.4)',
+                color: '#38bdf8',
+                padding: '6px 12px',
+                borderRadius: '8px',
+                fontSize: '11px',
+                fontWeight: '700',
+                cursor: loadingAi ? 'wait' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '6px'
+              }}
+            >
+              <span>🔍 Search Real-World Facts via SerpApi</span>
+            </button>
+          </div>
         )}
       </div>
 
@@ -446,29 +512,36 @@ export default function VitBuildingDetails({
           <span>{is3dView ? '🏢 MAP: 3D EXTRUSION ACTIVE (CLICK FOR 2D)' : '⚡ CLICK TO EXTRUDE IN 3D'}</span>
         </button>
 
-        {/* 3D Exploded Floor Inspector */}
+        {/* 3D Exploded Floor & Sub-Parcel Inspector */}
         <button
           onClick={onToggle3dView}
           style={{
             width: '100%',
-            background: 'linear-gradient(135deg, #d97706, #f59e0b)',
+            background: 'linear-gradient(135deg, #0284c7, #00f0ff)',
             border: 'none',
-            color: '#000',
-            padding: '12px',
-            borderRadius: '8px',
+            color: '#040d1a',
+            padding: '13px',
+            borderRadius: '10px',
             fontSize: '12.5px',
             fontWeight: '900',
-            letterSpacing: '0.3px',
+            letterSpacing: '0.4px',
             cursor: 'pointer',
             display: 'flex',
+            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '8px',
-            boxShadow: '0 4px 14px rgba(245, 158, 11, 0.35)'
+            gap: '3px',
+            boxShadow: '0 4px 18px rgba(0, 240, 255, 0.35)',
+            transition: 'all 0.2s ease'
           }}
         >
-          <Box size={16} />
-          <span>OPEN 3D EXPLODED FLOOR INSPECTOR</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Box size={17} />
+            <span>⚡ CONSTRUCT 3D BUILDING & FLOOR PLANS</span>
+          </div>
+          <span style={{ fontSize: '10px', opacity: 0.85, fontWeight: '700' }}>
+            Auto-derived from real footprint + Shapely CAD subdivision
+          </span>
         </button>
       </div>
 
