@@ -454,8 +454,9 @@ export default function VitCampusMap({
  <div style={{
  position: 'absolute',
  top: '16px',
- left: '320px',
- zIndex: 50,
+ left: '50%',
+ transform: 'translateX(-50%)',
+ zIndex: 10,
  display: 'flex',
  background: 'rgba(10, 16, 32, 0.92)',
  border: '1px solid rgba(56, 189, 248, 0.3)',
@@ -469,14 +470,14 @@ export default function VitCampusMap({
  background: mapStyle === 'mapbox-dark' ? '#0284c7' : 'transparent',
  border: 'none',
  color: mapStyle === 'mapbox-dark' ? '#fff' : '#94a3b8',
- padding: '5px 12px',
+ padding: '5px 14px',
  borderRadius: '6px',
  fontSize: '11px',
  fontWeight: '700',
  cursor: 'pointer'
  }}
  >
- ️ Mapbox Dark v11
+ Dark Map
  </button>
  <button
  onClick={() => handleStyleChange('mapbox-satellite')}
@@ -484,29 +485,14 @@ export default function VitCampusMap({
  background: mapStyle === 'mapbox-satellite' ? '#10b981' : 'transparent',
  border: 'none',
  color: mapStyle === 'mapbox-satellite' ? '#fff' : '#94a3b8',
- padding: '5px 12px',
+ padding: '5px 14px',
  borderRadius: '6px',
  fontSize: '11px',
  fontWeight: '700',
  cursor: 'pointer'
  }}
  >
- ️ Mapbox Satellite Streets
- </button>
- <button
- onClick={() => handleStyleChange('maptiler-dark')}
- style={{
- background: mapStyle === 'maptiler-dark' ? '#f59e0b' : 'transparent',
- border: 'none',
- color: mapStyle === 'maptiler-dark' ? '#000' : '#94a3b8',
- padding: '5px 12px',
- borderRadius: '6px',
- fontSize: '11px',
- fontWeight: '700',
- cursor: 'pointer'
- }}
- >
- MapTiler GIS
+ Satellite 3D
  </button>
  </div>
 
@@ -514,7 +500,7 @@ export default function VitCampusMap({
  {hoveredInfo && (
  <div style={{
  position: 'absolute',
- bottom: '80px',
+ bottom: '24px',
  left: '50%',
  transform: 'translateX(-50%)',
  background: 'rgba(10, 16, 32, 0.95)',
@@ -538,11 +524,6 @@ export default function VitCampusMap({
  <span style={{ color: '#34d399', fontSize: '11.5px' }}>• Height: {hoveredInfo.height_m}m</span>
  </div>
  )}
-
- {/* Real Map GIS Attribution Footer */}
- <div style={{ position: 'absolute', bottom: '8px', left: '16px', fontSize: '10px', color: '#94a3b8', pointerEvents: 'none', zIndex: 10, background: 'rgba(5,8,18,0.85)', padding: '3px 10px', borderRadius: '4px', border: '1px solid rgba(56,189,248,0.2)' }}>
- Mapbox & MapTiler Dual GIS Engine | VIT Vellore Campus (12.9692° N, 79.1560° E)
- </div>
  </div>
  );
 }
