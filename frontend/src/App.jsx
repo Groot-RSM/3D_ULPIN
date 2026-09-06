@@ -88,6 +88,20 @@ export default function App() {
     setIs3dModalOpen(true);
   };
 
+  const handleSelectBuilding = (buildingId, activate3d = true) => {
+    setSelectedBuildingId(buildingId);
+    if (activate3d) {
+      setIs3dView(true);
+      setActiveStep(1);
+    }
+  };
+
+  const handleToggleMap3D = () => {
+    const next3d = !is3dView;
+    setIs3dView(next3d);
+    setActiveStep(next3d ? 1 : 2);
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', width: '100vw', height: '100vh', background: '#050812', overflow: 'hidden' }}>
       
@@ -183,7 +197,7 @@ export default function App() {
           buildings={buildings}
           routes={routes}
           selectedBuildingId={selectedBuildingId}
-          onSelectBuilding={setSelectedBuildingId}
+          onSelectBuilding={(id) => handleSelectBuilding(id, true)}
           hoveredBuildingId={hoveredBuildingId}
           onHoverBuilding={setHoveredBuildingId}
           is3dView={is3dView}
@@ -194,7 +208,7 @@ export default function App() {
           <VitBuildingList
             buildings={buildings}
             selectedBuildingId={selectedBuildingId}
-            onSelectBuilding={setSelectedBuildingId}
+            onSelectBuilding={(id) => handleSelectBuilding(id, true)}
           />
         </div>
 
@@ -204,6 +218,7 @@ export default function App() {
             building={selectedBuilding}
             is3dView={is3dView}
             onToggle3dView={handleToggle3D}
+            onToggleMap3D={handleToggleMap3D}
           />
         </div>
 

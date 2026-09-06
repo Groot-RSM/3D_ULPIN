@@ -752,11 +752,11 @@
       "type": "Feature",
       "properties": {
         "building_id": "VIT-B006",
-        "name": "Periyar EVR Central Library",
+        "name": "EV Periyar Library",
         "name_confirmed": true,
-        "centroid_lat": 12.96975,
-        "centroid_lon": 79.15765,
-        "area_m2": 2450.0,
+        "centroid_lat": 12.97015,
+        "centroid_lon": 79.15685,
+        "area_m2": 2850.0,
         "height_m": 28.0,
         "height_source": "ESTIMATED_SURVEY",
         "osm_id": "osm_vit_b006",
@@ -773,7 +773,7 @@
         "source_id": "osm_vit_b006",
         "status": "READY FOR EXTRUSION",
         "last_updated": "2026-09-06T17:14:30.632669Z",
-        "notes": "7 Floors (Ground + 6 upper floors, Periyar EVR Central Library, VIT Vellore campus).",
+        "notes": "7 Floors (Ground + 6 upper floors, EV Periyar Library along Fleming Road, VIT Vellore campus).",
         "ulpin": "ULPIN-IN-TN-VEL-VIT-B006"
       },
       "geometry": {
@@ -781,36 +781,36 @@
         "coordinates": [
           [
             [
-              79.1574104,
-              12.9695514
+              79.1565551,
+              12.9699334
             ],
             [
-              79.1578159,
-              12.9695514
+              79.1570712,
+              12.9699334
             ],
             [
-              79.1579081,
-              12.9696417
+              79.1571449,
+              12.9700236
             ],
             [
-              79.1579081,
-              12.9698944
+              79.1571449,
+              12.9703125
             ],
             [
-              79.1577975,
-              12.9699847
+              79.1570343,
+              12.9703847
             ],
             [
-              79.1574841,
-              12.9699847
+              79.1566472,
+              12.9703847
             ],
             [
-              79.1574104,
-              12.9699125
+              79.1565551,
+              12.9703125
             ],
             [
-              79.1574104,
-              12.9695514
+              79.1565551,
+              12.9699334
             ]
           ]
         ]

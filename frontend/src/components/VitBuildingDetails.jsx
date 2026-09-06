@@ -4,7 +4,8 @@ import { Building2, MapPin, Layers, Box, ExternalLink, ShieldCheck, CheckCircle2
 export default function VitBuildingDetails({
   building = null,
   is3dView = false,
-  onToggle3dView = () => {}
+  onToggle3dView = () => {},
+  onToggleMap3D = () => {}
 }) {
   const [aiInsight, setAiInsight] = useState(null);
   const [loadingAi, setLoadingAi] = useState(false);
@@ -414,30 +415,56 @@ export default function VitBuildingDetails({
         )}
       </div>
 
-      {/* VIEW IN 3D BUTTON */}
-      <div style={{ marginTop: '16px', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '14px' }}>
+      {/* 2D / 3D EXTRUSION & FLOOR ACTIONS */}
+      <div style={{ marginTop: '16px', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '14px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        
+        {/* Quick Map 2D -> 3D Extrusion Toggle */}
         <button
-          onClick={onToggle3dView}
+          onClick={onToggleMap3D}
           style={{
             width: '100%',
-            background: is3dView ? 'linear-gradient(135deg, #0284c7, #4f46e5)' : 'linear-gradient(135deg, #d97706, #f59e0b)',
-            border: 'none',
+            background: is3dView ? 'rgba(56, 189, 248, 0.15)' : 'linear-gradient(135deg, #0284c7, #38bdf8)',
+            border: `1.5px solid ${is3dView ? '#38bdf8' : '#0284c7'}`,
             color: '#fff',
-            padding: '12px',
-            borderRadius: '10px',
-            fontSize: '13px',
+            padding: '10px 12px',
+            borderRadius: '8px',
+            fontSize: '12px',
             fontWeight: '800',
-            letterSpacing: '0.5px',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '8px',
-            boxShadow: '0 4px 14px rgba(245, 158, 11, 0.3)'
+            transition: 'all 0.15s ease'
+          }}
+        >
+          <Layers size={15} color={is3dView ? '#38bdf8' : '#fff'} />
+          <span>{is3dView ? '🏢 MAP: 3D EXTRUSION ACTIVE (CLICK FOR 2D)' : '⚡ CLICK TO EXTRUDE IN 3D'}</span>
+        </button>
+
+        {/* 3D Exploded Floor Inspector */}
+        <button
+          onClick={onToggle3dView}
+          style={{
+            width: '100%',
+            background: 'linear-gradient(135deg, #d97706, #f59e0b)',
+            border: 'none',
+            color: '#000',
+            padding: '12px',
+            borderRadius: '8px',
+            fontSize: '12.5px',
+            fontWeight: '900',
+            letterSpacing: '0.3px',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            boxShadow: '0 4px 14px rgba(245, 158, 11, 0.35)'
           }}
         >
           <Box size={16} />
-          <span>VIEW FLOORS / 3D BUILDING INSPECTOR</span>
+          <span>OPEN 3D EXPLODED FLOOR INSPECTOR</span>
         </button>
       </div>
 
