@@ -106,7 +106,7 @@ VERIFIED_MAP = {
         "notes": "2 Floors (Ground + 1st Floor dining hall)."
     },
     "VIT-B012": {
-        "name": "Hexagon / SMEC Workshop",
+        "name": "SMEC Building",
         "verified_floor_count": 2,
         "height_m": 10.0,
         "floor_count_source": "OFFICIAL_VIT_RECORD",
