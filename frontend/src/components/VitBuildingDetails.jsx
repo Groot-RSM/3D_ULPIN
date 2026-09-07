@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Building2, MapPin, Layers, Box, ExternalLink, ShieldCheck, CheckCircle2, Sparkles, Loader2, AlertTriangle, Scale, Check, RefreshCw } from 'lucide-react';
+import { Building2, MapPin, Layers, Box, ExternalLink, ShieldCheck, CheckCircle2, Sparkles, Loader2, AlertTriangle, Scale, Check, RefreshCw, Download } from 'lucide-react';
+import { exportBuildingGLB } from '../utils/exportBuildingGLB';
 
 export default function VitBuildingDetails({
  building = null,
@@ -9,6 +10,8 @@ export default function VitBuildingDetails({
 }) {
  const [aiInsight, setAiInsight] = useState(null);
  const [loadingAi, setLoadingAi] = useState(false);
+ const [isExportingGLB, setIsExportingGLB] = useState(false);
+ const [glbExportMessage, setGlbExportMessage] = useState(null);
 
  // Reconciliation state
  const [reconciliation, setReconciliation] = useState(null);
@@ -130,8 +133,25 @@ export default function VitBuildingDetails({
  });
  };
 
- const agreeBadge = getAgreementBadge(reconciliation?.agreement_status);
- const BadgeIcon = agreeBadge.icon;
+  const handleExportGLB = async () => {
+    if (!building) return;
+    setIsExportingGLB(true);
+    setGlbExportMessage(null);
+
+    try {
+      const result = await exportBuildingGLB(building);
+      setGlbExportMessage(`Exported ${result.filename} (${result.totalFloors} floors, ${(result.sizeBytes / 1024).toFixed(1)} KB)`);
+      setTimeout(() => setGlbExportMessage(null), 6000);
+    } catch (error) {
+      console.error('GLB export failed:', error);
+      setGlbExportMessage(error instanceof Error ? error.message : 'GLB export failed.');
+    } finally {
+      setIsExportingGLB(false);
+    }
+  };
+
+  const agreeBadge = getAgreementBadge(reconciliation?.agreement_status);
+  const BadgeIcon = agreeBadge.icon;
 
  return (
  <div style={{ padding: '16px 14px', color: '#f8fafc', overflowY: 'auto', flex: 1, minHeight: 0, boxSizing: 'border-box' }}>
@@ -488,9 +508,9 @@ export default function VitBuildingDetails({
  background: 'linear-gradient(135deg, #0284c7, #00f0ff)',
  border: 'none',
  color: '#040d1a',
- padding: '13px',
+ padding: '12px',
  borderRadius: '10px',
- fontSize: '12.5px',
+ fontSize: '12px',
  fontWeight: '900',
  letterSpacing: '0.4px',
  cursor: 'pointer',
@@ -498,19 +518,71 @@ export default function VitBuildingDetails({
  flexDirection: 'column',
  alignItems: 'center',
  justifyContent: 'center',
- gap: '3px',
+ gap: '2px',
  boxShadow: '0 4px 18px rgba(0, 240, 255, 0.35)',
  transition: 'all 0.2s ease'
  }}
  >
  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
- <Box size={17} />
- <span> CONSTRUCT 3D BUILDING & FLOOR PLANS</span>
+ <Box size={16} />
+ <span>CONSTRUCT 3D BUILDING & FLOOR PLANS</span>
  </div>
  <span style={{ fontSize: '10px', opacity: 0.85, fontWeight: '700' }}>
  Auto-derived from real footprint + Shapely CAD subdivision
 </span>
  </button>
+
+ {/* Export 3D Model (.GLB) Button */}
+ <button
+ type="button"
+ onClick={handleExportGLB}
+ disabled={isExportingGLB || !building}
+ style={{
+ display: 'flex',
+ alignItems: 'center',
+ justifyContent: 'center',
+ gap: '8px',
+ width: '100%',
+ padding: '11px 14px',
+ borderRadius: '10px',
+ border: '1.5px solid rgba(56, 189, 248, 0.45)',
+ background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.18), rgba(2, 132, 199, 0.12))',
+ color: '#7dd3fc',
+ fontWeight: '800',
+ fontSize: '12px',
+ cursor: isExportingGLB ? 'wait' : 'pointer',
+ transition: 'all 0.15s ease',
+ boxShadow: '0 2px 10px rgba(14, 165, 233, 0.2)'
+ }}
+ >
+ {isExportingGLB ? (
+ <>
+ <Loader2 size={15} className="animate-spin" />
+ <span>Exporting 3D Model (.GLB)...</span>
+ </>
+ ) : (
+ <>
+ <Download size={15} />
+ <span>Export 3D Model (.GLB)</span>
+ </>
+ )}
+ </button>
+
+ {glbExportMessage && (
+ <div style={{
+ marginTop: '4px',
+ padding: '8px 12px',
+ borderRadius: '6px',
+ background: 'rgba(52, 211, 153, 0.15)',
+ border: '1px solid #34d399',
+ fontSize: '11px',
+ color: '#34d399',
+ fontWeight: '700',
+ textAlign: 'center'
+ }}>
+ {glbExportMessage}
+ </div>
+ )}
  </div>
 
  </div>
