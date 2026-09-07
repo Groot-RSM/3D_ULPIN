@@ -1,0 +1,883 @@
+{
+  "document_metadata": {
+    "building_id": "B-001",
+    "name": "Maple Crest Apartments",
+    "classification": "Residential / Apartment",
+    "owner": "Maple Crest Developers \u2014 PROTOTYPE",
+    "locality": "Greenfield Nagar, Chennai, Tamil Nadu 600042, India",
+    "survey_number": "SF-218/4A \u2014 PROTOTYPE",
+    "centroid_lat": 12.975,
+    "centroid_lon": 80.21,
+    "area_m2": 6173.3,
+    "perimeter_m": 348.5,
+    "elevation_m": 14.5,
+    "height_m": 15.0,
+    "floors": 4,
+    "avg_floor_height_m": 3.75,
+    "volume_m3": 92599.5,
+    "units": [
+      {
+        "unit_id": "B01-0101",
+        "title": "Apartment 101",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0102",
+        "title": "Apartment 102",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0103",
+        "title": "Apartment 103",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0104",
+        "title": "Apartment 104",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0201",
+        "title": "Apartment 201",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0202",
+        "title": "Apartment 202",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0203",
+        "title": "Apartment 203",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0204",
+        "title": "Apartment 204",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0301",
+        "title": "Apartment 301",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0302",
+        "title": "Apartment 302",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0303",
+        "title": "Apartment 303",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0304",
+        "title": "Apartment 304",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0401",
+        "title": "Apartment 401",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0402",
+        "title": "Apartment 402",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0403",
+        "title": "Apartment 403",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      },
+      {
+        "unit_id": "B01-0404",
+        "title": "Apartment 404",
+        "description": "Living, Bedrooms, Kitchen & Toilets"
+      }
+    ]
+  },
+  "footprint_geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        80.20963663574018,
+        12.975311604699614
+      ],
+      [
+        80.2103633642598,
+        12.975311604699614
+      ],
+      [
+        80.21041291393159,
+        12.97527421213566
+      ],
+      [
+        80.21041291393159,
+        12.974725787864338
+      ],
+      [
+        80.2103633642598,
+        12.974688395300385
+      ],
+      [
+        80.20963663574018,
+        12.974688395300385
+      ],
+      [
+        80.2095870860684,
+        12.974725787864338
+      ],
+      [
+        80.2095870860684,
+        12.97527421213566
+      ],
+      [
+        80.20963663574018,
+        12.975311604699614
+      ]
+    ]
+  },
+  "total_floors": 4,
+  "total_units": 16,
+  "floors_data": [
+    {
+      "floor_level": 1,
+      "floor_name": "Ground Floor",
+      "elevation_base_m": 0.0,
+      "elevation_top_m": 3.75,
+      "clearance_m": 3.75,
+      "gross_floor_area_m2": 6173.3,
+      "floor_volume_m3": 23149.9,
+      "corridor_area_m2": 740.8,
+      "units_count": 4,
+      "units": [
+        {
+          "unit_id": "B01-0101",
+          "floor_level": 1,
+          "title": "Apartment 101",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "North-East (NE)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 0.0,
+          "elevation_top_m": 3.75,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0102",
+          "floor_level": 1,
+          "title": "Apartment 102",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "South-East (SE)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 0.0,
+          "elevation_top_m": 3.75,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0103",
+          "floor_level": 1,
+          "title": "Apartment 103",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "South-West (SW)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 0.0,
+          "elevation_top_m": 3.75,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0104",
+          "floor_level": 1,
+          "title": "Apartment 104",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "North-West (NW)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 0.0,
+          "elevation_top_m": 3.75,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        }
+      ]
+    },
+    {
+      "floor_level": 2,
+      "floor_name": "Floor 2",
+      "elevation_base_m": 3.75,
+      "elevation_top_m": 7.5,
+      "clearance_m": 3.75,
+      "gross_floor_area_m2": 6173.3,
+      "floor_volume_m3": 23149.9,
+      "corridor_area_m2": 740.8,
+      "units_count": 4,
+      "units": [
+        {
+          "unit_id": "B01-0201",
+          "floor_level": 2,
+          "title": "Apartment 201",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "North-East (NE)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 3.75,
+          "elevation_top_m": 7.5,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0202",
+          "floor_level": 2,
+          "title": "Apartment 202",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "South-East (SE)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 3.75,
+          "elevation_top_m": 7.5,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0203",
+          "floor_level": 2,
+          "title": "Apartment 203",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "South-West (SW)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 3.75,
+          "elevation_top_m": 7.5,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0204",
+          "floor_level": 2,
+          "title": "Apartment 204",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "North-West (NW)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 3.75,
+          "elevation_top_m": 7.5,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        }
+      ]
+    },
+    {
+      "floor_level": 3,
+      "floor_name": "Floor 3",
+      "elevation_base_m": 7.5,
+      "elevation_top_m": 11.25,
+      "clearance_m": 3.75,
+      "gross_floor_area_m2": 6173.3,
+      "floor_volume_m3": 23149.9,
+      "corridor_area_m2": 740.8,
+      "units_count": 4,
+      "units": [
+        {
+          "unit_id": "B01-0301",
+          "floor_level": 3,
+          "title": "Apartment 301",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "North-East (NE)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 7.5,
+          "elevation_top_m": 11.25,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0302",
+          "floor_level": 3,
+          "title": "Apartment 302",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "South-East (SE)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 7.5,
+          "elevation_top_m": 11.25,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0303",
+          "floor_level": 3,
+          "title": "Apartment 303",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "South-West (SW)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 7.5,
+          "elevation_top_m": 11.25,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0304",
+          "floor_level": 3,
+          "title": "Apartment 304",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "North-West (NW)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 7.5,
+          "elevation_top_m": 11.25,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        }
+      ]
+    },
+    {
+      "floor_level": 4,
+      "floor_name": "Floor 4",
+      "elevation_base_m": 11.25,
+      "elevation_top_m": 15.0,
+      "clearance_m": 3.75,
+      "gross_floor_area_m2": 6173.3,
+      "floor_volume_m3": 23149.9,
+      "corridor_area_m2": 740.8,
+      "units_count": 4,
+      "units": [
+        {
+          "unit_id": "B01-0401",
+          "floor_level": 4,
+          "title": "Apartment 401",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "North-East (NE)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 11.25,
+          "elevation_top_m": 15.0,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0402",
+          "floor_level": 4,
+          "title": "Apartment 402",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "South-East (SE)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 11.25,
+          "elevation_top_m": 15.0,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0403",
+          "floor_level": 4,
+          "title": "Apartment 403",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "South-West (SW)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 11.25,
+          "elevation_top_m": 15.0,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        },
+        {
+          "unit_id": "B01-0404",
+          "floor_level": 4,
+          "title": "Apartment 404",
+          "description": "Living, Bedrooms, Kitchen & Toilets",
+          "quadrant": "North-West (NW)",
+          "area_m2": 1358.1,
+          "volume_m3": 5093.0,
+          "elevation_base_m": 11.25,
+          "elevation_top_m": 15.0,
+          "clearance_height_m": 3.75,
+          "rooms": [
+            {
+              "name": "Living & Dining Hall",
+              "area_m2": 516.1,
+              "color": "#0284c7"
+            },
+            {
+              "name": "Master Bedroom Suite",
+              "area_m2": 298.8,
+              "color": "#0ea5e9"
+            },
+            {
+              "name": "Bedroom 2 (Guest/Kids)",
+              "area_m2": 244.5,
+              "color": "#38bdf8"
+            },
+            {
+              "name": "Modular Kitchen & Utility",
+              "area_m2": 163.0,
+              "color": "#10b981"
+            },
+            {
+              "name": "Attached Bathrooms & Toilet",
+              "area_m2": 135.8,
+              "color": "#64748b"
+            }
+          ],
+          "topology_certified": true
+        }
+      ]
+    }
+  ],
+  "cadastral_topology": {
+    "status": "CERTIFIED",
+    "rules_validated": [
+      {
+        "rule_id": 1,
+        "name": "Pairwise Zero Volumetric Overlap",
+        "result": "PASS (0.00% collision)"
+      },
+      {
+        "rule_id": 2,
+        "name": "100% Floor Area Conservation",
+        "result": "PASS (Sum=6173.3 m\u00b2)"
+      },
+      {
+        "rule_id": 3,
+        "name": "Perimeter Bounding Containment",
+        "result": "PASS (Contained within SF-218/4A \u2014 PROTOTYPE)"
+      },
+      {
+        "rule_id": 4,
+        "name": "Non-Negative 3D Volume Bounds",
+        "result": "PASS (Volume=92599.5 m\u00b3)"
+      },
+      {
+        "rule_id": 5,
+        "name": "Planar Horizontal Floor Separation",
+        "result": "PASS (Slabs at 3.75m increments)"
+      },
+      {
+        "rule_id": 6,
+        "name": "Central Corridor Egress Connectivity",
+        "result": "PASS (Connected ingress corridor)"
+      },
+      {
+        "rule_id": 7,
+        "name": "Unique Volumetric ULPIN Sub-Parcel IDs",
+        "result": "PASS (16 unique unit codes)"
+      },
+      {
+        "rule_id": 8,
+        "name": "Spatial Datum EPSG:4326 / EPSG:32644 Projection",
+        "result": "PASS (WGS84 & UTM 44N calibrated)"
+      }
+    ]
+  }
+}

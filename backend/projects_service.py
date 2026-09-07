@@ -50,7 +50,7 @@ class ProjectService:
         taluk = data.get("taluk", "Urban")
         village = data.get("village", "Central")
         survey_number = data.get("survey_number", "100/1")
-        ulpin = data.get("ulpin", f"TN-3D-{project_id}")
+        ulpin = data.get("ulpin", f"TN-VEL-{project_id}")
         aoi = data.get("aoi_coords") or {"bbox": [80.200, 13.110, 80.210, 13.120]}
 
         cursor.execute("""

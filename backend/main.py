@@ -175,6 +175,23 @@ def override_building_floors(building_id: str, req: FloorOverrideRequest):
 def get_verification_queue():
     return vit_service.get_verification_queue()
 
+class UpdateGeometryRequest(BaseModel):
+    geometry: Dict[str, Any]
+    centroid_lat: Optional[float] = None
+    centroid_lon: Optional[float] = None
+
+@app.post("/api/vit/buildings/{building_id}/update-geometry")
+def update_building_geometry_api(building_id: str, req: UpdateGeometryRequest):
+    updated = vit_service.update_building_geometry(
+        building_id=building_id,
+        new_geometry=req.geometry,
+        centroid_lat=req.centroid_lat,
+        centroid_lon=req.centroid_lon
+    )
+    if not updated:
+        raise HTTPException(status_code=404, detail=f"Building '{building_id}' not found.")
+    return {"status": "SUCCESS", "building": updated}
+
 # CAD SUBDIVISION & 3D FLOOR PLANS
 class GenerateFloorPlanRequest(BaseModel):
     floor_level: Optional[int] = 1
@@ -231,11 +248,96 @@ def api_get_floor_plan(building_id: str, floor_level: int):
         ground_datum_z=elevation_base
     )
     
-    if building_id not in _FLOOR_PLANS_CACHE:
-        _FLOOR_PLANS_CACHE[building_id] = {}
-    _FLOOR_PLANS_CACHE[building_id][floor_level] = plan
-    return plan
+from backend.services.cadastral_3d_service import cadastral_3d_service
+from backend.services.document_service import document_service
+
+from backend.generate_permit_pdf import get_building_permit_filename, generate_building_permit_pdf
+
+@app.get("/api/documents/sample-permit-pdf")
+@app.get("/api/documents/permit-pdf/{building_id}")
+def get_sample_permit_pdf(building_id: Optional[str] = "VIT-B001"):
+    b_id = (building_id or "VIT-B001").upper()
+    named_filename = get_building_permit_filename(b_id)
+    pdf_path = Path(f"data/samples/{named_filename}")
+    
+    # Fallback to legacy path if primary does not exist
+    if not pdf_path.exists():
+        legacy_path = Path(f"data/samples/{b_id}_building_permit_order.pdf")
+        if legacy_path.exists():
+            pdf_path = legacy_path
+        else:
+            generate_building_permit_pdf(b_id, str(pdf_path))
+    
+    return FileResponse(
+        str(pdf_path),
+        media_type="application/pdf",
+        filename=named_filename
+    )
+
+class DocumentReconstructRequest(BaseModel):
+    building_id: Optional[str] = "VIT-B001"
+    document_path: Optional[str] = None
+    document_name: Optional[str] = None
+
+@app.post("/api/documents/upload-and-verify")
+def api_upload_and_verify_document(req: Optional[DocumentReconstructRequest] = None):
+    b_id = (req.building_id if req and req.building_id else "VIT-B001").upper()
+    building = vit_service.get_building_by_id(b_id)
+    if not building:
+        raise HTTPException(status_code=404, detail=f"Building '{b_id}' not found.")
+
+    named_filename = get_building_permit_filename(b_id)
+    pdf_path = req.document_path if req and req.document_path else f"data/samples/{named_filename}"
+    if not Path(pdf_path).exists():
+        legacy_path = f"data/samples/{b_id}_building_permit_order.pdf"
+        if Path(legacy_path).exists():
+            pdf_path = legacy_path
+
+    doc_evidence = document_service.parse_permit_document(pdf_path, building_id=b_id)
+
+    # Persist & reconcile verified document parameters into building state
+    if doc_evidence.get("approved_floors"):
+        try:
+            vit_service.set_building_floor_override(
+                building_id=b_id,
+                override_floor_count=doc_evidence["approved_floors"],
+                reason=f"Authoritative Building Permit Sanction ({doc_evidence.get('permit_number', 'DTCP Sanction')})",
+                user="DTCP Cadastral Officer"
+            )
+        except Exception as e:
+            pass
+
+    canonical_3d_model = cadastral_3d_service.create_canonical_cadastral_model(
+        building=building,
+        document_evidence=doc_evidence
+    )
+    return {
+        "status": "SUCCESS",
+        "document_evidence": doc_evidence,
+        "model": canonical_3d_model
+    }
+
+@app.get("/api/documents/building-reconstruction/{building_id}")
+def api_get_building_reconstruction(building_id: str):
+    b = vit_service.get_building_by_id(building_id.upper())
+    if not b:
+        raise HTTPException(status_code=404, detail=f"Building '{building_id}' not found.")
+
+    named_filename = get_building_permit_filename(building_id)
+    doc_path = f"data/samples/{named_filename}"
+    if not Path(doc_path).exists():
+        legacy_path = f"data/samples/{building_id.upper()}_building_permit_order.pdf"
+        if Path(legacy_path).exists():
+            doc_path = legacy_path
+
+    doc_evidence = document_service.parse_permit_document(doc_path, building_id=building_id)
+    canonical_3d_model = cadastral_3d_service.create_canonical_cadastral_model(
+        building=b,
+        document_evidence=doc_evidence
+    )
+    return canonical_3d_model
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("backend.main:app", host="127.0.0.1", port=8000, reload=True)
+

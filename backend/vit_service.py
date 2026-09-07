@@ -207,6 +207,7 @@ class VitCampusService:
         if FOOTPRINTS_PATH.exists():
             with open(FOOTPRINTS_PATH, "r", encoding="utf-8") as f:
                 self.geojson_data = json.load(f)
+                self.buildings_by_id = {}
                 for feat in self.geojson_data.get("features", []):
                     props = feat.get("properties", {})
                     b_id = props.get("building_id")
@@ -219,6 +220,8 @@ class VitCampusService:
         if ROUTES_PATH.exists():
             with open(ROUTES_PATH, "r", encoding="utf-8") as f:
                 self.routes_data = json.load(f)
+        
+        self._cached_buildings = None
 
     def get_all_buildings(self) -> List[Dict[str, Any]]:
         # Check Supabase first if credentials exist in .env
@@ -294,6 +297,55 @@ class VitCampusService:
             "timestamp": datetime.utcnow().isoformat() + "Z"
         }
         return self.get_building_reconciliation(actual_key)
+
+    def update_building_geometry(
+        self,
+        building_id: str,
+        new_geometry: Dict[str, Any],
+        centroid_lat: Optional[float] = None,
+        centroid_lon: Optional[float] = None
+    ) -> Optional[Dict[str, Any]]:
+        from shapely.geometry import shape
+        b_key = building_id.upper()
+        if b_key not in self.buildings_by_id and building_id not in self.buildings_by_id:
+            return None
+        
+        actual_key = b_key if b_key in self.buildings_by_id else building_id
+        
+        # 1. Update in-memory feature
+        for feat in self.geojson_data.get("features", []):
+            if feat.get("id") == actual_key or feat.get("properties", {}).get("building_id") == actual_key:
+                feat["geometry"] = new_geometry
+                if centroid_lat is not None:
+                    feat["properties"]["centroid_lat"] = centroid_lat
+                if centroid_lon is not None:
+                    feat["properties"]["centroid_lon"] = centroid_lon
+                
+                # Recalculate area
+                try:
+                    poly = shape(new_geometry)
+                    if poly.is_valid:
+                        area_m2 = round(poly.area * 111320 * 111320 * 0.95, 2)
+                        feat["properties"]["area_m2"] = area_m2
+                except Exception:
+                    pass
+
+        # 2. Update in-memory dict
+        b = self.buildings_by_id[actual_key]
+        b["geometry"] = new_geometry
+        if centroid_lat is not None:
+            b["centroid_lat"] = centroid_lat
+        if centroid_lon is not None:
+            b["centroid_lon"] = centroid_lon
+
+        # 3. Save to disk in campus_footprints.geojson
+        try:
+            with open(FOOTPRINTS_PATH, "w", encoding="utf-8") as f:
+                json.dump(self.geojson_data, f, indent=2)
+        except Exception as e:
+            print(f"Error saving updated footprint to {FOOTPRINTS_PATH}: {e}")
+
+        return self.get_building_details(actual_key)
 
     def get_geojson(self) -> Dict[str, Any]:
         return sanitize_val(self.geojson_data)

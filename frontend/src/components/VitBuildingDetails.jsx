@@ -6,6 +6,7 @@ import {
   CheckCircle, Compass, FileCheck, BarChart3
 } from 'lucide-react';
 import { exportBuildingGLB } from '../utils/exportBuildingGLB';
+import DocumentVerificationPanel from './DocumentVerificationPanel';
 
 // Segmented LED-style indicator bar
 function SegmentedBar({ total = 15, filled = 8, activeColor = '#38bdf8' }) {
@@ -688,10 +689,13 @@ export default function VitBuildingDetails({
                   <span>{isExportingGLB ? 'Exporting...' : 'Export 3D Model (.GLB)'}</span>
                 </button>
 
-                {/* Action 4: Download Floor Plans */}
+                {/* Action 4: Download Permit & Cadastral PDF */}
                 <button
                   type="button"
-                  onClick={onToggle3dView}
+                  onClick={() => {
+                    const bId = building?.building_id || 'VIT-B001';
+                    window.open(`http://127.0.0.1:8000/api/documents/permit-pdf/${bId}`, '_blank');
+                  }}
                   style={{
                     background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(2, 132, 199, 0.06))',
                     border: '1.5px solid rgba(14, 165, 233, 0.35)',
@@ -710,7 +714,7 @@ export default function VitBuildingDetails({
                   }}
                 >
                   <FileText size={18} />
-                  <span>Download Floor Plans</span>
+                  <span>Download Permit PDF</span>
                 </button>
               </div>
 
@@ -1144,28 +1148,13 @@ export default function VitBuildingDetails({
         )}
 
         {/* ========================================================================= */}
-        {/* DOCUMENTS TAB CONTENT */}
+        {/* DOCUMENTS & 3D RECONSTRUCTION TAB CONTENT */}
         {/* ========================================================================= */}
         {activeTab === 'documents' && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <div style={{ background: 'rgba(15, 23, 42, 0.7)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '12px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#34d399', fontWeight: '800', fontSize: '12px' }}>
-                <ShieldCheck size={16} />
-                <span>8-Rule Cadastral Topology Certified</span>
-              </div>
-              <div style={{ fontSize: '11px', color: '#94a3b8', marginTop: '6px' }}>
-                Validated against pairwise zero overlap, perimeter bounding containment, and 100% floor area conservation.
-              </div>
-            </div>
-            <div style={{ background: 'rgba(15, 23, 42, 0.7)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '8px', padding: '12px' }}>
-              <div style={{ color: '#38bdf8', fontWeight: '800', fontSize: '12px' }}>
-                Spatial Datum Reference
-              </div>
-              <div style={{ fontSize: '11px', color: '#cbd5e1', marginTop: '4px' }}>
-                WGS 84 (EPSG:4326) • UTM Zone 44N (EPSG:32644)
-              </div>
-            </div>
-          </div>
+          <DocumentVerificationPanel
+            building={building}
+            onOpen3DViewer={onToggle3dView}
+          />
         )}
 
         {/* ========================================================================= */}

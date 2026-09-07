@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D ULPIN | Maple Crest Apartments Cadastral Viewer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/exporters/GLTFExporter.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #050812; color: #f8fafc; overflow: hidden; height: 100vh; display: flex; flex-direction: column; }
+    header { height: 56px; background: rgba(10, 16, 32, 0.95); border-bottom: 1px solid rgba(56, 189, 248, 0.25); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; z-index: 10; }
+    .logo-badge { display: flex; align-items: center; gap: 10px; font-weight: 800; }
+    .logo-badge span.gold { color: #f59e0b; }
+    .main-container { flex: 1; position: relative; width: 100%; height: 100%; }
+    #canvas-container { width: 100%; height: 100%; }
+    
+    /* Left Panel: Deed Info & Topology */
+    .left-panel { position: absolute; top: 16px; left: 16px; width: 340px; max-height: calc(100vh - 90px); background: rgba(10, 16, 32, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 16px; overflow-y: auto; z-index: 5; box-shadow: 0 15px 35px rgba(0,0,0,0.8); display: flex; flex-direction: column; gap: 12px; font-size: 11.5px; }
+    
+    /* Right Panel: Floor Slicer & Unit Inspector */
+    .right-panel { position: absolute; top: 16px; right: 16px; width: 360px; max-height: calc(100vh - 90px); background: rgba(10, 16, 32, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 16px; overflow-y: auto; z-index: 5; box-shadow: 0 15px 35px rgba(0,0,0,0.8); display: flex; flex-direction: column; gap: 12px; font-size: 11.5px; }
+    
+    .card-header { font-size: 11.5px; font-weight: 800; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.5px; display: flex; align-items: center; justify-content: space-between; }
+    .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .metric-box { background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.08); padding: 8px; borderRadius: 6px; }
+    .metric-lbl { color: #94a3b8; font-size: 9.5px; text-transform: uppercase; }
+    .metric-val { color: #ffffff; font-weight: 800; font-size: 12.5px; margin-top: 2px; }
+    
+    .btn-action { background: linear-gradient(135deg, #0284c7, #38bdf8); border: none; color: #fff; padding: 10px; border-radius: 8px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+    .btn-action:hover { opacity: 0.9; }
+    .btn-secondary { background: rgba(245, 158, 11, 0.15); border: 1px solid #f59e0b; color: #fbbf24; padding: 8px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+    
+    .control-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .unit-pill { background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255,255,255,0.08); padding: 8px; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+    .unit-pill:hover, .unit-pill.active { border-color: #38bdf8; background: rgba(56, 189, 248, 0.15); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-badge">
+      <span class="gold">3D ULPIN</span>
+      <span>| Automated Document Cadastre Pipeline</span>
+    </div>
+    <div style="font-size: 11px; color: #34d399; font-weight: 700; background: rgba(16,185,129,0.15); border: 1px solid #10b981; padding: 4px 10px; border-radius: 9999px;">
+      ✓ 8-Rule Cadastral Topology Certified
+    </div>
+  </header>
+
+  <div class="main-container">
+    <div id="canvas-container"></div>
+
+    <!-- Left Cadastral Deed Metadata Panel -->
+    <div class="left-panel">
+      <div class="card-header">
+        <span>PARSED PROPERTY DEED</span>
+        <span style="color: #fbbf24; font-family: monospace;">B-001</span>
+      </div>
+      <div>
+        <h3 style="font-size: 15px; color: #fff; font-weight: 800;">Maple Crest Apartments</h3>
+        <p style="color: #94a3b8; font-size: 10.5px; margin-top: 2px;">Greenfield Nagar, Chennai, Tamil Nadu 600042, India</p>
+      </div>
+
+      <div class="metric-grid">
+        <div class="metric-box">
+          <div class="metric-lbl">Classification</div>
+          <div class="metric-val">Residential / Apartment</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-lbl">Survey Number</div>
+          <div class="metric-val">SF-218/4A — PROTOTYPE</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-lbl">Total Area</div>
+          <div class="metric-val" style="color: #fbbf24;">6,173.3 m²</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-lbl">Total Height</div>
+          <div class="metric-val" style="color: #38bdf8;">15.0 m (4F)</div>
+        </div>
+      </div>
+
+      <div class="card-header" style="margin-top: 6px;">
+        <span>TOPOLOGY CERTIFICATION</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; font-size: 10.5px;">
+        <div style="color: #34d399;">✓ Pairwise Overlap: 0.00% (Zero Collision)</div>
+        <div style="color: #34d399;">✓ Area Conservation: 100.00% Validated</div>
+        <div style="color: #34d399;">✓ Boundary Containment: Parcel SF-218/4A</div>
+        <div style="color: #38bdf8;">• Coordinate Datum: EPSG:4326 | EPSG:32644</div>
+      </div>
+
+      <button class="btn-action" onclick="exportGLB()" style="margin-top: 6px;">
+        <span>Export 3D Model (.GLB)</span>
+      </button>
+    </div>
+
+    <!-- Right 3D Slicer & Unit Inspector -->
+    <div class="right-panel">
+      <div class="card-header">
+        <span>3D VERTICAL SLICER</span>
+        <span id="active-floor-badge" style="color: #38bdf8;">All Floors</span>
+      </div>
+
+      <div class="control-row">
+        <label style="color: #94a3b8;">Floor Explode:</label>
+        <input type="range" id="explode-slider" min="0" max="2.5" step="0.1" value="0" style="flex: 1;">
+      </div>
+
+      <div style="display: flex; gap: 6px;">
+        <button class="btn-secondary" style="flex:1;" onclick="filterFloor(0)">All Floors</button>
+        <button class="btn-secondary" style="flex:1;" onclick="filterFloor(1)">Floor 1</button>
+        <button class="btn-secondary" style="flex:1;" onclick="filterFloor(2)">Floor 2</button>
+        <button class="btn-secondary" style="flex:1;" onclick="filterFloor(3)">Floor 3</button>
+        <button class="btn-secondary" style="flex:1;" onclick="filterFloor(4)">Floor 4</button>
+      </div>
+
+      <div class="card-header" style="margin-top: 8px;">
+        <span>SUB-PARCEL APARTMENT UNITS (16)</span>
+      </div>
+
+      <div id="unit-list-container" style="display: flex; flex-direction: column; gap: 6px; max-height: 240px; overflow-y: auto;">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const modelData = {"document_metadata": {"building_id": "B-001", "name": "Maple Crest Apartments", "classification": "Residential / Apartment", "owner": "Maple Crest Developers \u2014 PROTOTYPE", "locality": "Greenfield Nagar, Chennai, Tamil Nadu 600042, India", "survey_number": "SF-218/4A \u2014 PROTOTYPE", "centroid_lat": 12.975, "centroid_lon": 80.21, "area_m2": 6173.3, "perimeter_m": 348.5, "elevation_m": 14.5, "height_m": 15.0, "floors": 4, "avg_floor_height_m": 3.75, "volume_m3": 92599.5, "units": [{"unit_id": "B01-0101", "title": "Apartment 101", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0102", "title": "Apartment 102", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0103", "title": "Apartment 103", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0104", "title": "Apartment 104", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0201", "title": "Apartment 201", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0202", "title": "Apartment 202", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0203", "title": "Apartment 203", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0204", "title": "Apartment 204", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0301", "title": "Apartment 301", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0302", "title": "Apartment 302", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0303", "title": "Apartment 303", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0304", "title": "Apartment 304", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0401", "title": "Apartment 401", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0402", "title": "Apartment 402", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0403", "title": "Apartment 403", "description": "Living, Bedrooms, Kitchen & Toilets"}, {"unit_id": "B01-0404", "title": "Apartment 404", "description": "Living, Bedrooms, Kitchen & Toilets"}]}, "footprint_geometry": {"type": "Polygon", "coordinates": [[80.20963663574018, 12.975311604699614], [80.2103633642598, 12.975311604699614], [80.21041291393159, 12.97527421213566], [80.21041291393159, 12.974725787864338], [80.2103633642598, 12.974688395300385], [80.20963663574018, 12.974688395300385], [80.2095870860684, 12.974725787864338], [80.2095870860684, 12.97527421213566], [80.20963663574018, 12.975311604699614]]}, "total_floors": 4, "total_units": 16, "floors_data": [{"floor_level": 1, "floor_name": "Ground Floor", "elevation_base_m": 0.0, "elevation_top_m": 3.75, "clearance_m": 3.75, "gross_floor_area_m2": 6173.3, "floor_volume_m3": 23149.9, "corridor_area_m2": 740.8, "units_count": 4, "units": [{"unit_id": "B01-0101", "floor_level": 1, "title": "Apartment 101", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "North-East (NE)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 0.0, "elevation_top_m": 3.75, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0102", "floor_level": 1, "title": "Apartment 102", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "South-East (SE)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 0.0, "elevation_top_m": 3.75, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0103", "floor_level": 1, "title": "Apartment 103", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "South-West (SW)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 0.0, "elevation_top_m": 3.75, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0104", "floor_level": 1, "title": "Apartment 104", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "North-West (NW)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 0.0, "elevation_top_m": 3.75, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}]}, {"floor_level": 2, "floor_name": "Floor 2", "elevation_base_m": 3.75, "elevation_top_m": 7.5, "clearance_m": 3.75, "gross_floor_area_m2": 6173.3, "floor_volume_m3": 23149.9, "corridor_area_m2": 740.8, "units_count": 4, "units": [{"unit_id": "B01-0201", "floor_level": 2, "title": "Apartment 201", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "North-East (NE)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 3.75, "elevation_top_m": 7.5, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0202", "floor_level": 2, "title": "Apartment 202", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "South-East (SE)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 3.75, "elevation_top_m": 7.5, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0203", "floor_level": 2, "title": "Apartment 203", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "South-West (SW)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 3.75, "elevation_top_m": 7.5, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0204", "floor_level": 2, "title": "Apartment 204", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "North-West (NW)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 3.75, "elevation_top_m": 7.5, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}]}, {"floor_level": 3, "floor_name": "Floor 3", "elevation_base_m": 7.5, "elevation_top_m": 11.25, "clearance_m": 3.75, "gross_floor_area_m2": 6173.3, "floor_volume_m3": 23149.9, "corridor_area_m2": 740.8, "units_count": 4, "units": [{"unit_id": "B01-0301", "floor_level": 3, "title": "Apartment 301", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "North-East (NE)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 7.5, "elevation_top_m": 11.25, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0302", "floor_level": 3, "title": "Apartment 302", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "South-East (SE)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 7.5, "elevation_top_m": 11.25, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0303", "floor_level": 3, "title": "Apartment 303", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "South-West (SW)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 7.5, "elevation_top_m": 11.25, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0304", "floor_level": 3, "title": "Apartment 304", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "North-West (NW)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 7.5, "elevation_top_m": 11.25, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}]}, {"floor_level": 4, "floor_name": "Floor 4", "elevation_base_m": 11.25, "elevation_top_m": 15.0, "clearance_m": 3.75, "gross_floor_area_m2": 6173.3, "floor_volume_m3": 23149.9, "corridor_area_m2": 740.8, "units_count": 4, "units": [{"unit_id": "B01-0401", "floor_level": 4, "title": "Apartment 401", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "North-East (NE)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 11.25, "elevation_top_m": 15.0, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0402", "floor_level": 4, "title": "Apartment 402", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "South-East (SE)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 11.25, "elevation_top_m": 15.0, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0403", "floor_level": 4, "title": "Apartment 403", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "South-West (SW)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 11.25, "elevation_top_m": 15.0, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}, {"unit_id": "B01-0404", "floor_level": 4, "title": "Apartment 404", "description": "Living, Bedrooms, Kitchen & Toilets", "quadrant": "North-West (NW)", "area_m2": 1358.1, "volume_m3": 5093.0, "elevation_base_m": 11.25, "elevation_top_m": 15.0, "clearance_height_m": 3.75, "rooms": [{"name": "Living & Dining Hall", "area_m2": 516.1, "color": "#0284c7"}, {"name": "Master Bedroom Suite", "area_m2": 298.8, "color": "#0ea5e9"}, {"name": "Bedroom 2 (Guest/Kids)", "area_m2": 244.5, "color": "#38bdf8"}, {"name": "Modular Kitchen & Utility", "area_m2": 163.0, "color": "#10b981"}, {"name": "Attached Bathrooms & Toilet", "area_m2": 135.8, "color": "#64748b"}], "topology_certified": true}]}], "cadastral_topology": {"status": "CERTIFIED", "rules_validated": [{"rule_id": 1, "name": "Pairwise Zero Volumetric Overlap", "result": "PASS (0.00% collision)"}, {"rule_id": 2, "name": "100% Floor Area Conservation", "result": "PASS (Sum=6173.3 m\u00b2)"}, {"rule_id": 3, "name": "Perimeter Bounding Containment", "result": "PASS (Contained within SF-218/4A \u2014 PROTOTYPE)"}, {"rule_id": 4, "name": "Non-Negative 3D Volume Bounds", "result": "PASS (Volume=92599.5 m\u00b3)"}, {"rule_id": 5, "name": "Planar Horizontal Floor Separation", "result": "PASS (Slabs at 3.75m increments)"}, {"rule_id": 6, "name": "Central Corridor Egress Connectivity", "result": "PASS (Connected ingress corridor)"}, {"rule_id": 7, "name": "Unique Volumetric ULPIN Sub-Parcel IDs", "result": "PASS (16 unique unit codes)"}, {"rule_id": 8, "name": "Spatial Datum EPSG:4326 / EPSG:32644 Projection", "result": "PASS (WGS84 & UTM 44N calibrated)"}]}};
+    
+    // Three.js Scene Setup
+    const container = document.getElementById('canvas-container');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x050812);
+    
+    // Grid helper
+    const grid = new THREE.GridHelper(200, 40, 0x0284c7, 0x1e293b);
+    grid.position.y = -0.1;
+    scene.add(grid);
+
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.set(110, 80, 130);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true;
+    container.appendChild(renderer.domElement);
+
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.05;
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    scene.add(ambientLight);
+
+    const dirLight = new THREE.DirectionalLight(0x38bdf8, 1.2);
+    dirLight.position.set(60, 120, 80);
+    scene.add(dirLight);
+
+    const dirLight2 = new THREE.DirectionalLight(0xf59e0b, 0.6);
+    dirLight2.position.set(-60, 80, -80);
+    scene.add(dirLight2);
+
+    // Build 3D Building Object
+    const buildingGroup = new THREE.Group();
+    scene.add(buildingGroup);
+
+    const floorGroups = [];
+    const unitMeshes = [];
+
+    // Scale footprint meters to 3D scene units
+    const polyCoords = modelData.footprint_geometry.coordinates;
+    const shape = new THREE.Shape();
+    
+    // Center footprint
+    const cLon = modelData.document_metadata.centroid_lon;
+    const cLat = modelData.document_metadata.centroid_lat;
+    const scaleFactor = 111320 * Math.cos(cLat * Math.PI / 180);
+
+    polyCoords.forEach((pt, i) => {
+      const x = (pt[0] - cLon) * scaleFactor;
+      const y = (pt[1] - cLat) * 110574;
+      if (i === 0) shape.moveTo(x, y);
+      else shape.lineTo(x, y);
+    });
+
+    const floorHeight = modelData.document_metadata.avg_floor_height_m;
+
+    modelData.floors_data.forEach(fl => {
+      const flGroup = new THREE.Group();
+      flGroup.userData = { floorLevel: fl.floor_level, baseElevation: fl.elevation_base_m };
+
+      // Extrude floor slab
+      const extrudeSettings = {
+        depth: floorHeight * 0.95,
+        bevelEnabled: true,
+        bevelSegments: 2,
+        steps: 1,
+        bevelSize: 0.2,
+        bevelThickness: 0.1
+      };
+
+      const geom = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+      geom.rotateX(Math.PI / 2); // Lay flat on XZ plane
+
+      // Color based on floor level
+      const floorColors = [0x0284c7, 0x0ea5e9, 0x38bdf8, 0x34d399];
+      const mat = new THREE.MeshStandardMaterial({
+        color: floorColors[(fl.floor_level - 1) % floorColors.length],
+        transparent: true,
+        opacity: 0.65,
+        roughness: 0.2,
+        metalness: 0.4
+      });
+
+      const mesh = new THREE.Mesh(geom, mat);
+      mesh.position.y = fl.elevation_base_m;
+      flGroup.add(mesh);
+
+      // Wireframe contour
+      const wireMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, linewidth: 2 });
+      const wireGeom = new THREE.EdgesGeometry(geom);
+      const wireMesh = new THREE.LineSegments(wireGeom, wireMat);
+      wireMesh.position.y = fl.elevation_base_m;
+      flGroup.add(wireMesh);
+
+      buildingGroup.add(flGroup);
+      floorGroups.push(flGroup);
+    });
+
+    // Populate Right Unit List
+    const unitContainer = document.getElementById('unit-list-container');
+    modelData.floors_data.forEach(fl => {
+      fl.units.forEach(u => {
+        const div = document.createElement('div');
+        div.className = 'unit-pill';
+        div.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-weight:800; color:#fff;">${u.unit_id} — ${u.title}</span>
+            <span style="font-size:9.5px; background:rgba(56,189,248,0.2); color:#38bdf8; padding:2px 6px; border-radius:4px; font-family:monospace;">Level ${u.floor_level}</span>
+          </div>
+          <div style="color:#94a3b8; font-size:10px; margin-top:2px;">
+            Area: ${u.area_m2} m² | Vol: ${u.volume_m3} m³ | Elev: ${u.elevation_base_m}m - ${u.elevation_top_m}m
+          </div>
+        `;
+        div.onclick = () => highlightFloor(u.floor_level);
+        unitContainer.appendChild(div);
+      });
+    });
+
+    // Explode Slider Listener
+    document.getElementById('explode-slider').addEventListener('input', (e) => {
+      const mult = parseFloat(e.target.value);
+      floorGroups.forEach(fg => {
+        const base = fg.userData.baseElevation;
+        const level = fg.userData.floorLevel;
+        fg.position.y = (level - 1) * mult * 10;
+      });
+    });
+
+    function filterFloor(flNum) {
+      document.getElementById('active-floor-badge').innerText = flNum === 0 ? 'All Floors' : `Floor ${flNum}`;
+      floorGroups.forEach(fg => {
+        if (flNum === 0 || fg.userData.floorLevel === flNum) {
+          fg.visible = true;
+        } else {
+          fg.visible = false;
+        }
+      });
+    }
+
+    function highlightFloor(flNum) {
+      filterFloor(flNum);
+    }
+
+    function exportGLB() {
+      const exporter = new THREE.GLTFExporter();
+      exporter.parse(
+        buildingGroup,
+        function (gltf) {
+          const blob = new Blob([gltf], { type: 'model/gltf-binary' });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(blob);
+          link.download = `${modelData.document_metadata.building_id}_3D_Cadastre.glb`;
+          link.click();
+        },
+        { binary: true }
+      );
+    }
+
+    window.addEventListener('resize', () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>

@@ -4,10 +4,11 @@
 [![React](https://img.shields.io/badge/React-19.0+-61DAFB.svg?logo=react&logoColor=black)](https://react.dev)
 [![Three.js](https://img.shields.io/badge/Three.js-WebGL-black.svg?logo=three.js)](https://threejs.org/)
 [![MapLibre GL](https://img.shields.io/badge/MapLibre_GL-6.7+-blue.svg?logo=maplibre&logoColor=white)](https://maplibre.org/)
-[![Gemini AI](https://img.shields.io/badge/Google_Gemini-Spatial_AI-8E75B2.svg?logo=google&logoColor=white)](https://ai.google.dev/)
+[![SerpApi](https://img.shields.io/badge/SerpApi-Live_Ground_Truth-4285F4.svg?logo=google&logoColor=white)](https://serpapi.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-Evidence_Store-3ECF8E.svg?logo=supabase&logoColor=white)](https://supabase.com/)
 [![Status](https://img.shields.io/badge/3D_Topology-100%25_Validated-success.svg)]()
 
-> A full-stack cadastral digital twin extending India's **Unique Land Parcel Identification Number (ULPIN)** from traditional 2D surface parcels into **watertight 3D volumetric property identifiers** with vertical floor-level stratification, subterranean utility easements, airspace development rights, and AI-driven cadastral intelligence.
+> A full-scale **3D Cadastral Digital Twin & Volumetric Land Parcel Identification** platform extending India's **Unique Land Parcel Identification Number (ULPIN)** from flat 2D surface parcels into **stratified 3D volumetric property identifiers** with vertical room-level subdivisions, subterranean utility easements, airspace development rights, and **real-world ground-truth verification powered by SerpApi**.
 
 ---
 
@@ -31,39 +32,100 @@ Traditional 2D Cadastre                    3D Volumetric ULPIN Cadastre
 
 ---
 
-## 🏛️ The Solution: 3D ULPIN Spatial Hierarchy
+## 🔍 SerpApi Integration: Real-World Public Ground-Truth & Evidence Engine
 
-Every spatial entity receives a deterministic, hierarchical **3D ULPIN Identifier** linked to:
-1. **Vertical Bounds**: Exact $Z_{\min}$ and $Z_{\max}$ relative to the MSL elevation datum.
-2. **Watertight 3D Geometry**: Exact metric volume ($V$) and floor area ($A$) in UTM Zone 44N (`EPSG:32644`).
-3. **Cryptographic SHA-256 Title Hash**: Immutable deed and cadastral integrity.
-4. **Topological Non-Overlap Certificate**: 100% volume conservation with zero pairwise unit collision.
+A core innovation in the **3D ULPIN Platform** is the integration of **[SerpApi](https://serpapi.com/)** for autonomous, real-world public evidence harvesting, multi-source corroboration, and spatial layout strategy generation.
 
 ```
-Cadastral Parcel (ULPIN-IN-TN-VEL)
- ├── Subsurface Easements (UG-B01 Basement, UG-C01 Telecom, UG-W01 Sewer Main)
- ├── Building Envelope (e.g. Technology Tower, SJT, Periyar Central Library)
- │    ├── Floor Slabs (F01..F07 @ 4.0m/floor)
- │    │    └── Individual Volumetric Units & Internal Spaces
- └── Vertical Airspace Right (AS-B01: Height Clearance Envelope)
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          SerpApi Ground-Truth Pipeline                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+                                      │
+               1. User queries building or loads property record
+                                      │
+                                      ▼
+             ┌──────────────────────────────────────────────────┐
+             │       SerpApi Google Search Query Engine         │
+             │   Query: "{Building Name} VIT Vellore floors"    │
+             │   Location: Vellore, Tamil Nadu, India           │
+             └──────────────────────────────────────────────────┘
+                                      │
+                                      ▼
+             ┌──────────────────────────────────────────────────┐
+             │      Evidence Extraction & Corroboration         │
+             │   • Web snippets & Official VIT disclosures      │
+             │   • Construction reports & sanctioned floors     │
+             │   • Real-world photos, lab facilities & layout   │
+             └──────────────────────────────────────────────────┘
+                                      │
+                    ┌─────────────────┴─────────────────┐
+                    ▼                                   ▼
+   ┌─────────────────────────────────┐ ┌─────────────────────────────────┐
+   │    Supabase Evidence Cache      │ │  Deterministic Layout Strategy  │
+   │  Persists evidence, citations,  │ │  Guides Shapely CAD subdivision │
+   │  and confidence score (0.95+)   │ │  (Auditorium / Classrooms / Lab)│
+   └─────────────────────────────────┘ └─────────────────────────────────┘
 ```
+
+### 🎯 Key Roles of SerpApi in 3D ULPIN:
+
+1. **Autonomous Ground-Truth Discovery**:
+   - Queries Google via SerpApi using localized geographic targeting (`Vellore, Tamil Nadu, India`).
+   - Extracts structured facts including building usage, total storeys, construction phase, and department wings.
+
+2. **Multi-Source Corroboration**:
+   - Cross-checks cadastral survey records with live internet intelligence to flag discrepancies (e.g. newly added floors, rooftop solar installations).
+
+3. **Functional Typology Classification**:
+   - Analyzes web evidence to dynamically classify building functional zones:
+     - **Auditorium Stilt**: Single large-volume ground auditorium + upper classrooms (e.g. *Technology Tower*).
+     - **Multi-Courtyard Tower**: Bilateral academic wings flanking internal lightwells (e.g. *Silver Jubilee Tower*).
+     - **Administrative Hex-Atrium**: Central open-air landscaped courtyard (e.g. *Dr. M.G.R. Block*).
+     - **Biomedical Research Labs**: High-density laboratory units (e.g. *CBMR*).
+
+4. **Persistent Evidence Caching in Supabase**:
+   - Harvested evidence, source links, search query strings, and timestamped confidence scores are persisted into the `building_evidence` Supabase table. Subsequent queries retrieve cached evidence instantly without consuming redundant API quota.
 
 ---
 
-## 🚀 Key Features
+## 🏛️ Authoritative ULPIN Standard & Volumetric Cadastre
 
-* 🗺️ **Interactive 3D Campus Map Engine**: High-performance MapLibre GL canvas with realistic 3D building extrusions, 50° pitch camera fly-to animations, electric cyan selection highlights, and collision-aware labels.
-* 📦 **Exploded 3D Architectural Floor Inspector**: Real-time 60FPS Three.js WebGL viewport with continuous vertical floor plate separation slider, courtyard cutouts, and dynamic auto-framing.
-* 🤖 **AI Spatial Cadastral Intelligence**: Direct integration with Google Gemini Flash to generate automated spatial compliance audits, volumetric land usage insights, and cadastral analysis.
-* ⚖️ **Multi-Source Floor Count Reconciliation**: Reconciles OpenStreetMap records, elevation DEM estimates, and verified survey records with an interactive officer override queue.
-* 📍 **Precision Campus Digital Twin**: Fully mapped landmark structures across **VIT Vellore Campus** including:
-  * **Technology Tower (TT)** (`VIT-B001` — 7 Floors / $36.0\text{ m}$)
-  * **Silver Jubilee Tower (SJT)** (`VIT-B002` — 9 Floors / $45.0\text{ m}$)
-  * **Dr. M.G.R. Block / Main Building** (`VIT-B003` — 5 Floors / $24.0\text{ m}$)
-  * **Periyar EVR Central Library** (`VIT-B006` — 7 Floors / $28.0\text{ m}$)
-  * **Gandhi Block (MGB)** (`VIT-B005` — 5 Floors / $22.0\text{ m}$)
-  * **Anna Auditorium** (`VIT-B010` — 3 Floors / $15.0\text{ m}$)
-  * ...and more campus academic blocks.
+Every spatial entity is assigned an authoritative, deterministic **3D ULPIN Identifier**:
+
+* **Standard Format**: `ULPIN-IN-TN-VEL-{UnitCode}` (e.g., `ULPIN-IN-TN-VEL-TT-101`) — *strictly without arbitrary `-3D` suffixes*.
+* **Common Infrastructure Exemption**: Shared elevator shafts and open circulation corridors are tagged `is_common_infrastructure: True` with `official_ulpin: None`.
+* **Watertight Solid Geometry**: Metric volume ($V$) and surface footprint ($A$) computed in EPSG:32644 (UTM 44N).
+
+### Verified Building Schedule:
+| Building | Property ID | Levels | Sanctioned Units | Subdivided ULPIN Range |
+| :--- | :---: | :---: | :---: | :--- |
+| **Technology Tower (TT)** | `VIT-B001` | 8 | 306 | `ULPIN-IN-TN-VEL-TT-G01` → `ULPIN-IN-TN-VEL-TT-730` |
+| **Silver Jubilee Tower (SJT)** | `VIT-B002` | 8 | 301 | `ULPIN-IN-TN-VEL-SJT-G01` → `ULPIN-IN-TN-VEL-SJT-738` |
+| **Dr. M.G.R. Block (Main Building)** | `VIT-B003` | 5 | 126 | `ULPIN-IN-TN-VEL-MGR-B01` → `ULPIN-IN-TN-VEL-MGR-317` |
+| **G.D. Naidu Block** | `VIT-B004` | 2 | 78 | `ULPIN-IN-TN-VEL-GDN-G01` → `ULPIN-IN-TN-VEL-GDN-153` |
+| **CBMR - Center for Biomedical Research** | `VIT-B007` | 5 | 156 | `ULPIN-IN-TN-VEL-CBMR-G01` → `ULPIN-IN-TN-VEL-CBMR-443` |
+
+---
+
+## 🕹️ Interactive Features
+
+1. **Interactive 3D Satellite Campus Map**:
+   - MapLibre GL 3D vector canvas with Mapbox Satellite layer and 3D extruded building envelopes.
+   - Smooth $50^\circ$ pitch camera fly-to transitions and instant parcel highlighting.
+
+2. **Move & Calibrate Spatial Positioning Tool**:
+   - **Interactive Pin Dragging**: Drag building footprints across satellite imagery in real time.
+   - **4-Way Precision D-Pad**: Nudge buildings North, South, East, or West with sub-meter accuracy.
+   - **Rotate & Scale Controls**: Micro-rotate ($\pm 5^\circ$) and scale ($\pm 3\%$) to match satellite features.
+   - **Direct Persistence**: Click **Save Position** to write updated geometries directly to `campus_footprints.geojson`.
+
+3. **3D Exploded Floor Inspector (Three.js WebGL)**:
+   - High-contrast visual palette: Cadastral Blue structure, Vivid Golden Yellow active floor, and **Electric Radiant Ruby Crimson (`#ff0055`)** selected room highlight with glowing white edges.
+   - Continuous vertical floor separation slider, room wireframes, and instant GLTF / GLB 3D export.
+
+4. **Automated Sanction Permit PDF Generator & Verification**:
+   - Generates official Tamil Nadu DTCP Building Permit & 3D Cadastral Sanction Orders.
+   - Includes full volumetric parameters, floor subdivision tables, authoritative ULPIN identifier ranges, and cryptographic SHA-256 digital seals.
 
 ---
 
@@ -72,118 +134,86 @@ Cadastral Parcel (ULPIN-IN-TN-VEL)
 ```
 3D_ULPIN_Code2create/
 ├── backend/                       # FastAPI High-Performance Backend
-│   ├── main.py                    # API routes, CORS & static file server
-│   ├── config.py                  # Centralized configuration & .env resolver
-│   ├── vit_service.py             # VIT campus spatial & reconciliation engine
-│   ├── gemini_service.py          # Gemini AI Cadastre & Spatial Intelligence
-│   ├── projects_service.py        # Project lifecycle & task management
-│   ├── registry.py                # 3D ULPIN property identity registry
-│   ├── spatial_query.py           # 3D point-in-mesh raycasting
-│   ├── conflicts.py               # 3D topology & collision engine
-│   └── db.py                      # SQLite / Spatial storage
+│   ├── main.py                    # REST API endpoints & static server
+│   ├── serpapi_service.py         # SerpApi Ground-Truth Evidence & Strategy Engine
+│   ├── supabase_service.py        # Supabase Evidence & Cadastre persistence
+│   ├── vit_service.py             # VIT spatial geometry & calibration manager
+│   ├── generate_permit_pdf.py     # ReportLab DTCP Permit PDF generator
+│   ├── floor_layout_engine.py     # Deterministic Shapely room layout generator
+│   └── services/
+│       ├── cadastral_3d_service.py # 3D volumetric room & lift core generator
+│       └── document_service.py    # Document parser & ULPIN schedule reconciler
 │
 ├── frontend/                      # React 19 + Vite + Three.js Dashboard
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── VitCampusMap.jsx         # MapLibre 3D campus map with fly-to
+│   │   │   ├── VitCampusMap.jsx         # MapLibre 3D map + Move & Calibrate Tool
 │   │   │   ├── Vit3DBuildingViewer.jsx  # Three.js 3D exploded floor inspector
-│   │   │   ├── VitBuildingDetails.jsx   # Building cadastre & AI insight panel
-│   │   │   └── VitBuildingList.jsx      # Campus building selector & search
-│   │   ├── App.jsx                      # Main dashboard layout & state
-│   │   ├── config.js                    # Frontend API credentials
-│   │   └── index.css                    # Glassmorphic cyberpunk styling
+│   │   │   ├── VitBuildingDetails.jsx   # Building details, SerpApi card & exports
+│   │   │   └── DocumentVerificationPanel.jsx # Document upload & PDF verification
+│   │   ├── config.js                    # API & Map credentials
+│   │   └── index.css                    # Cyberpunk glassmorphic design system
 │   └── vite.config.js
 │
-├── processing/                    # Python 3D GIS & Pipeline Scripts
-│   ├── apply_official_verified_floors.py  # Verified institutional records
-│   ├── ingest_vit_campus_buildings.py     # Campus building spatial ingestion
-│   ├── reconcile_footprints.py            # Microsoft ML + OSM reconciliation
-│   ├── reconstruct_b01_3d.py              # Watertight 3D mesh extrusion
-│   ├── subdivide_b01_floors.py            # Vertical floor partitioning
-│   ├── subdivide_b01_units.py             # 3D horizontal unit subdivision
-│   ├── create_b01_underground.py          # Subsurface utilities & easements
-│   └── validate_b01_3d_topology.py        # 3D topology & collision verification
+├── data/                          # Spatial & Cadastral Data
+│   ├── vit_vellore/
+│   │   └── campus_footprints.geojson # Authoritative campus building polygons
+│   └── samples/                   # Generated DTCP Building Permit PDFs
 │
-└── data/                          # Geospatial Datasets
-    ├── vit_vellore/
-    │   ├── campus_footprints.geojson     # Verified VIT Vellore campus polygons
-    │   └── campus_routes.geojson         # Campus road & pedestrian network
-    └── aoi.geojson                       # Area of Interest boundary
+└── tests/                         # Test Suite
+    └── test_phase_6b_quality.py   # 23 automated quality & topology tests (100% pass)
 ```
 
 ---
 
-## 🛠️ Quick Start
+## ⚡ Quick Start & Setup
 
 ### 1. Prerequisites
-* **Python 3.10+**
-* **Node.js 18+** and **npm**
-* Git
+- Python 3.10+
+- Node.js 18+
+- SerpApi Key *(optional for live search; offline cache included)*
 
-### 2. Clone the Repository
+### 2. Backend Setup
 ```bash
-git clone https://github.com/satheesh067/3D_ULPIN_Code2create.git
-cd 3D_ULPIN_Code2create
-```
+# Clone the repository
+git clone https://github.com/satheesh067/Explanation.git
+cd Explanation
 
-### 3. Configure Environment Variables
-Create a `.env` file in the root directory (or copy from `.env.example`):
-```env
-# 3D ULPIN Platform API Environment Variables
-VITE_MAPBOX_TOKEN=your_mapbox_token_here
-VITE_MAPTILER_KEY=your_maptiler_key_here
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
-
-# Backend Service Keys
-GEMINI_API_KEY=your_gemini_api_key_here
-MAPBOX_ACCESS_TOKEN=your_mapbox_token_here
-MAPTILER_API_KEY=your_maptiler_key_here
-```
-
-### 4. Backend Setup
-```bash
 # Install Python dependencies
-pip install fastapi uvicorn pydantic shapely geopandas trimesh scipy requests python-dotenv
+pip install fastapi uvicorn reportlab shapely pydantic requests
 
-# Start the FastAPI Server
+# Configure Environment Variables in .env
+SERPAPI_API_KEY=your_serpapi_key_here
+SUPABASE_URL=your_supabase_url
+SUPABASE_KEY=your_supabase_key
+
+# Start the FastAPI Backend Server
 python -m uvicorn backend.main:app --host 127.0.0.1 --port 8000 --reload
 ```
 
-### 5. Frontend Setup
+### 3. Frontend Setup
 ```bash
-# Navigate to frontend directory
 cd frontend
 
-# Install npm dependencies
+# Install dependencies
 npm install
 
 # Start Vite Development Server
-npm run dev -- --host
+npm run dev
 ```
 
-### 6. Access the Dashboard
-Open your browser and navigate to:
-* **Interactive Dashboard**: [http://localhost:5173/](http://localhost:5173/)
-* **Backend API Docs (Swagger UI)**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+Visit **`http://localhost:5173/`** to interact with the 3D ULPIN platform.
 
 ---
 
-## 📡 Core API Endpoints
+## 🧪 Running Automated Tests
 
-| Method | Endpoint | Description |
-| :--- | :--- | :--- |
-| `GET` | `/api/health` | Service health, center coordinates & building counts |
-| `GET` | `/api/vit/geojson` | Complete VIT Vellore GeoJSON FeatureCollection |
-| `GET` | `/api/vit/buildings` | All campus building footprints with reconciliation data |
-| `GET` | `/api/vit/buildings/{id}` | Single building detail with 3D floor geometry |
-| `GET` | `/api/vit/routes` | Campus road and arterial route network |
-| `GET` | `/api/vit/summary` | Campus summary metrics (total area, buildings, storeys) |
-| `POST` | `/api/vit/ai-insight` | Gemini AI Cadastral & Spatial Intelligence query |
-| `GET` | `/api/vit/buildings/{id}/reconcile-floors` | Multi-source floor reconciliation breakdown |
-| `POST` | `/api/vit/buildings/{id}/override-floors` | Surveyor floor override with audit logging |
-| `POST` | `/api/vit/buildings/{id}/generate-floors` | Dynamic 3D floor slice volumetric generation |
+Run the complete 23-test quality and topology verification suite:
+```bash
+python -m pytest tests/test_phase_6b_quality.py -v
+```
 
 ---
 
-## 📜 License
-MIT License. Built for spatial cadastral innovation, volumetric land administration, and 3D property identity transparency.
+## 📜 License & Acknowledgments
+Built for next-generation spatial cadastre digital twins and smart governance. Special thanks to **DTCP Tamil Nadu**, **Survey of India**, and the **Vellore Institute of Technology (VIT)** spatial dataset.
