@@ -221,6 +221,16 @@ class VitCampusService:
                 self.routes_data = json.load(f)
 
     def get_all_buildings(self) -> List[Dict[str, Any]]:
+        # Check Supabase first if credentials exist in .env
+        try:
+            from backend.supabase_service import is_supabase_enabled, fetch_buildings_from_supabase
+            if is_supabase_enabled():
+                sb_buildings = fetch_buildings_from_supabase()
+                if sb_buildings and len(sb_buildings) > 0:
+                    return sb_buildings
+        except Exception:
+            pass
+
         self.load_data()
         result = []
         for b in self.buildings_by_id.values():
