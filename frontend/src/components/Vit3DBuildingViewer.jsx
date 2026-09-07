@@ -465,63 +465,6 @@ export default function Vit3DBuildingViewer({
  };
  }, [building, reconciliation, selectedFloorLevel, floorPlanData, selectedRoom, viewMode]);
 
- const totalFloors = reconciliation?.final_floor_count || 1;
-
- return (
- <div style={{
- position: 'fixed',
- top: 0,
- left: 0,
- right: 0,
- bottom: 0,
- backgroundColor: 'rgba(3, 7, 18, 0.88)',
- backdropFilter: 'blur(10px)',
- zIndex: 9999,
- display: 'flex',
- alignItems: 'center',
- justifyContent: 'center',
- padding: '20px'
- }}>
- <div style={{
- width: '100%',
- maxWidth: '1200px',
- height: '92vh',
- backgroundColor: '#0a0f1d',
- border: '1px solid rgba(56, 189, 248, 0.3)',
- borderRadius: '16px',
- display: 'flex',
- flexDirection: 'column',
- overflow: 'hidden',
- boxShadow: '0 25px 60px -15px rgba(0, 240, 255, 0.25)'
- }}>
-
- {/* HEADER BAR */}
- <div style={{
- padding: '14px 20px',
- borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
- display: 'flex',
- alignItems: 'center',
- justifyContent: 'space-between',
- background: 'linear-gradient(90deg, #0c1322, #070b14)'
- }}>
- <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
- <div style={{
- width: '36px',
- height: '36px',
- borderRadius: '8px',
- background: 'linear-gradient(135deg, #0284c7, #00f0ff)',
- display: 'flex',
- alignItems: 'center',
- justifyContent: 'center',
- color: '#fff',
- boxShadow: '0 0 15px rgba(0, 240, 255, 0.4)'
- }}>
- <Box size={20} />
- </div>
-
- <div>
- <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
- <h2 style={{ margin: 0, fontSize: '17px', fontWeight: '800', color: '#fff', letterSpacing: '0.3px' }}>
   const totalFloors = reconciliation?.final_floor_count || 1;
   const heightM = building?.height_m || 24.0;
   const flHeightM = (heightM / totalFloors).toFixed(1);
