@@ -89,7 +89,9 @@ export default function App() {
         {/* Right Capsules & Control Toggle */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <div className="header-capsule-gold">
-            <span>Lat: 12.96920° N | Lon: 79.15600° E</span>
+            <span>
+              Lat: {selectedBuilding?.centroid_lat ? selectedBuilding.centroid_lat.toFixed(5) : '12.96920'}° N | Lon: {selectedBuilding?.centroid_lon ? selectedBuilding.centroid_lon.toFixed(5) : '79.15600'}° E
+            </span>
           </div>
 
           <div className="header-capsule-cyan">
