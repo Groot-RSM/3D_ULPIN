@@ -11,6 +11,7 @@ from pydantic import BaseModel
 from backend.vit_service import vit_service
 from backend.gemini_service import gemini_service
 from backend.serpapi_service import serpapi_service
+from backend import supabase_service
 from backend.floor_layout_engine import generate_cadastral_floor_layout
 
 app = FastAPI(
@@ -102,18 +103,45 @@ def generate_building_insight(req: AIInsightRequest):
         raise HTTPException(status_code=404, detail=f"Building '{req.building_id}' not found.")
     
     # Primary: SerpApi Live Google Search Ground-Truth
-    return serpapi_service.generate_building_insight(b, req.query)
+    result = serpapi_service.generate_building_insight(b, req.query)
+    
+    # Phase 2: Persist real evidence to Supabase
+    try:
+        supabase_service.save_building_evidence(result)
+    except Exception as e:
+        pass
 
-    # --- Optional Gemini fallback (Commented out) ---
-    # if req.provider == "gemini":
-    #     return gemini_service.generate_building_insight(b, req.query)
+    return result
 
 @app.get("/api/vit/buildings/{building_id}/serpapi-search")
 def get_building_serpapi_search(building_id: str):
     b = vit_service.get_building_by_id(building_id)
     if not b:
         raise HTTPException(status_code=404, detail=f"Building '{building_id}' not found.")
-    return serpapi_service.search_building_info(b.get("name", "VIT Building"))
+    
+    evidence = serpapi_service.extract_evidence_from_search(b)
+    
+    # Phase 2: Persist real evidence to Supabase
+    try:
+        supabase_service.save_building_evidence({
+            **evidence,
+            "building_id": b.get("building_id"),
+            "building_name": b.get("name")
+        })
+    except Exception as e:
+        pass
+
+    return evidence
+
+@app.get("/api/vit/buildings/{building_id}/evidence")
+def get_building_evidence(building_id: str):
+    """
+    Phase 2: Load latest cached SerpApi ground-truth evidence from Supabase.
+    """
+    evidence = supabase_service.get_latest_building_evidence(building_id)
+    if evidence:
+        return {"status": "success", "cached": True, "evidence": evidence}
+    return {"status": "not_found", "cached": False, "evidence": None}
 
 
 # FLOOR RECONCILIATION & MULTI-SOURCE EVIDENCE ENDPOINTS

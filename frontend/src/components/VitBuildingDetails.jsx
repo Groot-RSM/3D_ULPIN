@@ -41,6 +41,7 @@ export default function VitBuildingDetails({
   const [activeTab, setActiveTab] = useState('overview');
   const [aiInsight, setAiInsight] = useState(null);
   const [aiImage, setAiImage] = useState(null);
+  const [serpEvidence, setSerpEvidence] = useState(null);
   const [loadingAi, setLoadingAi] = useState(false);
   const [isExportingGLB, setIsExportingGLB] = useState(false);
   const [glbExportMessage, setGlbExportMessage] = useState(null);
@@ -67,10 +68,12 @@ export default function VitBuildingDetails({
     if (!building) return;
     setAiInsight(null);
     setAiImage(null);
+    setSerpEvidence(null);
     setOverrideMsg(null);
     setShowOverrideInput(false);
     setGlbExportMessage(null);
 
+    // Load reconciliation data
     if (building.reconciliation) {
       setReconciliation(building.reconciliation);
     } else {
@@ -86,6 +89,22 @@ export default function VitBuildingDetails({
           setLoadingRec(false);
         });
     }
+
+    // Phase 2: Load cached SerpApi evidence from Supabase if available
+    fetch(`http://127.0.0.1:8000/api/vit/buildings/${bId}/evidence`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.cached && data.evidence) {
+          const ev = data.evidence;
+          setSerpEvidence(ev);
+          const topSnippet = ev.sources?.[0]?.snippet || "Corroborated public cadastral record.";
+          setAiInsight(`• ${ev.building_name || name} (${bId}): Footprint ${area.toLocaleString()} m² with 3D volumetric extrusion of ${height}m across ${finalFloors} floors.\n• Public Evidence: ${topSnippet}\n• Status: ${ev.status_symbol || '✓'} ${ev.match_status} (Retrieved from Supabase Evidence Store).`);
+          if (ev.images && ev.images.length > 0) {
+            setAiImage(ev.images[0]);
+          }
+        }
+      })
+      .catch(() => {});
   }, [bId, building]);
 
   if (!building) {
@@ -136,6 +155,7 @@ export default function VitBuildingDetails({
   const handleGenerateAiInsight = () => {
     setLoadingAi(true);
     setAiInsight(null);
+    setSerpEvidence(null);
     fetch('http://127.0.0.1:8000/api/vit/ai-insight', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -144,8 +164,9 @@ export default function VitBuildingDetails({
       .then(res => res.json())
       .then(data => {
         setAiInsight(data.insight);
-        if (data.image_url || data.thumbnail) {
-          setAiImage(data.image_url || data.thumbnail);
+        setSerpEvidence(data.evidence || data);
+        if (data.image_url || data.thumbnail || (data.images && data.images[0])) {
+          setAiImage(data.image_url || data.thumbnail || data.images[0]);
         }
         setLoadingAi(false);
       })
@@ -728,67 +749,167 @@ export default function VitBuildingDetails({
                 Search for building images, info and verification via SerpApi
               </div>
 
-              {aiInsight ? (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              {/* Action Button: Search with SerpApi */}
+              <button
+                type="button"
+                onClick={handleGenerateAiInsight}
+                disabled={loadingAi}
+                style={{
+                  width: '100%',
+                  background: loadingAi ? 'rgba(56, 189, 248, 0.15)' : 'linear-gradient(135deg, #0284c7, #38bdf8)',
+                  border: loadingAi ? '1px solid rgba(56, 189, 248, 0.3)' : 'none',
+                  color: '#fff',
+                  padding: '10px 14px',
+                  borderRadius: '8px',
+                  fontSize: '11.5px',
+                  fontWeight: '800',
+                  cursor: loadingAi ? 'wait' : 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '6px',
+                  boxShadow: loadingAi ? 'none' : '0 2px 12px rgba(2, 132, 199, 0.3)',
+                  marginBottom: (aiInsight || serpEvidence) ? '12px' : '0'
+                }}
+              >
+                {loadingAi ? <Loader2 size={14} className="animate-spin" /> : <ExternalLink size={14} />}
+                <span>{loadingAi ? 'Searching Google & web records...' : (serpEvidence ? 'Re-Search with SerpApi' : 'Search with SerpApi')}</span>
+              </button>
+
+              {/* Evidence Section (Phase 1 Target Layout) */}
+              {(aiInsight || serpEvidence) && (
+                <div style={{
+                  borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                  paddingTop: '12px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '10px'
+                }}>
+                  {/* Evidence Status: ✓ MATCH / ? UNCERTAIN / ✕ NO MATCH */}
                   <div style={{
-                    fontSize: '11.5px',
-                    color: '#e2e8f0',
-                    lineHeight: '1.5',
-                    whiteSpace: 'pre-line',
-                    background: 'rgba(0,0,0,0.3)',
-                    padding: '10px',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(255,255,255,0.06)'
-                  }}>
-                    {aiInsight}
-                  </div>
-                  <button
-                    onClick={handleGenerateAiInsight}
-                    disabled={loadingAi}
-                    style={{
-                      background: 'rgba(56, 189, 248, 0.2)',
-                      border: '1px solid #38bdf8',
-                      color: '#38bdf8',
-                      padding: '6px 12px',
-                      borderRadius: '6px',
-                      fontSize: '11px',
-                      fontWeight: '700',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '6px'
-                    }}
-                  >
-                    <RefreshCw size={12} />
-                    <span>Refresh SerpApi Records</span>
-                  </button>
-                </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={handleGenerateAiInsight}
-                  disabled={loadingAi}
-                  style={{
-                    width: '100%',
-                    background: 'linear-gradient(135deg, #0284c7, #38bdf8)',
-                    border: 'none',
-                    color: '#fff',
-                    padding: '10px 14px',
-                    borderRadius: '8px',
-                    fontSize: '11.5px',
-                    fontWeight: '800',
-                    cursor: loadingAi ? 'wait' : 'pointer',
                     display: 'flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '6px',
-                    boxShadow: '0 2px 12px rgba(2, 132, 199, 0.3)'
-                  }}
-                >
-                  {loadingAi ? <Loader2 size={14} className="animate-spin" /> : <ExternalLink size={14} />}
-                  <span>{loadingAi ? 'Searching Google Records...' : 'Search on Google'}</span>
-                </button>
+                    justifyContent: 'space-between',
+                    background: 'rgba(15, 23, 42, 0.6)',
+                    padding: '8px 10px',
+                    borderRadius: '8px',
+                    border: '1px solid rgba(255, 255, 255, 0.06)'
+                  }}>
+                    <span style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '600' }}>Evidence Status</span>
+                    {(() => {
+                      const matchStatus = serpEvidence?.match_status || (aiInsight ? 'MATCH' : 'UNCERTAIN');
+                      const isMatch = matchStatus === 'MATCH' || matchStatus === 'CORROBORATED';
+                      const isUncertain = matchStatus === 'UNCERTAIN' || matchStatus === 'POSSIBLE';
+                      const color = isMatch ? '#34d399' : (isUncertain ? '#fbbf24' : '#f87171');
+                      const bg = isMatch ? 'rgba(16, 185, 129, 0.15)' : (isUncertain ? 'rgba(245, 158, 11, 0.15)' : 'rgba(239, 68, 68, 0.15)');
+                      const symbol = isMatch ? '✓' : (isUncertain ? '?' : '✕');
+                      return (
+                        <span style={{
+                          fontSize: '11px',
+                          fontWeight: '800',
+                          color: color,
+                          background: bg,
+                          border: `1px solid ${color}66`,
+                          padding: '3px 8px',
+                          borderRadius: '6px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '4px'
+                        }}>
+                          <span>{symbol}</span>
+                          <span>{matchStatus}</span>
+                        </span>
+                      );
+                    })()}
+                  </div>
+
+                  {/* Summary text */}
+                  {aiInsight && (
+                    <div style={{
+                      fontSize: '11.5px',
+                      color: '#e2e8f0',
+                      lineHeight: '1.5',
+                      whiteSpace: 'pre-line',
+                      background: 'rgba(0,0,0,0.3)',
+                      padding: '10px',
+                      borderRadius: '8px',
+                      border: '1px solid rgba(255,255,255,0.06)'
+                    }}>
+                      {aiInsight}
+                    </div>
+                  )}
+
+                  {/* Source Section: Title & URL */}
+                  {(serpEvidence?.sources?.[0] || serpEvidence?.primary_title) && (
+                    <div style={{
+                      background: 'rgba(15, 23, 42, 0.6)',
+                      border: '1px solid rgba(255, 255, 255, 0.06)',
+                      borderRadius: '8px',
+                      padding: '10px',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '4px'
+                    }}>
+                      <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '700', textTransform: 'uppercase' }}>
+                        Source
+                      </span>
+                      <div style={{ fontSize: '11.5px', fontWeight: '700', color: '#ffffff' }}>
+                        {serpEvidence?.primary_title || serpEvidence?.sources?.[0]?.title || name}
+                      </div>
+                      {(serpEvidence?.primary_url || serpEvidence?.sources?.[0]?.link) && (
+                        <a
+                          href={serpEvidence?.primary_url || serpEvidence?.sources?.[0]?.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{
+                            fontSize: '11px',
+                            color: '#38bdf8',
+                            textDecoration: 'none',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            wordBreak: 'break-all',
+                            marginTop: '2px'
+                          }}
+                        >
+                          <span>{serpEvidence?.primary_url || serpEvidence?.sources?.[0]?.link}</span>
+                          <ExternalLink size={11} style={{ flexShrink: 0 }} />
+                        </a>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Images Section: Actual Returned Thumbnails */}
+                  {(() => {
+                    const imgList = serpEvidence?.images?.length ? serpEvidence.images : (aiImage ? [aiImage] : []);
+                    if (!imgList.length) return null;
+                    return (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                        <span style={{ fontSize: '10px', color: '#94a3b8', fontWeight: '700', textTransform: 'uppercase' }}>
+                          Images ({imgList.length})
+                        </span>
+                        <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '4px' }}>
+                          {imgList.map((src, idx) => (
+                            <img
+                              key={idx}
+                              src={src}
+                              alt={`${name} thumbnail ${idx + 1}`}
+                              style={{
+                                width: '88px',
+                                height: '64px',
+                                objectFit: 'cover',
+                                borderRadius: '6px',
+                                border: '1px solid rgba(56, 189, 248, 0.3)',
+                                background: '#0f172a',
+                                flexShrink: 0
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </div>
               )}
             </div>
 

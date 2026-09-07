@@ -104,3 +104,65 @@ def update_building_floor_override(building_code: str, new_floors: int, reason: 
     except Exception as e:
         logger.error(f"Failed to update building on Supabase: {e}")
         return False
+
+def save_building_evidence(evidence: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """
+    Persist real SerpApi evidence to Supabase building_evidence table.
+    """
+    client = get_supabase_client()
+    if not client:
+        return None
+
+    try:
+        row = {
+            "building_id": evidence.get("building_id"),
+            "building_name": evidence.get("building_name"),
+            "match_status": evidence.get("match_status") or evidence.get("verification_status") or "UNCERTAIN",
+            "status_symbol": evidence.get("status_symbol") or "✓",
+            "primary_title": evidence.get("primary_title"),
+            "primary_url": evidence.get("primary_url"),
+            "sources": evidence.get("sources", []),
+            "images": evidence.get("images", []),
+            "sources_count": evidence.get("sources_count") or len(evidence.get("sources", [])),
+        }
+        res = client.table("building_evidence").insert(row).execute()
+        if res.data and len(res.data) > 0:
+            logger.info(f"Persisted SerpApi evidence for {row['building_id']} to Supabase")
+            return res.data[0]
+        return None
+    except Exception as e:
+        logger.warning(f"Note: Could not persist evidence to Supabase (run schema_evidence.sql if table is not yet created): {e}")
+        return None
+
+def get_latest_building_evidence(building_id: str) -> Optional[Dict[str, Any]]:
+    """
+    Fetch the latest SerpApi ground-truth evidence cached in Supabase for a building.
+    """
+    client = get_supabase_client()
+    if not client:
+        return None
+
+    try:
+        res = client.table("building_evidence").select("*").eq("building_id", building_id).order("searched_at", desc=True).limit(1).execute()
+        if res.data and len(res.data) > 0:
+            return res.data[0]
+        return None
+    except Exception as e:
+        logger.debug(f"No Supabase cached evidence for {building_id}: {e}")
+        return None
+
+def get_building_evidence_history(building_id: str) -> List[Dict[str, Any]]:
+    """
+    Fetch full historical evidence timeline for a building from Supabase.
+    """
+    client = get_supabase_client()
+    if not client:
+        return []
+
+    try:
+        res = client.table("building_evidence").select("*").eq("building_id", building_id).order("searched_at", desc=True).execute()
+        return res.data or []
+    except Exception as e:
+        logger.debug(f"Error fetching evidence history for {building_id}: {e}")
+        return []
+
