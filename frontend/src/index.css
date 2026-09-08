@@ -144,19 +144,19 @@ body, html {
 }
 
 .btn.primary {
-  background: linear-gradient(135deg, #0284c7, #0369a1);
+  background: #0284c7;
   border-color: #38bdf8;
   color: #fff;
   font-weight: 600;
 }
 
 .btn.primary:hover {
-  background: linear-gradient(135deg, #0369a1, #0284c7);
+  background: #0369a1;
   box-shadow: 0 0 12px var(--primary-glow);
 }
 
 .btn.danger {
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  background: #dc2626;
   border-color: #ef4444;
   color: #fff;
 }

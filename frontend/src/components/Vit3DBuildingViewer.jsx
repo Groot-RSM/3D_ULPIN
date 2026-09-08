@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { GLTFExporter } from 'three/examples/jsm/exporters/GLTFExporter.js';
-import { X, Box, CheckCircle2, Sliders, RotateCcw, Layers, ShieldCheck, Download, Eye, EyeOff, Info } from 'lucide-react';
+import { X, Box, CheckCircle2, Sliders, RotateCcw, Layers, ShieldCheck, Download, Eye, EyeOff, Info, ArrowUpDown, Compass } from 'lucide-react';
 
 export default function Vit3DBuildingViewer({
   building = null,
-  onClose = () => {}
+  onClose = () => { }
 }) {
   const mountRef = useRef(null);
   const [canonicalModel, setCanonicalModel] = useState(null);
@@ -38,8 +38,13 @@ export default function Vit3DBuildingViewer({
       .then(res => res.json())
       .then(data => {
         setCanonicalModel(data);
-        if (data.floors && data.floors.length > 0 && data.floors[0].units?.length > 0) {
-          setSelectedUnit(data.floors[0].units[0]);
+        if (data.floors && data.floors.length > 0) {
+          const fl0 = data.floors[0];
+          if (fl0.units && fl0.units.length > 0) {
+            const firstClassroom = fl0.units.find(u => !u.is_common_infrastructure && u.official_ulpin) || fl0.units[0];
+            setSelectedUnit(firstClassroom);
+            setSelectedFloorLevel(fl0.physical_level);
+          }
         }
         setLoading(false);
       })
@@ -502,7 +507,7 @@ export default function Vit3DBuildingViewer({
           <button
             onClick={handleExportGLB}
             style={{
-              background: 'linear-gradient(135deg, #0284c7, #38bdf8)',
+              background: '#0284c7',
               border: 'none',
               color: '#fff',
               padding: '7px 12px',
@@ -589,7 +594,7 @@ export default function Vit3DBuildingViewer({
           <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {canonicalModel?.floors?.map((fl) => {
               const isSelected = fl.physical_level === selectedFloorLevel;
-              const floorTitle = fl.display_name || (fl.physical_level === 1 ? 'Ground Floor' : `Level ${fl.physical_level} (${fl.physical_level - 1}${['st','nd','rd'][fl.physical_level-2] || 'th'} Floor)`);
+              const floorTitle = fl.display_name || (fl.physical_level === 1 ? 'Ground Floor' : `Level ${fl.physical_level} (${fl.physical_level - 1}${['st', 'nd', 'rd'][fl.physical_level - 2] || 'th'} Floor)`);
               return (
                 <div
                   key={fl.floor_id}
@@ -598,7 +603,7 @@ export default function Vit3DBuildingViewer({
                     if (fl.units?.length > 0) setSelectedUnit(fl.units[0]);
                   }}
                   style={{
-                    background: isSelected ? 'linear-gradient(135deg, rgba(250, 204, 21, 0.28), rgba(245, 158, 11, 0.15))' : '#070b14',
+                    background: isSelected ? 'rgba(250, 204, 21, 0.20)' : '#070b14',
                     border: `1.8px solid ${isSelected ? '#facc15' : '#1e293b'}`,
                     boxShadow: isSelected ? '0 0 14px rgba(250, 204, 21, 0.35)' : 'none',
                     padding: '9px 11px',
@@ -687,10 +692,10 @@ export default function Vit3DBuildingViewer({
           {selectedUnit && (
             <div style={{
               background: selectedUnit.is_lift
-                ? 'linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(147, 51, 234, 0.1))'
+                ? 'rgba(168, 85, 247, 0.2)'
                 : selectedUnit.is_corridor
-                ? 'linear-gradient(135deg, rgba(30, 41, 59, 0.5), rgba(15, 23, 42, 0.3))'
-                : 'linear-gradient(135deg, rgba(255, 0, 85, 0.25), rgba(239, 68, 68, 0.12))',
+                  ? 'rgba(30, 41, 59, 0.8)'
+                  : 'rgba(239, 68, 68, 0.2)',
               border: `1.5px solid ${selectedUnit.is_lift ? '#a855f7' : selectedUnit.is_corridor ? '#475569' : '#ff0055'}`,
               borderRadius: '8px',
               padding: '10px 12px',
@@ -799,7 +804,7 @@ export default function Vit3DBuildingViewer({
           {/* Interactive Unit / Room Directory for Active Floor */}
           {selectedFloor && selectedFloor.units && (
             <div style={{ marginTop: '6px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-              
+
               {/* Central Core Elements (Lifts & Corridor) */}
               <div>
                 <div style={{ fontSize: '10px', fontWeight: '800', color: '#c084fc', marginBottom: '4px', textTransform: 'uppercase' }}>
@@ -827,7 +832,7 @@ export default function Vit3DBuildingViewer({
                           transition: 'all 0.15s ease'
                         }}
                       >
-                        <span>{u.is_lift ? '🛗' : '🚶'}</span>
+                        <span>{u.is_lift ? <ArrowUpDown size={12} /> : <Compass size={12} />}</span>
                         <span>{u.unit_id}</span>
                       </button>
                     );
@@ -862,7 +867,7 @@ export default function Vit3DBuildingViewer({
                         key={u.internal_property_id || u.unit_id}
                         onClick={() => setSelectedUnit(u)}
                         style={{
-                          background: isUnitActive ? 'linear-gradient(135deg, #ff0055, #ef4444)' : 'rgba(255,255,255,0.05)',
+                          background: isUnitActive ? '#ef4444' : 'rgba(255,255,255,0.05)',
                           border: `1.2px solid ${isUnitActive ? '#ff0055' : 'rgba(255,255,255,0.1)'}`,
                           color: '#fff',
                           boxShadow: isUnitActive ? '0 0 10px rgba(255, 0, 85, 0.6)' : 'none',

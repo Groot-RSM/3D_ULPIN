@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Building2, MapPin, Layers, Box, ExternalLink, ShieldCheck, 
-  CheckCircle2, Sparkles, Loader2, AlertTriangle, Scale, Check, 
-  RefreshCw, Download, X, Home, FileText, Wrench, ArrowUpDown, 
-  CheckCircle, Compass, FileCheck, BarChart3
+import {
+  Building2, MapPin, Layers, Box, ExternalLink, ShieldCheck,
+  CheckCircle2, Sparkles, Loader2, AlertTriangle, Scale, Check,
+  RefreshCw, Download, X, Home, FileText, Wrench, ArrowUpDown,
+  CheckCircle, Compass, FileCheck, BarChart3, HelpCircle, XCircle
 } from 'lucide-react';
 import { exportBuildingGLB } from '../utils/exportBuildingGLB';
 import DocumentVerificationPanel from './DocumentVerificationPanel';
@@ -35,8 +35,8 @@ function SegmentedBar({ total = 15, filled = 8, activeColor = '#38bdf8' }) {
 export default function VitBuildingDetails({
   building = null,
   is3dView = false,
-  onToggle3dView = () => {},
-  onToggleMap3D = () => {},
+  onToggle3dView = () => { },
+  onToggleMap3D = () => { },
   onClose = null
 }) {
   const [activeTab, setActiveTab] = useState('overview');
@@ -105,7 +105,7 @@ export default function VitBuildingDetails({
           }
         }
       })
-      .catch(() => {});
+      .catch(() => { });
   }, [bId, building]);
 
   if (!building) {
@@ -118,11 +118,11 @@ export default function VitBuildingDetails({
 
   const finalFloors = reconciliation?.final_floor_count || building?.verified_floor_count || building?.final_floor_count || 4;
   const avgHeight = (height / finalFloors).toFixed(1);
-  const verificationStatus = reconciliation?.agreement_status === 'SOURCE_CONFLICT' 
-    ? 'CONFLICT' 
+  const verificationStatus = reconciliation?.agreement_status === 'SOURCE_CONFLICT'
+    ? 'CONFLICT'
     : reconciliation?.agreement_status === 'MINOR_DISCREPANCY'
-    ? 'DISCREPANCY (±1)'
-    : 'VERIFIED';
+      ? 'DISCREPANCY (±1)'
+      : 'VERIFIED';
 
   const isVerified = verificationStatus === 'VERIFIED';
 
@@ -217,7 +217,7 @@ export default function VitBuildingDetails({
       <div style={{
         padding: '16px 18px 12px 18px',
         borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-        background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(10, 16, 32, 0.4) 100%)',
+        background: '#0b1222',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -230,7 +230,7 @@ export default function VitBuildingDetails({
             height: '38px',
             minWidth: '38px',
             borderRadius: '10px',
-            background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.25), rgba(2, 132, 199, 0.15))',
+            background: 'rgba(14, 165, 233, 0.18)',
             border: '1px solid rgba(56, 189, 248, 0.4)',
             display: 'flex',
             alignItems: 'center',
@@ -618,7 +618,7 @@ export default function VitBuildingDetails({
                   type="button"
                   onClick={onToggle3dView}
                   style={{
-                    background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(217, 119, 6, 0.08))',
+                    background: 'rgba(245, 158, 11, 0.15)',
                     border: '1.5px solid rgba(245, 158, 11, 0.5)',
                     color: '#fbbf24',
                     padding: '12px 8px',
@@ -643,7 +643,7 @@ export default function VitBuildingDetails({
                   type="button"
                   onClick={onToggleMap3D}
                   style={{
-                    background: 'linear-gradient(135deg, rgba(56, 189, 248, 0.18), rgba(2, 132, 199, 0.08))',
+                    background: 'rgba(56, 189, 248, 0.15)',
                     border: '1.5px solid rgba(56, 189, 248, 0.5)',
                     color: '#38bdf8',
                     padding: '12px 8px',
@@ -669,7 +669,7 @@ export default function VitBuildingDetails({
                   onClick={handleExportGLB}
                   disabled={isExportingGLB || !building}
                   style={{
-                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.18), rgba(5, 150, 105, 0.08))',
+                    background: 'rgba(16, 185, 129, 0.15)',
                     border: '1.5px solid rgba(16, 185, 129, 0.5)',
                     color: '#34d399',
                     padding: '12px 8px',
@@ -697,7 +697,7 @@ export default function VitBuildingDetails({
                     window.open(`http://127.0.0.1:8000/api/documents/permit-pdf/${bId}`, '_blank');
                   }}
                   style={{
-                    background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.14), rgba(2, 132, 199, 0.06))',
+                    background: 'rgba(14, 165, 233, 0.10)',
                     border: '1.5px solid rgba(14, 165, 233, 0.35)',
                     color: '#7dd3fc',
                     padding: '12px 8px',
@@ -737,7 +737,7 @@ export default function VitBuildingDetails({
 
             {/* 6. REAL-WORLD GROUND-TRUTH CARD (SERPAPI) */}
             <div style={{
-              background: 'linear-gradient(135deg, rgba(14, 165, 233, 0.12), rgba(2, 132, 199, 0.06))',
+              background: 'rgba(14, 165, 233, 0.10)',
               border: '1px solid rgba(56, 189, 248, 0.3)',
               borderRadius: '12px',
               padding: '14px'
@@ -760,7 +760,7 @@ export default function VitBuildingDetails({
                 disabled={loadingAi}
                 style={{
                   width: '100%',
-                  background: loadingAi ? 'rgba(56, 189, 248, 0.15)' : 'linear-gradient(135deg, #0284c7, #38bdf8)',
+                  background: loadingAi ? 'rgba(56, 189, 248, 0.15)' : '#0284c7',
                   border: loadingAi ? '1px solid rgba(56, 189, 248, 0.3)' : 'none',
                   color: '#fff',
                   padding: '10px 14px',
@@ -806,7 +806,6 @@ export default function VitBuildingDetails({
                       const isUncertain = matchStatus === 'UNCERTAIN' || matchStatus === 'POSSIBLE';
                       const color = isMatch ? '#34d399' : (isUncertain ? '#fbbf24' : '#f87171');
                       const bg = isMatch ? 'rgba(16, 185, 129, 0.15)' : (isUncertain ? 'rgba(245, 158, 11, 0.15)' : 'rgba(239, 68, 68, 0.15)');
-                      const symbol = isMatch ? '✓' : (isUncertain ? '?' : '✕');
                       return (
                         <span style={{
                           fontSize: '11px',
@@ -820,7 +819,7 @@ export default function VitBuildingDetails({
                           alignItems: 'center',
                           gap: '4px'
                         }}>
-                          <span>{symbol}</span>
+                          {isMatch ? <CheckCircle size={12} /> : (isUncertain ? <HelpCircle size={12} /> : <XCircle size={12} />)}
                           <span>{matchStatus}</span>
                         </span>
                       );
@@ -1100,7 +1099,7 @@ export default function VitBuildingDetails({
               onClick={onToggle3dView}
               style={{
                 marginTop: '6px',
-                background: 'linear-gradient(135deg, #0284c7, #00f0ff)',
+                background: '#0284c7',
                 border: 'none',
                 color: '#000',
                 padding: '10px',
@@ -1132,7 +1131,7 @@ export default function VitBuildingDetails({
             <button
               onClick={onToggle3dView}
               style={{
-                background: 'linear-gradient(135deg, #0284c7, #00f0ff)',
+                background: '#0284c7',
                 border: 'none',
                 color: '#000',
                 padding: '10px',
@@ -1164,15 +1163,15 @@ export default function VitBuildingDetails({
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <button
               onClick={onToggle3dView}
-              style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)', border: 'none', color: '#000', padding: '12px', borderRadius: '8px', fontWeight: '800', fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+              style={{ background: '#f59e0b', border: 'none', color: '#000', padding: '12px', borderRadius: '8px', fontWeight: '800', fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
             >
-              <Box size={16} />
-              <span>Launch 3D Floor Slicer Modal</span>
+              <FileText size={18} />
+              <span>Generate Sanction Permit PDF</span>
             </button>
             <button
               onClick={handleExportGLB}
               disabled={isExportingGLB}
-              style={{ background: 'linear-gradient(135deg, #10b981, #059669)', border: 'none', color: '#fff', padding: '12px', borderRadius: '8px', fontWeight: '800', fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
+              style={{ background: '#10b981', border: 'none', color: '#fff', padding: '12px', borderRadius: '8px', fontWeight: '800', fontSize: '12px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
             >
               <Download size={16} />
               <span>{isExportingGLB ? 'Exporting Binary GLB...' : 'Export 3D Model (.GLB)'}</span>

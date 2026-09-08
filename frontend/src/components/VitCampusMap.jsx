@@ -8,9 +8,10 @@ export default function VitCampusMap({
   buildings = [],
   routes = null,
   selectedBuildingId = 'VIT-B001',
-  onSelectBuilding = () => {},
+  flyToTarget = null,
+  onSelectBuilding = () => { },
   hoveredBuildingId = null,
-  onHoverBuilding = () => {},
+  onHoverBuilding = () => { },
   is3dView = true
 }) {
   const mapContainerRef = useRef(null);
@@ -43,8 +44,27 @@ export default function VitCampusMap({
     originalGeomRef.current = initialMap;
   }, [buildings]);
 
+  // Handle flyToTarget updates
+  useEffect(() => {
+    if (!flyToTarget || !mapRef.current) return;
+    const map = mapRef.current;
+    const { lat, lon } = flyToTarget;
+    if (lat && lon && !isNaN(lat) && !isNaN(lon)) {
+      map.flyTo({
+        center: [lon, lat],
+        zoom: 17.2,
+        pitch: is3dView ? 50 : 0,
+        bearing: -25,
+        duration: 1000,
+        essential: true
+      });
+    }
+  }, [flyToTarget, is3dView]);
+
   // Map Style Builder compatible with MapLibre GL
   const getStyleDefinition = (styleType) => {
+    const token = MAPBOX_TOKEN || '';
+
     if (styleType === 'mapbox-satellite' || styleType === 'satellite') {
       return {
         version: 8,
@@ -52,7 +72,7 @@ export default function VitCampusMap({
           'satellite-tiles': {
             type: 'raster',
             tiles: [
-              `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/tiles/256/{z}/{x}/{y}?access_token=${MAPBOX_TOKEN}`
+              `https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v12/tiles/256/{z}/{x}/{y}?access_token=${token}`
             ],
             tileSize: 256,
             attribution: '&copy; Mapbox &copy; OpenStreetMap'
@@ -69,7 +89,7 @@ export default function VitCampusMap({
         ]
       };
     }
-    
+
     // Reliable Dark Vector Basemap
     if (MAPTILER_KEY) {
       return `https://api.maptiler.com/maps/dataviz-dark/style.json?key=${MAPTILER_KEY}`;
@@ -104,10 +124,52 @@ export default function VitCampusMap({
   const getBuildingsGeoJson = (bList) => {
     return {
       type: 'FeatureCollection',
-      features: bList.map(b => {
-        const heightNum = Number(b.height_m) || 24.0;
-        const areaNum = Number(b.area_m2) || 1000.0;
-        const floorsNum = Number(b.verified_floor_count || b.final_floor_count || 4);
+      features: (bList || []).map(b => {
+        const heightNum = Number(b.height_m) || 28.0;
+        const areaNum = Number(b.area_m2) || 1200.0;
+        const floorsNum = Number(b.verified_floor_count || b.final_floor_count || 5);
+        const cLat = Number(b.centroid_lat || b.lat || 12.9692);
+        const cLon = Number(b.centroid_lon || b.lon || 79.1560);
+
+        let validGeom = b.geometry;
+        let isInvalidOrOversized = !validGeom || !validGeom.coordinates || !Array.isArray(validGeom.coordinates);
+
+        if (!isInvalidOrOversized) {
+          let minX = 180, maxX = -180, minY = 90, maxY = -90;
+          const checkPts = (arr) => {
+            if (!Array.isArray(arr) || arr.length === 0) return;
+            if (typeof arr[0] === 'number' && typeof arr[1] === 'number') {
+              if (arr[0] < minX) minX = arr[0];
+              if (arr[0] > maxX) maxX = arr[0];
+              if (arr[1] < minY) minY = arr[1];
+              if (arr[1] > maxY) maxY = arr[1];
+            } else {
+              arr.forEach(checkPts);
+            }
+          };
+          checkPts(validGeom.coordinates);
+          const spanX = Math.abs(maxX - minX);
+          const spanY = Math.abs(maxY - minY);
+          if (spanX > 0.005 || spanY > 0.005 || minX > maxX || minY > maxY) {
+            isInvalidOrOversized = true;
+          }
+        }
+
+        if (isInvalidOrOversized) {
+          const hw = 0.00035;
+          const hh = 0.00035;
+          validGeom = {
+            type: 'Polygon',
+            coordinates: [[
+              [cLon - hw, cLat - hh],
+              [cLon + hw, cLat - hh],
+              [cLon + hw, cLat + hh],
+              [cLon - hw, cLat + hh],
+              [cLon - hw, cLat - hh]
+            ]]
+          };
+        }
+
         return {
           type: 'Feature',
           id: b.building_id,
@@ -120,7 +182,7 @@ export default function VitCampusMap({
             ulpin: b.ulpin || `ULPIN-IN-TN-VEL-${b.building_id}`,
             certainty: b.certainty || 'VERIFIED'
           },
-          geometry: b.geometry
+          geometry: validGeom
         };
       })
     };
@@ -211,7 +273,7 @@ export default function VitCampusMap({
       const dLon = Math.abs(maxLon - minLon);
       const dLat = Math.abs(maxLat - minLat);
 
-      if (dLon > 0.0001 && dLat > 0.0001) {
+      if (dLon > 0.0001 && dLon < 0.005 && dLat > 0.0001 && dLat < 0.005) {
         map.fitBounds([
           [minLon, minLat],
           [maxLon, maxLat]
@@ -350,12 +412,12 @@ export default function VitCampusMap({
       const data = await res.json();
       if (data.status === 'SUCCESS') {
         originalGeomRef.current[bId] = JSON.parse(JSON.stringify(target.geometry));
-        setSaveToast('✅ Position permanently saved to Cadastre!');
+        setSaveToast('Position permanently saved to Cadastre!');
         setTimeout(() => setSaveToast(null), 4000);
       }
     } catch (err) {
       console.error("Save position error:", err);
-      setSaveToast('❌ Failed to save position.');
+      setSaveToast('Failed to save position.');
       setTimeout(() => setSaveToast(null), 4000);
     } finally {
       setIsSaving(false);
@@ -522,7 +584,7 @@ export default function VitCampusMap({
         color: '#ffffff',
         intensity: 0.8
       });
-    } catch (e) {}
+    } catch (e) { }
 
     if (!map.getLayer('vit-buildings-3d')) {
       map.addLayer({
@@ -732,8 +794,8 @@ export default function VitCampusMap({
         <button
           onClick={() => setIsMoveMode(prev => !prev)}
           style={{
-            background: isMoveMode ? 'linear-gradient(135deg, #ff0055, #f43f5e)' : 'rgba(255,255,255,0.08)',
-            border: `1px solid ${isMoveMode ? '#ff0055' : 'rgba(255,255,255,0.2)'}`,
+            background: isMoveMode ? '#e11d48' : 'rgba(255,255,255,0.08)',
+            border: `1px solid ${isMoveMode ? '#e11d48' : 'rgba(255,255,255,0.2)'}`,
             color: '#fff',
             padding: '5px 14px',
             borderRadius: '6px',
@@ -991,7 +1053,7 @@ export default function VitCampusMap({
               onClick={() => handleSavePosition(selectedBuildingId)}
               disabled={isSaving}
               style={{
-                background: 'linear-gradient(135deg, #10b981, #059669)',
+                background: '#10b981',
                 border: 'none',
                 color: '#fff',
                 padding: '9px',

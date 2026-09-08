@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FileText, Download, Upload, CheckCircle2, ShieldCheck, Layers, Box, ArrowRight, RefreshCw, AlertCircle } from 'lucide-react';
+import { FileText, Download, Upload, CheckCircle2, Circle, ShieldCheck, Layers, Box, ArrowRight, RefreshCw, AlertCircle } from 'lucide-react';
 
 export default function DocumentVerificationPanel({
   building = null,
@@ -83,7 +83,7 @@ export default function DocumentVerificationPanel({
       
       {/* 1. Header & Permit Download Section */}
       <div style={{
-        background: 'linear-gradient(135deg, rgba(2, 132, 199, 0.15), rgba(15, 23, 42, 0.8))',
+        background: 'rgba(15, 23, 42, 0.95)',
         border: '1px solid rgba(56, 189, 248, 0.3)',
         borderRadius: '10px',
         padding: '14px',
@@ -108,7 +108,7 @@ export default function DocumentVerificationPanel({
         <button
           onClick={handleDownloadPermit}
           style={{
-            background: 'linear-gradient(135deg, #0284c7, #38bdf8)',
+            background: '#0284c7',
             border: 'none',
             color: '#fff',
             padding: '9px 14px',
@@ -206,20 +206,20 @@ export default function DocumentVerificationPanel({
             AUTOMATED 3D RECONSTRUCTION PIPELINE ({shortName})
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', fontSize: '10.5px' }}>
-            <div style={{ color: processingStep >= 1 ? '#34d399' : '#64748b' }}>
-              {processingStep >= 1 ? '✓' : '•'} 1. Document Ingestion &amp; OCR Parsing
+            <div style={{ color: processingStep >= 1 ? '#34d399' : '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              {processingStep >= 1 ? <CheckCircle2 size={13} color="#34d399" /> : <Circle size={13} color="#64748b" />} <span>1. Document Ingestion &amp; OCR Parsing</span>
             </div>
-            <div style={{ color: processingStep >= 2 ? '#34d399' : '#64748b' }}>
-              {processingStep >= 2 ? '✓' : '•'} 2. Extract Approved Floors ({expectedFloors}) &amp; Height ({expectedHeight}m)
+            <div style={{ color: processingStep >= 2 ? '#34d399' : '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              {processingStep >= 2 ? <CheckCircle2 size={13} color="#34d399" /> : <Circle size={13} color="#64748b" />} <span>2. Extract Approved Floors ({expectedFloors}) &amp; Height ({expectedHeight}m)</span>
             </div>
-            <div style={{ color: processingStep >= 3 ? '#34d399' : '#64748b' }}>
-              {processingStep >= 3 ? '✓' : '•'} 3. Dynamic 3D Volumetric Extrusion
+            <div style={{ color: processingStep >= 3 ? '#34d399' : '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              {processingStep >= 3 ? <CheckCircle2 size={13} color="#34d399" /> : <Circle size={13} color="#64748b" />} <span>3. Dynamic 3D Volumetric Extrusion</span>
             </div>
-            <div style={{ color: processingStep >= 4 ? '#34d399' : '#64748b' }}>
-              {processingStep >= 4 ? '✓' : '•'} 4. Floor-by-Floor Unit Strata Subdivision
+            <div style={{ color: processingStep >= 4 ? '#34d399' : '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              {processingStep >= 4 ? <CheckCircle2 size={13} color="#34d399" /> : <Circle size={13} color="#64748b" />} <span>4. Floor-by-Floor Unit Strata Subdivision</span>
             </div>
-            <div style={{ color: processingStep >= 5 ? '#34d399' : '#64748b' }}>
-              {processingStep >= 5 ? '✓' : '•'} 5. 8-Rule Cadastral Topology Validation
+            <div style={{ color: processingStep >= 5 ? '#34d399' : '#64748b', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              {processingStep >= 5 ? <CheckCircle2 size={13} color="#34d399" /> : <Circle size={13} color="#64748b" />} <span>5. 8-Rule Cadastral Topology Validation</span>
             </div>
           </div>
         </div>
@@ -231,7 +231,7 @@ export default function DocumentVerificationPanel({
           
           {/* Readiness Scorecard Badge */}
           <div style={{
-            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(15, 23, 42, 0.9))',
+            background: 'rgba(16, 185, 129, 0.15)',
             border: '1.5px solid #10b981',
             borderRadius: '10px',
             padding: '12px 14px',
@@ -254,7 +254,7 @@ export default function DocumentVerificationPanel({
             <button
               onClick={onOpen3DViewer}
               style={{
-                background: 'linear-gradient(135deg, #10b981, #059669)',
+                background: '#10b981',
                 border: 'none',
                 color: '#fff',
                 padding: '9px 13px',
